@@ -1,0 +1,256 @@
+\numberwithin{figure}{section}
+
+\chapter{Conception du système}
+
+\section{Introduction}
+
+Ce chapitre présente la conception technique de l'application Mediassive Analytics, un SaaS permettant de suivre, analyser et visualiser les performances marketing à partir de plusieurs sources de données. L'objectif est de fournir une architecture solide et évolutive, adaptée aux besoins des utilisateurs et des administrateurs, tout en garantissant la performance, la sécurité et la facilité de maintenance.
+
+Le chapitre aborde les aspects fondamentaux de la conception technique. Les diagrammes de cas d'utilisation permettent de comprendre les interactions entre les utilisateurs et le système, offrant une vue d'ensemble des fonctionnalités disponibles. Le diagramme de classes UML illustre les entités clés, leurs attributs, méthodes et relations, établissant la structure de données de l'application. L'architecture générale du système détaille l'organisation technique en couches logiques. Enfin, le modèle logique et physique de la base de données définit la persistance des informations et les contraintes d'intégrité. Tous ces artefacts de modélisation suivent la norme UML 2.5.1\cite{uml}.
+\section{Spécifications du Système}
+
+Cette section regroupe l'ensemble des spécifications nécessaires au développement du système, incluant à la fois les fonctionnalités attendues et les exigences non fonctionnelles telles que la sécurité, la performance et l'expérience utilisateur.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Spécifications Fonctionnelles}
+
+Les spécifications fonctionnelles décrivent les fonctionnalités que le système doit offrir pour répondre aux besoins des utilisateurs.
+
+\subsubsection{Authentification et Gestion des Utilisateurs}
+Le système doit offrir une gestion complète des utilisateurs, garantissant sécurité et flexibilité.
+
+\paragraph{Système d'authentification robuste}
+Inscription et connexion sécurisées avec validation par email.
+
+\paragraph{Gestion des rôles}
+- Administrateurs : configuration des API et gestion des utilisateurs  
+- Utilisateurs standard : accès aux tableaux de bord
+
+\paragraph{Sécurité avancée}
+Récupération de mot de passe, gestion des sessions et journalisation des accès.
+
+\subsubsection{Intégration des API}
+L’application doit se connecter à plusieurs plateformes marketing avec fiabilité et performance.
+
+\paragraph{Connexions sécurisées}
+Google Analytics, Facebook Graph API, Instagram Basic Display API, Marketing API avec OAuth 2.0.
+
+\paragraph{Mode démonstration}
+Données fictives réalistes pour tests et présentations.
+
+\paragraph{Gestion d'erreur robuste}
+Limitation de taux, interruptions de service et changements de format.
+
+\paragraph{Système de cache intelligent}
+Optimisation des performances via stockage temporaire.
+
+\subsubsection{Tableau de Bord KPI}
+Fournir une vue centrale et interactive des performances marketing.
+
+\paragraph{Interface centrale}
+Visualisations intuitives pour une vision panoramique.
+
+\paragraph{Métriques web}
+Visiteurs uniques, pages vues, durée des sessions, taux de rebond.
+
+\paragraph{Analyse conversion}
+Entonnoirs de conversion, pages performantes, sources de trafic.
+
+\paragraph{Engagement réseaux sociaux}
+Mentions, partages, commentaires, taux d'engagement.
+
+\paragraph{Suivi leads}
+Segmentation par source, qualité et statut de conversion.
+
+\paragraph{Graphiques interactifs}
+Courbes, barres comparatives et diagrammes sectoriels.
+
+\paragraph{Filtrage avancé}
+Filtrage par période, canal, segment d’audience ou campagne.
+
+\subsection{Spécifications Non Fonctionnelles}
+
+Les spécifications non fonctionnelles définissent les contraintes et qualités que le système doit respecter pour garantir sa robustesse, sa performance et sa maintenabilité.
+
+\subsubsection{Sécurité}
+Pour protéger les données sensibles et assurer la fiabilité du système, plusieurs mesures de sécurité sont mises en place :  
+
+\begin{itemize}
+    \item Authentification robuste : bcrypt, tokens JWT
+    \item Chiffrement avancé : stockage sécurisé des tokens API (AES-256)
+    \item Protection contre les attaques : CSRF, XSS, injection SQL
+    \item Surveillance continue : détection d'intrusion et audits réguliers
+\end{itemize}
+
+\subsubsection{Performance}
+Le système doit offrir des temps de réponse rapides et une expérience fluide même sous forte charge :  
+
+\begin{itemize}
+    \item Temps de chargement < 1 seconde pour l'affichage des KPI
+    \item Cache distribué et CDN pour ressources statiques
+    \item Optimisation des requêtes et indexation
+    \item Monitoring temps réel
+\end{itemize}
+
+\subsubsection{Accessibilité}
+Pour être utilisable par tous les utilisateurs, y compris ceux en situation de handicap :  
+
+\begin{itemize}
+    \item Design responsive (mobile-first)
+    \item Standards WCAG 2.1 AA
+    \item Tests avec utilisateurs en situation de handicap
+    \item Optimisation pour interactions tactiles
+\end{itemize}
+
+\subsubsection{Évolutivité}
+Le système doit pouvoir évoluer facilement avec de nouvelles fonctionnalités et intégrer de nouvelles plateformes :  
+
+\begin{itemize}
+    \item Architecture modulaire (microservices)
+    \item API extensible
+    \item Système de plugins
+    \item Infrastructure cloud native avec auto-scaling
+\end{itemize}
+
+\subsubsection{Expérience Utilisateur (UX)}
+Pour garantir une utilisation intuitive et agréable :  
+
+\begin{itemize}
+    \item Interface moderne et hiérarchie visuelle claire
+    \item Design system Mediassive : couleurs, typographie, états
+    \item Navigation intuitive et feedbacks visuels
+    \item Tests d'utilisabilité réguliers
+\end{itemize}
+
+
+\section{Diagramme de cas d'utilisation}
+
+Le diagramme ci-dessous représente les principales interactions entre les acteurs de Mediassive Analytics et les fonctionnalités offertes, conformément à la notation UML 2.5.1\cite{uml}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{./figures/UseCaseDiagram1.png}
+    \caption{Diagramme de cas d'utilisation - Mediassive Analytics}
+    \label{fig:usecase_diagram}
+\end{figure}
+
+\subsection{Acteurs principaux}
+
+Le système distingue deux types d'acteurs principaux selon leurs responsabilités et privilèges. Le Client représente l'utilisateur final qui accède au tableau de bord pour visualiser les KPIs, génère des rapports personnalisés et gère son compte et son abonnement. L'Administrateur dispose de privilèges étendus lui permettant de gérer les utilisateurs, configurer les intégrations API et surveiller l'état global du système.
+
+\subsection{Cas d'utilisation principaux}
+
+Le système propose plusieurs cas d'utilisation essentiels pour répondre aux besoins des utilisateurs. La Connexion et Inscription assurent une authentification sécurisée avec validation des identifiants et gestion des sessions. Le Tableau de bord constitue le cœur de l'application, permettant la visualisation des KPI et des performances marketing en temps réel. La génération de rapports offre la possibilité de créer des documents aux formats PDF, Excel ou CSV pour le partage et l'archivage.
+
+La gestion du compte et de l'abonnement permet aux utilisateurs de consulter et modifier leur plan d'abonnement selon leurs besoins évolutifs. Pour les administrateurs, la gestion des utilisateurs et des rôles assure le contrôle des accès et des permissions au sein de l'organisation. La configuration des intégrations API facilite la connexion aux services externes comme Google Analytics, Facebook Ads,  Ads et Mailchimp. Enfin, la surveillance du système fournit un suivi de l'état global avec des alertes proactives pour les administrateurs.
+
+\subsection{Relations importantes}
+
+Les relations entre les différents éléments du système sont définies par des mécanismes UML standardisés\cite{uml}. Les actions utilisateurs sont reliées par des relations \texttt{<<include>>} et \texttt{<<extend>>}, illustrant les dépendances fonctionnelles. Par exemple, la génération d'un rapport \texttt{<<include>>} nécessairement l'accès au tableau de bord, établissant une relation de dépendance forte. Les associations directes relient chaque acteur à ses cas d'utilisation principaux, définissant clairement les responsabilités et les permissions de chaque type d'utilisateur.
+
+\section{Diagramme de classes UML}
+
+Le diagramme de classes UML illustre l'architecture principale de Mediassive Analytics, avec les entités clés et leurs relations, selon la norme UML 2.5.1\cite{uml} :
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{./figures/ClassDiagram1.png}
+    \caption{Diagramme de classes UML - Mediassive Analytics}
+    \label{fig:class_diagram}
+\end{figure}
+
+\subsection{Classes principales}
+
+L'architecture orientée objet de Mediassive Analytics s'articule autour de neuf classes principales qui structurent l'ensemble du système. La classe Utilisateur encapsule les identifiants, le profil, le rôle et la gestion des abonnements, formant la base de l'identité numérique. L'Administrateur hérite de Utilisateur et étend ses capacités avec des fonctions de gestion des utilisateurs et des intégrations, implémentant le pattern de spécialisation.
+
+La classe Abonnement gère les plans tarifaires avec leurs dates d'activation et leurs prix, permettant une flexibilité dans l'offre commerciale. La classe Paiement maintient l'historique complet des transactions, assurant la traçabilité financière. Le TableauDeBord constitue l'interface centrale qui contient les KPI et récupère les données via les intégrations API, agissant comme un agrégateur de données.
+
+La classe KPI encapsule les indicateurs clés de performance comme le trafic, les conversions et le ROAS, fournissant les métriques essentielles. La classe Rapport gère la génération et l'envoi de rapports personnalisés. L'IntegrationAPI établit la connexion aux services externes pour la récupération automatisée de données. Enfin, l'EtatSysteme assure le suivi des logs, des erreurs et des alertes pour la maintenance proactive.
+
+\subsection{Relations importantes}
+
+Les relations entre les classes définissent la structure et la cohérence du système. La composition établit des liens forts où la destruction de l'objet parent entraîne celle des objets enfants. Le TableauDeBord [COMP]--- KPI indique que les KPI sont intrinsèquement liés à leur tableau de bord. L'Utilisateur [COMP]--- Rapport montre que les rapports appartiennent exclusivement à leur utilisateur créateur. L'Abonnement [COMP]--- Paiement assure que l'historique des paiements est indissociable de l'abonnement correspondant. Le TableauDeBord [COMP]--- IntegrationAPI établit une dépendance forte entre l'affichage et les sources de données.
+
+L'agrégation représente une relation plus souple où les objets peuvent exister indépendamment. L'Utilisateur [AGG]--- Abonnement permet à un utilisateur de changer d'abonnement sans affecter son identité. L'héritage implémente le principe de spécialisation, où l'Administrateur hérite de Utilisateur en étendant ses capacités avec des fonctionnalités administratives spécifiques.
+
+\section{Architecture générale de l'application}
+
+L'architecture de Mediassive Analytics repose sur un modèle client-serveur structuré en plusieurs couches :
+
+\subsection{Frontend}
+
+La couche frontend constitue l'interface utilisateur moderne et intuitive de l'application. Elle est développée avec Next.js pour les performances et le SEO, Tailwind CSS pour un design responsive et cohérent, et Framer Motion pour des animations fluides et engageantes. L'interface s'adapte parfaitement à tous les appareils et offre une expérience utilisateur optimale pour visualiser les KPI et générer des rapports.
+
+\subsection{Backend}
+
+Le backend représente le moteur technique de l'application, développé en Node.js avec le framework NestJS pour une architecture modulaire et évolutive. L'utilisation de Prisma ORM simplifie la gestion des données et assure la cohérence du modèle. Cette couche gère l'ensemble de la logique métier, implémente les mécanismes de sécurité, orchestre les intégrations API et traite les paiements de manière sécurisée.
+
+\subsection{Base de données}
+
+La persistance des données repose sur PostgreSQL hébergé sur Supabase, offrant une solution robuste et scalable. Cette base stocke l'ensemble des informations utilisateurs, abonnements, paiements, KPI et rapports. L'intégrité des relations est garantie par un système de clés primaires et étrangères bien défini, assurant la cohérence et la fiabilité des données.
+
+\subsection{Intégrations API}
+
+Les intégrations API constituent le pont entre l'application et les services externes de marketing digital. Le système établit des connexions sécurisées avec Google Analytics, Facebook Ads. Les tableaux de bord peuvent récupérer des données de plusieurs APIs simultanément, offrant une vue consolidée et en temps réel des performances marketing.
+
+\subsection{Surveillance}
+
+La surveillance du système est assurée par la classe EtatSysteme qui gère en continu les logs, l'uptime et les alertes. Cette fonctionnalité permet aux administrateurs de maintenir un contrôle proactif sur l'état de l'application, détectant rapidement les anomalies et assurant la continuité de service.
+\section{Modèle logique et physique de la base de données}
+
+\subsection{Modèle logique}
+
+Le modèle logique de la base de données définit les entités principales et leurs relations dans le système. 
+
+\textbf{Entités principales :} 
+\begin{itemize}
+    \item Utilisateur
+    \item Abonnement
+    \item Paiement
+    \item TableauDeBord
+    \item KPI
+    \item Rapport
+\end{itemize}
+
+\textbf{Relations entre entités :}  
+Les relations illustrent la façon dont les entités interagissent entre elles :
+\begin{itemize}
+    \item \textbf{Utilisateur → Abonnement :} relation d'agrégation, permettant la flexibilité des plans.
+    \item \textbf{TableauDeBord → KPI :} composition forte, les KPI sont indissociables de leur tableau de bord.
+    \item \textbf{Utilisateur → Rapport :} composition, garantissant la propriété exclusive des rapports.
+    \item \textbf{Abonnement → Paiement :} relation conservant l'historique financier complet.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./figures/mcd.png}
+    \caption{Modèle conceptuel des données (MCD) montrant les entités principales.}
+    \label{fig:mcd}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./figures/relationmcd.PNG}
+    \caption{Illustration des relations entre les entités pour clarifier la structure du modèle logique.}
+    \label{fig:relationmcd}
+\end{figure}
+
+\subsection{Modèle physique}
+
+Le modèle physique concrétise le modèle logique dans PostgreSQL hébergé sur Supabase. Chaque entité correspond à une table optimisée pour les performances. Les types de champs sont choisis avec soin : 
+
+
+\begin{itemize}
+    \item \textbf{UUID ou SERIAL :} identifiants uniques garantissant l’unicité globale et servant de clés primaires.
+    \item \textbf{VARCHAR / TEXT :} textes variables pour les noms, descriptions, formules ou URL.
+    \item \textbf{NUMERIC / DECIMAL :} valeurs monétaires ou seuils précis, évitant les erreurs d’arrondi.
+    \item \textbf{TIMESTAMP / DATE :} dates et heures des événements, paiements ou créations de comptes.
+    \item \textbf{BOOLEAN :} indicateurs binaires pour les états, partages ou renouvellements automatiques.
+    \item \textbf{ENUM / CHECK :} contraintes sur les valeurs possibles pour certains champs (statuts, rôles, types).
+\end{itemize}
+
+Les contraintes, index et clés étrangères assurent l’intégrité référentielle et la cohérence des relations entre les tables, conformément au modèle logique présenté précédemment.
+
+\section{Conclusion}
+
+La conception de Mediassive Analytics établit une architecture technique solide avec des diagrammes UML clairs et une structure en couches performante. Cette approche garantit la cohérence du système et facilite sa maintenance future.

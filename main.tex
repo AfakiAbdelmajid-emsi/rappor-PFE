@@ -1,0 +1,162 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{lipsum}
+\usepackage{tikz}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{pgfgantt}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{tocloft}
+\usepackage{afterpage}
+\usepackage{lscape}
+\usepackage{titletoc}
+\usepackage{cite}     % For better citation management
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\titlecontents{chapter}
+  [0em] % left margin
+  {\normalfont\bfseries} % above code
+  {Chapitre~\thecontentslabel:\ } % numbered entry format
+  {} % numberless entry format
+  {\titlerule*[8pt]{.}\contentspage} % page format
+
+  \renewcommand{\listfigurename}{Liste des Figures}
+  \renewcommand{\cftfigpresnum}{Figure~}
+  \renewcommand{\cftfigaftersnum}{.\ }
+  \renewcommand{\cftfignumwidth}{4em} % Largeur pour le numéro de figure
+  \renewcommand{\cftfigindent}{0em} % Pas d'indentation
+  \renewcommand{\cftfigafterpnum}{\hspace{1em}} % Espacement après le numéro de page
+
+
+  \titlecontents{figure}
+  [0em] % left margin
+  {\normalfont} % above code
+  {Figure~\thecontentslabel:\ } % numbered entry format
+  {} % numberless entry format
+  {\titlerule*[8pt]{.}\contentspage} % page format
+  \titlecontents{table}
+  [0em] % left margin
+  {\normalfont} % above code
+  {Tableau~\thecontentslabel:\ } % numbered entry format
+  {} % numberless entry format
+  {\titlerule*[8pt]{.}\contentspage} % page format
+
+  \renewcommand{\listtablename}{Liste des Tableaux}
+
+\renewcommand{\cfttabpresnum}{Tableau~}
+\renewcommand{\cfttabaftersnum}{.\ }
+\renewcommand{\cfttabnumwidth}{6em} % Width for table number
+\renewcommand{\cfttabindent}{0em} % No indentation
+\renewcommand{\cfttabafterpnum}{\hspace{1em}} % Space after page number
+
+% Configure the fancyhdr package
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhfoffset[L]{1cm}
+    \fancyhfoffset[R]{1cm}
+    \fancyhead[L]{\includegraphics[width=5cm]{./logos/emsi.png}}
+    \fancyhead[R]{\small \textit{\leftmark}} % Chapter name on the right
+    \fancyfoot[C]{\thepage}
+    \setlength{\headheight}{1.5cm}
+    \setlength{\topmargin}{-1in}
+    \setlength{\headsep}{3cm}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhfoffset[L]{1cm}
+\fancyhfoffset[R]{1cm}
+\fancyhead[L]{\includegraphics[width=5cm]{./logos/emsi.png}}
+\fancyhead[R]{\small \textit{\leftmark}}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{1.5cm}
+\setlength{\topmargin}{-1in}
+\setlength{\headsep}{3cm}
+
+\begin{document}
+
+% Title Page
+\input{./contenu/pagedegard.tex}
+\newpage
+
+
+% Resetting to fancy after title page
+\pagestyle{fancy}
+
+% Sections
+\markboth{\MakeUppercase{Remerciements}}{}
+\input{./contenu/remerciements.tex}
+\addcontentsline{toc}{chapter}{Remerciements}
+\newpage
+\markboth{\MakeUppercase{resume}}{}
+\input{./contenu/resume.tex}
+\addcontentsline{toc}{chapter}{Résumé}
+\newpage\markboth{\MakeUppercase{Absract}}{}
+\input{./contenu/Absract.tex}
+\addcontentsline{toc}{chapter}{Absract}
+\newpage
+
+% Table of Contents
+\cleardoublepage
+\pagestyle{plain}
+\newpage
+\addcontentsline{toc}{chapter}{Table des matières}
+\tableofcontents
+
+\newpage
+\addcontentsline{toc}{chapter}{Liste des Figures}
+\listoffigures
+
+\newpage
+\addcontentsline{toc}{chapter}{Liste des Tableaux}
+\listoftables
+
+\newpage
+
+% Main Content
+\pagestyle{fancy}
+\addcontentsline{toc}{chapter}{Introduction Générale}
+\markboth{\MakeUppercase{Introduction Générale}}{}
+\input{./contenu/Introduction_générale.tex}
+\newpage
+
+\markboth{\MakeUppercase{Présentation de l'Entreprise}}{}
+\input{./contenu/Présentation_de_l'Entreprise.tex}
+\newpage
+\markboth{\MakeUppercase{Département d'Attache}}{}
+\input{./contenu/Département_dAttache.tex}
+
+
+
+\markboth{\MakeUppercase{Étude bibliographique}}{}
+\input{./contenu/Etude_bibliographique.tex}
+\newpage
+
+\markboth{\MakeUppercase{Conception de l'application}}{}
+\input{./contenu/Conception_de_lapplication.tex}
+
+\newpage
+
+\markboth{\MakeUppercase{Mise en œuvre et Évolution}}{}
+\input{./contenu/Développement_d_Applications.tex}
+\newpage
+\markboth{\MakeUppercase{Conclusion Générale}}{}
+\addcontentsline{toc}{chapter}{Conclusion Générale}
+\input{./contenu/Conclusion_Générale.tex}
+
+
+\input{./contenu/Bibliographie.tex}
+\addcontentsline{toc}{chapter}{Références Bibliographiques}
+
+\end{document}

@@ -1,0 +1,37 @@
+\chapter{Évaluation des performances}
+
+L'évaluation des performances de l'application Mediassive Analytics a été réalisée à partir de plusieurs critères clés : rapidité d'exécution, stabilité, expérience utilisateur (UX) et capacité d'intégration avec des services tiers.
+
+\section{Rapidité et optimisation}
+
+Les tests de performance ont montré que l'application peut traiter un volume moyen de 5 000 à 10 000 enregistrements de données analytiques en moins de 3 secondes grâce à l'utilisation de Next.js côté front-end et PostgreSQL côté base de données. L'optimisation des requêtes SQL via Prisma et la mise en place de mécanismes de cache (ISR - Incremental Static Regeneration) permettent d'assurer une navigation fluide.
+
+\section{Stabilité et sécurité}
+
+Des tests unitaires (Jest) et d'intégration (Cypress) ont été réalisés pour garantir la fiabilité des fonctionnalités critiques telles que l'authentification, la génération de rapports et l'accès aux tableaux de bord. La sécurité a été renforcée grâce à NextAuth.js, la gestion des rôles (Admin, Client, Utilisateur) et le chiffrement SSL des échanges de données.
+
+\section{Expérience utilisateur}
+
+L'interface a été pensée pour être intuitive, rapide et responsive, en s'appuyant sur Tailwind CSS et Framer Motion pour offrir une navigation agréable, y compris sur mobile.
+
+\section{Améliorations futures}
+
+Bien que l'application réponde déjà aux besoins de l'agence et de ses clients, plusieurs améliorations peuvent être envisagées pour la rendre encore plus performante et innovante.
+
+\subsection{Optimisation technique}
+
+Mise en place d'un système de cache plus avancé (Redis) pour réduire davantage les temps de réponse; utilisation d'un Data Lake (par exemple BigQuery) pour analyser de plus grands volumes de données marketing; déploiement d'un système de monitoring en temps réel (par exemple Grafana et Prometheus) pour suivre la santé de l'application.
+
+\subsection{Ajout d'une Intelligence Artificielle}
+
+Une évolution majeure prévue pour Mediassive Analytics est l'intégration d'un module d'Intelligence Artificielle (IA) capable d'analyser les données marketing et de fournir des recommandations stratégiques pour optimiser les campagnes publicitaires (choix de canaux, budget, ciblage), de détecter automatiquement des anomalies dans les KPI (par exemple une baisse soudaine du taux de conversion) et de produire des prédictions de performance basées sur l'historique des campagnes.
+
+Cet agent IA pourra être entraîné progressivement avec les données des campagnes précédentes et les retours des équipes, afin de devenir plus pertinent au fil du temps.
+
+\subsection{Personnalisation avancée et API publique}
+
+Offrir aux clients la possibilité de personnaliser leurs rapports avec des widgets dynamiques et mettre en place une API publique permettant aux entreprises d'intégrer Mediassive Analytics directement dans leurs propres systèmes.
+
+\section{Conclusion}
+
+L'évaluation des performances de Mediassive Analytics confirme la robustesse de l'architecture et la qualité de l'implémentation. Les améliorations futures prévues positionnent cette solution comme un outil évolutif et innovant.
