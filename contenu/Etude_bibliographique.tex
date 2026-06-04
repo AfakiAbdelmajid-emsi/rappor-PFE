@@ -1,124 +1,170 @@
-\chapter{Étude bibliographique}
+\chapter{Etude bibliographique}
 
 \section{Introduction}
 
-Dans un monde numérique en constante évolution, les données sont devenues le \textit{pétrole du XXIe siècle}. Les entreprises, quelle que soit leur taille, s’appuient de plus en plus sur l’analytique pour prendre des décisions stratégiques éclairées. La capacité à \textbf{collecter, traiter, visualiser et interpréter les indicateurs clés de performance (KPI)} est devenue essentielle pour rester compétitif dans des secteurs tels que le marketing digital, le commerce électronique et la communication en ligne.
+Dans un monde professionnel marque par la transformation digitale, la flexibilite du travail et l'evolution rapide des besoins des entreprises, les plateformes de mise en relation occupent une place de plus en plus importante. Le freelancing, le travail a distance et les collaborations ponctuelles permettent aux entreprises d'acceder plus rapidement a des competences specialisees, tout en offrant aux professionnels independants davantage d'autonomie et d'opportunites.
 
-Cependant, cette transformation s’accompagne de défis majeurs : la \textbf{dispersion des sources de données}, la \textbf{complexité technique des intégrations} et la difficulté pour des utilisateurs non spécialisés de tirer profit d’outils parfois conçus pour des experts.
+Cependant, cette evolution s'accompagne de plusieurs defis. Les entreprises rencontrent souvent des difficultes pour identifier rapidement les profils les plus adaptes a leurs besoins. Les freelances, de leur cote, doivent parcourir un grand nombre de missions parfois peu pertinentes par rapport a leurs competences, leur disponibilite ou leur mode de travail prefere. A cela s'ajoutent la gestion des candidatures, la communication entre les acteurs, la securisation des acces et la centralisation des donnees.
 
-Le projet \textbf{Mediassive Analytics} s’inscrit dans ce contexte en proposant une solution innovante, centrée sur la \textbf{centralisation des données}, la \textbf{simplicité d’utilisation} et l’\textbf{adaptabilité aux besoins spécifiques} d’une agence digitale et de ses clients.
+Le projet \textbf{FinderrLink} s'inscrit dans ce contexte. Il vise a proposer une plateforme web SaaS permettant de centraliser la gestion des profils, des missions, des candidatures, des echanges, des notifications et des tableaux de bord. Cette etude bibliographique presente les principaux concepts lies au projet, les tendances actuelles du marche, les solutions existantes, ainsi que les limites auxquelles FinderrLink cherche a repondre.
 
 \section{Contexte et tendances actuelles}
 
-\subsection{L’importance des données dans la prise de décision}
-L’utilisation des données occupe désormais une place centrale dans la gouvernance des entreprises. Selon une étude de Gartner (2022)\cite{gartner2022}, plus de \textbf{70\% des entreprises} déclarent que leurs décisions stratégiques reposent principalement sur l’analyse de données. Pourtant, seules 30\% estiment exploiter pleinement leur potentiel analytique.
+\subsection{Evolution du freelancing et du travail flexible}
 
-Les données ne se limitent pas à un rôle de reporting : elles constituent un véritable levier de croissance. En effet, elles permettent non seulement d’évaluer la performance passée mais aussi de guider les choix futurs. Parmi les principales applications, on retrouve :
-\begin{itemize}
-    \item l’identification des canaux les plus performants ;
-    \item l’optimisation des budgets marketing en fonction du retour sur investissement (ROI) ;
-    \item le suivi en temps réel de l’évolution des campagnes publicitaires.
-\end{itemize}
+Le freelancing est devenu un modele de travail de plus en plus present dans plusieurs domaines, notamment le developpement informatique, le design, le marketing digital, la gestion de projet, la cybersecurite et l'intelligence artificielle. Les entreprises recherchent davantage de flexibilite afin de repondre rapidement a des besoins specifiques sans passer systematiquement par un recrutement permanent.
 
-\subsection{La démocratisation de l’analytique}
-Autrefois réservés aux grandes entreprises disposant d’équipes spécialisées en business intelligence, les outils d’analytique se sont progressivement démocratisés. Désormais, même les PME et les start-ups ressentent le besoin de suivre précisément leurs KPI afin de rester compétitives.  
-Cette tendance s’accompagne d’une exigence accrue : proposer des solutions qui soient \textbf{accessibles aux non-techniciens}, sans pour autant sacrifier la profondeur d’analyse.
+Cette evolution a favorise l'apparition de plateformes specialisees permettant de connecter les talents independants avec les organisations ayant des besoins ponctuels ou recurrents. Ces plateformes jouent un role d'intermediaire entre l'offre de competences et la demande de missions. Elles permettent de gagner du temps, d'elargir l'acces aux opportunites et de structurer les collaborations professionnelles.
+
+\subsection{Digitalisation du recrutement}
+
+La digitalisation du recrutement a transforme la maniere dont les entreprises recherchent, selectionnent et contactent les candidats. Les processus traditionnels, souvent longs et difficiles a suivre, sont progressivement remplaces par des outils numeriques permettant de publier des offres, filtrer les profils, suivre les candidatures et faciliter les echanges.
+
+Dans le cas des plateformes de missions, cette digitalisation permet d'ameliorer la rapidite, la tracabilite et l'organisation du processus de selection. Elle offre aux recruteurs une vision plus claire sur les profils disponibles et permet aux freelances de mieux suivre l'etat de leurs candidatures. Toutefois, pour etre efficace, une telle plateforme doit etre bien structuree et adaptee aux besoins de chaque type d'utilisateur.
+
+\subsection{Importance des plateformes SaaS}
+
+Les solutions SaaS, ou Software as a Service, permettent aux utilisateurs d'acceder a une application en ligne sans installation locale. Ce modele est particulierement adapte aux plateformes collaboratives, car il facilite l'acces a distance, la maintenance, la mise a jour continue et la centralisation des donnees.
+
+Dans le cadre d'une plateforme comme FinderrLink, le modele SaaS permet de proposer un service accessible depuis un simple navigateur web. Les freelances, les entreprises, les agences et les administrateurs peuvent ainsi acceder a leurs espaces respectifs, gerer leurs actions et suivre leurs activites dans un environnement centralise.
 
 \section{Analyse des solutions existantes}
 
-L’offre actuelle en matière de solutions analytiques est riche et variée. Toutefois, chacune présente des atouts et des limites qui méritent d’être examinés.
+Il existe plusieurs plateformes de mise en relation professionnelle sur le marche. Certaines sont generalistes et ouvertes a de nombreux domaines, tandis que d'autres sont plus specialisees ou orientees vers des marches locaux. L'objectif de cette analyse n'est pas de critiquer ces solutions, mais d'identifier leurs apports et leurs limites afin de mieux comprendre le positionnement de FinderrLink.
 
-\subsection{Tableaux de bord traditionnels}
-Les outils tels que \textbf{Google Data Studio (Looker Studio)}\cite{lookerstudio}, \textbf{Tableau}\cite{tableau}, \textbf{Power BI}\cite{powerbi} ou encore \textbf{QlikView}\cite{qlik} dominent le marché des tableaux de bord classiques. Ils offrent une grande puissance d’analyse et disposent de connecteurs multiples pour intégrer différentes sources de données.
+\subsection{Plateformes generalistes de freelancing}
 
-\textbf{Avantages :}
-\begin{itemize}
-    \item puissance analytique avancée ;
-    \item connectivité avec un grand nombre de plateformes.
-\end{itemize}
+Des plateformes comme \textbf{Upwork}, \textbf{Freelancer} ou \textbf{Fiverr} permettent a des freelances de proposer leurs services et a des clients de publier des besoins. Leur principal avantage reside dans leur grande visibilite et dans le nombre important d'utilisateurs qu'elles regroupent. Elles offrent egalement un acces rapide a des missions internationales dans des domaines varies.
 
-\textbf{Limites :}
-\begin{itemize}
-    \item complexité de configuration nécessitant une expertise technique ;
-    \item coûts élevés, souvent difficiles à supporter pour une PME.
-\end{itemize}
+Cependant, ces plateformes presentent certaines limites. La concurrence entre freelances y est tres elevee, ce qui peut rendre difficile la mise en avant des profils. De plus, la qualite du matching entre une mission et un profil depend souvent d'une recherche manuelle ou d'algorithmes generiques. Pour une entreprise, il peut donc etre difficile d'identifier rapidement le profil le plus pertinent parmi un grand nombre de propositions. Ces solutions restent egalement moins adaptees lorsqu'une organisation souhaite disposer d'un fonctionnement personnalise, d'un controle precis des roles ou d'un suivi interne structure.
 
-\subsection{Solutions marketing intégrées}
-Certaines plateformes comme \textbf{HubSpot}\cite{hubspot}, \textbf{SEMrush}\cite{semrush} ou \textbf{Zoho Analytics}\cite{zoho} proposent des modules d’analytique directement intégrés à leurs services.
+\subsection{Plateformes specialisees et locales}
 
-Ces solutions séduisent par leur simplicité et leur aspect « tout-en-un », mais elles enferment l’entreprise dans un écosystème propriétaire. Les coûts récurrents élevés et la flexibilité réduite représentent des freins à leur adoption pour certaines structures.
+Des plateformes comme \textbf{Malt} se positionnent davantage sur des profils qualifies et sur une approche plus professionnelle de la relation entre freelances et entreprises. Elles permettent generalement une meilleure structuration des profils et offrent un cadre plus adapte aux collaborations de qualite.
 
-\subsection{Agrégateurs de données}
-Des outils tels que \textbf{Supermetrics}\cite{supermetrics}, \textbf{Zapier}\cite{zapier} ou \textbf{Make (Integromat)}\cite{make} jouent un rôle d’intermédiaires en facilitant l’interconnexion entre plateformes hétérogènes.
+Malgre ces avantages, ces solutions peuvent rester limitees selon les pays, les secteurs couverts ou les types d'utilisateurs pris en charge. Certaines plateformes sont principalement pensees pour la relation directe entre une entreprise et un freelance, sans toujours prendre en compte des acteurs hybrides comme les agences. Or, dans FinderrLink, l'agence peut agir a la fois comme recruteur en publiant des missions et comme prestataire en postulant a des missions disponibles. Cette specificite necessite une gestion plus fine des roles et des permissions.
 
-Leur principal atout réside dans la simplification des flux de données. Toutefois, leur utilisation implique souvent des compétences techniques avancées et les coûts peuvent rapidement augmenter lorsqu’un grand nombre de connecteurs est requis.
+\subsection{Reseaux professionnels}
 
-\section{État de l’art des technologies utilisées}
+Les reseaux professionnels comme \textbf{LinkedIn} jouent un role important dans la visibilite professionnelle, la recherche de profils et le developpement du reseau. Ils permettent aux entreprises d'identifier des candidats potentiels et aux professionnels de valoriser leurs competences.
 
-\subsection{API et connecteurs}
-Les API constituent la colonne vertébrale des intégrations multiplateformes. Elles permettent l’extraction en temps réel de données provenant de Google, Meta ou encore LinkedIn. Cependant, chaque API présente ses propres contraintes : limitations de quotas, changements fréquents dans les règles d’accès ou complexité de la documentation.
+Cependant, ces reseaux ne sont pas concus pour gerer l'ensemble du cycle d'une mission freelance. La publication d'une mission, le suivi des candidatures, la gestion des statuts, la messagerie structuree, les notifications et les tableaux de bord necessitent souvent l'utilisation d'autres outils complementaires. LinkedIn reste donc un outil puissant pour la visibilite et la prospection, mais il ne remplace pas une plateforme specialisee dans la gestion complete des missions.
+
+\section{Etat de l'art des technologies et concepts utilises}
+
+\subsection{Architecture full-stack}
+
+Une application web moderne repose generalement sur une architecture full-stack composee d'une partie front-end, d'une partie back-end et d'une base de donnees. Le front-end assure l'interface utilisateur, le back-end gere la logique metier et les API, tandis que la base de donnees stocke les informations necessaires au fonctionnement de la plateforme.
+
+Dans le cadre d'une plateforme de mise en relation, cette architecture permet de gerer de maniere structuree les utilisateurs, les profils, les missions, les candidatures, les messages, les notifications et les tableaux de bord. Elle permet egalement de separer les responsabilites techniques afin de rendre l'application plus maintenable et evolutive.
+
+\subsection{Systeme RBAC}
+
+Le systeme RBAC, ou Role-Based Access Control, est un modele de gestion des acces base sur les roles. Il permet d'attribuer des permissions differentes selon le type d'utilisateur. Ce principe est essentiel dans une application qui contient plusieurs profils d'utilisation, tels que le freelance, l'entreprise, l'agence et l'administrateur.
+
+Dans FinderrLink, le RBAC est un element central. Le freelance peut consulter les missions et postuler, l'entreprise peut publier des missions et parcourir les profils freelances, tandis que l'agence possede un role hybride lui permettant de publier des missions et de postuler a d'autres opportunites. Ce modele permet de garantir la securite, la coherence fonctionnelle et la separation des responsabilites.
+
+\subsection{Matching entre profils et missions}
+
+Le matching consiste a rapprocher les profils des freelances avec les missions disponibles selon plusieurs criteres, comme les competences, le domaine, l'experience, le mode de travail, la disponibilite, la localisation et le tarif. Ce mecanisme permet d'ameliorer la pertinence des resultats et de reduire le temps necessaire a la recherche d'une mission ou d'un talent.
+
+Dans une plateforme comme FinderrLink, le matching represente un element important pour ameliorer l'experience utilisateur. Il permet aux freelances de trouver plus facilement des missions adaptees et aide les entreprises ou agences a identifier plus rapidement les profils les plus pertinents.
 
 \subsection{Intelligence artificielle}
-Au-delà du reporting descriptif, l’intelligence artificielle ouvre la voie à l’\textbf{analyse prédictive}. Elle rend possible des fonctionnalités innovantes telles que :
-\begin{itemize}
-    \item l’anticipation des performances d’une campagne ;
-    \item la détection automatique d’anomalies dans les données ;
-    \item la personnalisation des recommandations stratégiques.
-\end{itemize}
 
-\subsection{Visualisation interactive}
-Les bibliothèques modernes comme \textbf{D3.js}\cite{d3}, \textbf{Plotly}\cite{plotly} ou \textbf{Chart.js}\cite{chartjs} offrent la possibilité de rendre les graphiques interactifs. Cela permet une exploration intuitive et dynamique des données, facilitant leur compréhension par des utilisateurs non spécialisés.
+L'intelligence artificielle peut enrichir les plateformes de mise en relation en apportant une assistance personnalisee aux utilisateurs. Elle peut aider a rechercher des missions pertinentes, comparer plusieurs opportunites, reformuler des informations, repondre a des questions ou orienter l'utilisateur vers les fonctionnalites appropriees.
 
-\section{Enjeux et défis actuels}
+Dans le cadre de FinderrLink, l'IA constitue un levier d'amelioration de l'experience utilisateur. Elle accompagne principalement les freelances dans la recherche, la comprehension et la comparaison des missions, tout en facilitant l'acces aux informations disponibles sur la plateforme.
 
-L’analyse bibliographique met en lumière plusieurs enjeux majeurs qui conditionnent le succès d’une solution analytique moderne. Ces enjeux peuvent être résumés ainsi :
-\begin{enumerate}
-    \item \textbf{Accessibilité} : rendre l’analytique exploitable par des non-experts.
-    \item \textbf{Centralisation} : regrouper toutes les données en un seul endroit.
-    \item \textbf{Coût} : adapter le modèle économique aux capacités financières des PME.
-    \item \textbf{Sécurité et confidentialité} : respecter les réglementations telles que le RGPD.
-    \item \textbf{Scalabilité} : permettre à l’outil de s’adapter à l’évolution des volumes de données.
-\end{enumerate}
+\subsection{Deploiement web et environnement serveur}
 
-\section{Apports de Mediassive Analytics}
+Le deploiement constitue une etape essentielle dans la realisation d'une application web. Il permet de rendre la plateforme accessible en ligne, de configurer les services applicatifs, de gerer la base de donnees, de mettre en place un reverse proxy et de securiser l'acces a l'application.
 
-La solution proposée par \textbf{Mediassive Analytics} entend répondre directement aux limites identifiées dans les solutions existantes. Ses atouts principaux sont les suivants :
-\begin{itemize}
-    \item une \textbf{interface intuitive} pensée pour les non-techniciens ;
-    \item la \textbf{centralisation des données} issues de multiples canaux en un seul tableau de bord ;
-    \item une \textbf{personnalisation poussée} des KPI selon les besoins de chaque client ;
-    \item une \textbf{évolutivité} grâce à l’intégration progressive de nouvelles sources ;
-    \item une \textbf{accessibilité financière}, parfaitement adaptée aux agences digitales et PME.
-\end{itemize}
+Pour une solution SaaS, le deploiement doit prendre en compte la disponibilite, la performance, la securite et la possibilite d'evolution future. Cette phase est donc indispensable pour passer d'une application developpee localement a une solution exploitable dans un environnement reel.
 
+\section{Enjeux et defis actuels}
+
+L'etude des plateformes de mise en relation met en evidence plusieurs enjeux importants. Le premier concerne la centralisation des informations. Les profils, les missions, les candidatures et les messages doivent etre regroupes dans un seul environnement afin de faciliter le suivi et d'eviter la dispersion des donnees.
+
+Le deuxieme enjeu concerne la securite. Une plateforme contenant plusieurs types d'utilisateurs doit controler precisement les acces afin que chaque acteur dispose uniquement des fonctionnalites correspondant a son role. Le troisieme enjeu est lie a la pertinence des resultats. Les utilisateurs doivent pouvoir trouver rapidement les missions ou les profils qui correspondent reellement a leurs besoins.
+
+Enfin, l'experience utilisateur et la scalabilite constituent deux autres aspects importants. La plateforme doit rester simple a utiliser, meme si elle integre plusieurs modules. Elle doit aussi etre capable d'evoluer avec l'augmentation du nombre d'utilisateurs, de missions et de donnees traitees.
+
+\section{Apports de FinderrLink}
+
+FinderrLink vise a repondre aux limites observees dans les solutions existantes en proposant une plateforme centralisee, securisee et adaptee aux besoins des freelances, entreprises et agences. Son principal apport est de regrouper dans un meme environnement les elements essentiels d'une plateforme de mise en relation : profils, missions, candidatures, messagerie, notifications et tableaux de bord.
+
+La solution se distingue egalement par son systeme RBAC, qui permet de gerer clairement les droits d'acces selon chaque role. Cette gestion est particulierement importante en raison du role hybride de l'agence, qui peut publier des missions comme une entreprise et postuler a des missions comme un freelance.
+
+FinderrLink integre aussi une dimension intelligente a travers un assistant IA, dont l'objectif est d'aider les utilisateurs a exploiter plus facilement les informations disponibles. Cette approche permet de renforcer l'aide a la decision et de rendre la plateforme plus efficace pour la recherche de missions ou de talents.
 \section{Comparatif avec les solutions existantes}
+
+Le tableau suivant presente une comparaison entre FinderrLink et certaines solutions existantes. Cette comparaison ne vise pas a affirmer qu'une plateforme est superieure dans tous les cas. Elle sert surtout a montrer les limites de chaque solution par rapport aux besoins du projet FinderrLink, notamment la centralisation interne, la gestion precise des roles, le suivi des candidatures, le role hybride de l'agence et l'integration d'un assistant intelligent.
 
 \begin{table}[H]
 \centering
+\footnotesize
+\renewcommand{\arraystretch}{1.45}
 \setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|p{3cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|p{2.7cm}|p{3.1cm}|p{3.1cm}|p{3.1cm}|p{3.3cm}|}
 \hline
-\textbf{Critère} & \textbf{Google Data Studio} & \textbf{Tableau / Power BI} & \textbf{HubSpot} & \textbf{Mediassive Analytics} \\ \hline
-Simplicité d’utilisation & Moyenne & Faible & Bonne  & \textbf{Très bonne} \\ \hline
-Coût & Gratuit / Premium & Élevé & Élevé  & \textbf{Accessible} \\ \hline
-Intégration multiplateformes & Moyenne & Bonne & Limitée  & \textbf{Optimisée} \\ \hline
-Personnalisation des KPI & Limitée & Bonne & Limitée  & \textbf{Très bonne} \\ \hline
-\end{tabular}
-\caption{Comparatif entre les solutions existantes et Mediassive Analytics}
+\textbf{Critere} &
+\textbf{Upwork / Fiverr} &
+\textbf{Malt} &
+\textbf{LinkedIn} &
+\textbf{FinderrLink} \\
+\hline
+\textbf{Gestion des missions} &
+Permet de publier et trouver des missions, mais le suivi reste generaliste. &
+Propose une gestion plus professionnelle, surtout pour la relation freelance-entreprise. &
+Permet de rechercher des offres et des profils, mais ne gere pas tout le cycle d'une mission. &
+Centralise les missions, les profils, les candidatures et le suivi interne. \\
+\hline
+\textbf{Gestion des roles} &
+Les roles sont principalement limites au client et au freelance. &
+Les roles sont plus structures, mais restent peu adaptes aux acteurs hybrides. &
+Les roles ne sont pas specialises pour une plateforme de missions. &
+Integre un systeme RBAC avec freelance, entreprise, agence et administrateur. \\
+\hline
+\textbf{Suivi des candidatures} &
+Le suivi existe, mais il reste peu personnalise pour un besoin interne. &
+Le suivi est plus clair, mais il depend du modele impose par la plateforme. &
+Le suivi est limite et necessite souvent des outils externes. &
+Propose un suivi centralise avec statuts, notifications et tableaux de bord. \\
+\hline
+\textbf{Role de l'agence} &
+Le fonctionnement agence n'est pas prioritaire dans la logique principale. &
+Il peut etre pris en charge partiellement selon les usages. &
+Il n'est pas dedie a ce type de fonctionnement. &
+L'agence a un role hybride : elle peut publier des missions et postuler a d'autres missions. \\
+\hline
+\textbf{Assistant intelligent} &
+Les fonctionnalites d'aide sont limitees ou generiques. &
+L'aide est surtout orientee vers la recherche et la recommandation. &
+L'IA peut exister dans certains usages, mais elle n'est pas dediee au cycle de mission. &
+Integre un assistant IA pour aider a chercher, comprendre et comparer les missions. \\
+\hline
+\textbf{Adaptation SaaS interne} &
+Plateforme externe difficilement personnalisable. &
+Solution externe avec un cadre fonctionnel deja fixe. &
+Reseau professionnel, non concu comme SaaS interne. &
+Solution evolutive, personnalisable et adaptee aux besoins de MEDIASSIVE. \\
+\hline
+\end{tabular}%
+}
+\caption{Comparatif explicatif entre les solutions existantes et FinderrLink}
 \end{table}
 
+Ce tableau montre que les solutions existantes possedent chacune des points forts. Upwork et Fiverr offrent une grande visibilite internationale, Malt propose une approche plus professionnelle du freelancing, et LinkedIn reste utile pour la recherche de profils. Cependant, ces solutions restent limitees pour les besoins vises par FinderrLink, notamment la centralisation interne, la gestion precise des roles, le role hybride de l'agence, le suivi structure des candidatures et l'integration d'un assistant intelligent adapte au fonctionnement de la plateforme.
 \section{Perspectives futures}
 
-À moyen terme, les solutions analytiques devront évoluer vers des fonctionnalités encore plus intelligentes et automatisées. Parmi les pistes prometteuses, on retrouve :
-\begin{itemize}
-    \item l’\textbf{automatisation avancée}, avec la génération de rapports et d’alertes intelligentes ;
-    \item l’\textbf{analyse prédictive} renforcée par l’intelligence artificielle ;
-    \item la \textbf{personnalisation dynamique}, permettant une adaptation du tableau de bord en fonction du profil utilisateur.
-\end{itemize}
+Les plateformes de mise en relation professionnelle continueront d'evoluer vers des solutions plus intelligentes, automatisees et personnalisees. Les perspectives les plus importantes concernent l'amelioration du matching entre profils et missions, l'automatisation du suivi des candidatures, l'integration d'outils d'intelligence artificielle plus avances et l'optimisation des tableaux de bord decisionnels.
+
+Dans ce contexte, FinderrLink pourra evoluer progressivement vers une solution plus complete, capable de proposer des recommandations plus pertinentes, une meilleure analyse des profils et une experience utilisateur plus personnalisee selon chaque role.
 
 \section{Conclusion}
 
-L’étude bibliographique montre que, malgré la richesse des solutions existantes, des limites persistent en termes de coût, d’accessibilité et de flexibilité.  
+L'etude bibliographique montre que les plateformes de mise en relation entre freelances, entreprises et agences repondent a un besoin reel du marche. Cependant, les solutions existantes presentent encore certaines limites en matiere de centralisation, de gestion des roles, de suivi des candidatures et d'aide a la decision.
 
-\textbf{Mediassive Analytics} se positionne comme une alternative crédible et innovante en combinant \textbf{simplicité d’utilisation}, \textbf{centralisation des données} et \textbf{personnalisation avancée}, ce qui en fait une solution adaptée aux besoins concrets des agences digitales et des PME.
+FinderrLink se positionne comme une solution SaaS moderne visant a repondre a ces besoins a travers une plateforme centralisee, un systeme RBAC adapte, une gestion structuree des missions et des candidatures, ainsi qu'un assistant intelligent. Cette approche permet de proposer une solution evolutive et coherente avec les nouveaux usages du travail flexible et de la collaboration professionnelle.
