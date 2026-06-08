@@ -1,256 +1,108 @@
 \numberwithin{figure}{section}
 
-\chapter{Conception du système}
+\chapter{Conception du systeme}
 
 \section{Introduction}
 
-Ce chapitre présente la conception technique de l'application Mediassive Analytics, un SaaS permettant de suivre, analyser et visualiser les performances marketing à partir de plusieurs sources de données. L'objectif est de fournir une architecture solide et évolutive, adaptée aux besoins des utilisateurs et des administrateurs, tout en garantissant la performance, la sécurité et la facilité de maintenance.
+Ce chapitre presente la conception du systeme FinderrLink. L'objectif est de donner une vision claire du fonctionnement general de la plateforme avant de passer a la realisation technique. Pour cela, trois diagrammes UML sont utilises : le diagramme de cas d'utilisation, le diagramme de classes et le diagramme de composants.
 
-Le chapitre aborde les aspects fondamentaux de la conception technique. Les diagrammes de cas d'utilisation permettent de comprendre les interactions entre les utilisateurs et le système, offrant une vue d'ensemble des fonctionnalités disponibles. Le diagramme de classes UML illustre les entités clés, leurs attributs, méthodes et relations, établissant la structure de données de l'application. L'architecture générale du système détaille l'organisation technique en couches logiques. Enfin, le modèle logique et physique de la base de données définit la persistance des informations et les contraintes d'intégrité. Tous ces artefacts de modélisation suivent la norme UML 2.5.1\cite{uml}.
-\section{Spécifications du Système}
-
-Cette section regroupe l'ensemble des spécifications nécessaires au développement du système, incluant à la fois les fonctionnalités attendues et les exigences non fonctionnelles telles que la sécurité, la performance et l'expérience utilisateur.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Spécifications Fonctionnelles}
-
-Les spécifications fonctionnelles décrivent les fonctionnalités que le système doit offrir pour répondre aux besoins des utilisateurs.
-
-\subsubsection{Authentification et Gestion des Utilisateurs}
-Le système doit offrir une gestion complète des utilisateurs, garantissant sécurité et flexibilité.
-
-\paragraph{Système d'authentification robuste}
-Inscription et connexion sécurisées avec validation par email.
-
-\paragraph{Gestion des rôles}
-- Administrateurs : configuration des API et gestion des utilisateurs  
-- Utilisateurs standard : accès aux tableaux de bord
-
-\paragraph{Sécurité avancée}
-Récupération de mot de passe, gestion des sessions et journalisation des accès.
-
-\subsubsection{Intégration des API}
-L’application doit se connecter à plusieurs plateformes marketing avec fiabilité et performance.
-
-\paragraph{Connexions sécurisées}
-Google Analytics, Facebook Graph API, Instagram Basic Display API, Marketing API avec OAuth 2.0.
-
-\paragraph{Mode démonstration}
-Données fictives réalistes pour tests et présentations.
-
-\paragraph{Gestion d'erreur robuste}
-Limitation de taux, interruptions de service et changements de format.
-
-\paragraph{Système de cache intelligent}
-Optimisation des performances via stockage temporaire.
-
-\subsubsection{Tableau de Bord KPI}
-Fournir une vue centrale et interactive des performances marketing.
-
-\paragraph{Interface centrale}
-Visualisations intuitives pour une vision panoramique.
-
-\paragraph{Métriques web}
-Visiteurs uniques, pages vues, durée des sessions, taux de rebond.
-
-\paragraph{Analyse conversion}
-Entonnoirs de conversion, pages performantes, sources de trafic.
-
-\paragraph{Engagement réseaux sociaux}
-Mentions, partages, commentaires, taux d'engagement.
-
-\paragraph{Suivi leads}
-Segmentation par source, qualité et statut de conversion.
-
-\paragraph{Graphiques interactifs}
-Courbes, barres comparatives et diagrammes sectoriels.
-
-\paragraph{Filtrage avancé}
-Filtrage par période, canal, segment d’audience ou campagne.
-
-\subsection{Spécifications Non Fonctionnelles}
-
-Les spécifications non fonctionnelles définissent les contraintes et qualités que le système doit respecter pour garantir sa robustesse, sa performance et sa maintenabilité.
-
-\subsubsection{Sécurité}
-Pour protéger les données sensibles et assurer la fiabilité du système, plusieurs mesures de sécurité sont mises en place :  
-
-\begin{itemize}
-    \item Authentification robuste : bcrypt, tokens JWT
-    \item Chiffrement avancé : stockage sécurisé des tokens API (AES-256)
-    \item Protection contre les attaques : CSRF, XSS, injection SQL
-    \item Surveillance continue : détection d'intrusion et audits réguliers
-\end{itemize}
-
-\subsubsection{Performance}
-Le système doit offrir des temps de réponse rapides et une expérience fluide même sous forte charge :  
-
-\begin{itemize}
-    \item Temps de chargement < 1 seconde pour l'affichage des KPI
-    \item Cache distribué et CDN pour ressources statiques
-    \item Optimisation des requêtes et indexation
-    \item Monitoring temps réel
-\end{itemize}
-
-\subsubsection{Accessibilité}
-Pour être utilisable par tous les utilisateurs, y compris ceux en situation de handicap :  
-
-\begin{itemize}
-    \item Design responsive (mobile-first)
-    \item Standards WCAG 2.1 AA
-    \item Tests avec utilisateurs en situation de handicap
-    \item Optimisation pour interactions tactiles
-\end{itemize}
-
-\subsubsection{Évolutivité}
-Le système doit pouvoir évoluer facilement avec de nouvelles fonctionnalités et intégrer de nouvelles plateformes :  
-
-\begin{itemize}
-    \item Architecture modulaire (microservices)
-    \item API extensible
-    \item Système de plugins
-    \item Infrastructure cloud native avec auto-scaling
-\end{itemize}
-
-\subsubsection{Expérience Utilisateur (UX)}
-Pour garantir une utilisation intuitive et agréable :  
-
-\begin{itemize}
-    \item Interface moderne et hiérarchie visuelle claire
-    \item Design system Mediassive : couleurs, typographie, états
-    \item Navigation intuitive et feedbacks visuels
-    \item Tests d'utilisabilité réguliers
-\end{itemize}
-
+Le diagramme de cas d'utilisation permet de comprendre les interactions entre les acteurs et les principales fonctionnalites de la plateforme. Le diagramme de classes montre la structure interne du systeme a travers les entites principales et leurs relations. Enfin, le diagramme de composants presente l'organisation technique globale de l'application et les echanges entre ses differentes parties.
 
 \section{Diagramme de cas d'utilisation}
 
-Le diagramme ci-dessous représente les principales interactions entre les acteurs de Mediassive Analytics et les fonctionnalités offertes, conformément à la notation UML 2.5.1\cite{uml}.
+Le diagramme de cas d'utilisation ci-dessous presente les principales actions possibles dans FinderrLink. Il permet de visualiser les roles des differents acteurs et les fonctionnalites accessibles selon chaque profil utilisateur.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=1\textwidth]{./figures/UseCaseDiagram1.png}
-    \caption{Diagramme de cas d'utilisation - Mediassive Analytics}
-    \label{fig:usecase_diagram}
+\centering
+\includegraphics[width=0.95\textwidth]{./figures/UseCaseDiagram1.png}
+\caption{Diagramme de cas d'utilisation - FinderrLink}
+\label{fig:usecase_diagram_finderrlink}
 \end{figure}
 
-\subsection{Acteurs principaux}
+\subsection{Explication du diagramme de cas d'utilisation}
 
-Le système distingue deux types d'acteurs principaux selon leurs responsabilités et privilèges. Le Client représente l'utilisateur final qui accède au tableau de bord pour visualiser les KPIs, génère des rapports personnalisés et gère son compte et son abonnement. L'Administrateur dispose de privilèges étendus lui permettant de gérer les utilisateurs, configurer les intégrations API et surveiller l'état global du système.
+Le rectangle represente le systeme FinderrLink. Les acteurs places a l'exterieur du rectangle representent les utilisateurs ou services qui interagissent avec la plateforme. Les ovales representent les fonctionnalites principales.
 
-\subsection{Cas d'utilisation principaux}
+Le freelance peut rechercher des missions, consulter une mission, postuler, suivre ses candidatures et communiquer apres acceptation. L'entreprise peut gerer ses missions, consulter les candidatures, modifier leur statut, rechercher des talents et contacter un talent. L'agence possede un role particulier, car elle peut publier des missions comme une entreprise et postuler a des missions comme un freelance.
 
-Le système propose plusieurs cas d'utilisation essentiels pour répondre aux besoins des utilisateurs. La Connexion et Inscription assurent une authentification sécurisée avec validation des identifiants et gestion des sessions. Le Tableau de bord constitue le cœur de l'application, permettant la visualisation des KPI et des performances marketing en temps réel. La génération de rapports offre la possibilité de créer des documents aux formats PDF, Excel ou CSV pour le partage et l'archivage.
-
-La gestion du compte et de l'abonnement permet aux utilisateurs de consulter et modifier leur plan d'abonnement selon leurs besoins évolutifs. Pour les administrateurs, la gestion des utilisateurs et des rôles assure le contrôle des accès et des permissions au sein de l'organisation. La configuration des intégrations API facilite la connexion aux services externes comme Google Analytics, Facebook Ads,  Ads et Mailchimp. Enfin, la surveillance du système fournit un suivi de l'état global avec des alertes proactives pour les administrateurs.
-
-\subsection{Relations importantes}
-
-Les relations entre les différents éléments du système sont définies par des mécanismes UML standardisés\cite{uml}. Les actions utilisateurs sont reliées par des relations \texttt{<<include>>} et \texttt{<<extend>>}, illustrant les dépendances fonctionnelles. Par exemple, la génération d'un rapport \texttt{<<include>>} nécessairement l'accès au tableau de bord, établissant une relation de dépendance forte. Les associations directes relient chaque acteur à ses cas d'utilisation principaux, définissant clairement les responsabilités et les permissions de chaque type d'utilisateur.
+Les relations \texttt{<<include>>} indiquent qu'une action contient obligatoirement une autre action. Les relations \texttt{<<extend>>} indiquent qu'une action peut completer une autre action selon le contexte. Par exemple, utiliser l'assistant IA inclut le traitement de la demande IA, tandis que recommander des missions adaptees ou generer une lettre de motivation sont des extensions possibles du traitement IA.
 
 \section{Diagramme de classes UML}
 
-Le diagramme de classes UML illustre l'architecture principale de Mediassive Analytics, avec les entités clés et leurs relations, selon la norme UML 2.5.1\cite{uml} :
+Le diagramme de classes ci-dessous represente la structure principale de FinderrLink. Il montre les entites importantes du systeme, notamment les utilisateurs, les missions, les candidatures, les conversations, les notifications, les categories et la partie liee a l'assistant IA.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=1\textwidth]{./figures/ClassDiagram1.png}
-    \caption{Diagramme de classes UML - Mediassive Analytics}
-    \label{fig:class_diagram}
+\centering
+\includegraphics[width=1\textwidth]{./figures/ClassDiagram1.png}
+\caption{Diagramme de classes UML - FinderrLink}
+\label{fig:class_diagram_finderrlink}
 \end{figure}
 
-\subsection{Classes principales}
+\subsection{Cle de lecture du diagramme de classes}
 
-L'architecture orientée objet de Mediassive Analytics s'articule autour de neuf classes principales qui structurent l'ensemble du système. La classe Utilisateur encapsule les identifiants, le profil, le rôle et la gestion des abonnements, formant la base de l'identité numérique. L'Administrateur hérite de Utilisateur et étend ses capacités avec des fonctions de gestion des utilisateurs et des intégrations, implémentant le pattern de spécialisation.
+Une classe UML est representee par un rectangle divise en trois parties : le nom de la classe, les attributs et les methodes. Les attributs representent les donnees stockees, tandis que les methodes representent les actions possibles.
 
-La classe Abonnement gère les plans tarifaires avec leurs dates d'activation et leurs prix, permettant une flexibilité dans l'offre commerciale. La classe Paiement maintient l'historique complet des transactions, assurant la traçabilité financière. Le TableauDeBord constitue l'interface centrale qui contient les KPI et récupère les données via les intégrations API, agissant comme un agrégateur de données.
+Le symbole \textbf{+} indique un element public. Le symbole \textbf{-} indique un element prive. Le symbole \textbf{\#} indique un element protege. Ces symboles permettent de preciser le niveau d'acces aux donnees et aux methodes.
 
-La classe KPI encapsule les indicateurs clés de performance comme le trafic, les conversions et le ROAS, fournissant les métriques essentielles. La classe Rapport gère la génération et l'envoi de rapports personnalisés. L'IntegrationAPI établit la connexion aux services externes pour la récupération automatisée de données. Enfin, l'EtatSysteme assure le suivi des logs, des erreurs et des alertes pour la maintenance proactive.
+L'heritage permet de representer une specialisation. Dans ce diagramme, les classes \textbf{Freelance}, \textbf{Recruteur}, \textbf{Entreprise} et \textbf{Agence} sont liees a la classe \textbf{Utilisateur}. Cela signifie que ces classes partagent des informations communes, comme le nom, l'email, le mot de passe, le telephone et le role.
 
-\subsection{Relations importantes}
+L'agregation represente une relation souple entre deux classes. Les objets peuvent exister separement. La composition represente une relation plus forte, ou un element depend directement d'un autre. Par exemple, une conversation contient des messages, et une mission peut etre liee a plusieurs candidatures.
 
-Les relations entre les classes définissent la structure et la cohérence du système. La composition établit des liens forts où la destruction de l'objet parent entraîne celle des objets enfants. Le TableauDeBord [COMP]--- KPI indique que les KPI sont intrinsèquement liés à leur tableau de bord. L'Utilisateur [COMP]--- Rapport montre que les rapports appartiennent exclusivement à leur utilisateur créateur. L'Abonnement [COMP]--- Paiement assure que l'historique des paiements est indissociable de l'abonnement correspondant. Le TableauDeBord [COMP]--- IntegrationAPI établit une dépendance forte entre l'affichage et les sources de données.
+Les enumerations representent des listes de valeurs fixes. Elles permettent d'eviter les valeurs incoherentes. Par exemple, \textbf{Role} definit les types d'utilisateurs, \textbf{MissionStatus} definit l'etat d'une mission, \textbf{ApplicationStatus} definit le statut d'une candidature, et \textbf{WorkMode} definit le mode de travail.
 
-L'agrégation représente une relation plus souple où les objets peuvent exister indépendamment. L'Utilisateur [AGG]--- Abonnement permet à un utilisateur de changer d'abonnement sans affecter son identité. L'héritage implémente le principe de spécialisation, où l'Administrateur hérite de Utilisateur en étendant ses capacités avec des fonctionnalités administratives spécifiques.
+\subsection{Explication simplifiee des classes principales}
 
-\section{Architecture générale de l'application}
+La classe \textbf{Utilisateur} represente la base commune de tous les comptes. La classe \textbf{Freelance} represente un utilisateur qui cherche des missions et peut postuler. La classe \textbf{Recruteur} represente un utilisateur qui publie des missions et recherche des talents. Elle sert de base aux classes \textbf{Entreprise} et \textbf{Agence}.
 
-L'architecture de Mediassive Analytics repose sur un modèle client-serveur structuré en plusieurs couches :
+L'entreprise publie des missions et consulte les profils freelances. L'agence possede un role hybride : elle peut publier des missions comme une entreprise, mais aussi postuler a des missions comme un freelance. Cette difference justifie la mise en place d'une gestion precise des roles et permissions.
 
-\subsection{Frontend}
+La classe \textbf{Mission} represente une opportunite publiee sur la plateforme. La classe \textbf{Candidature} permet de suivre le lien entre un candidat et une mission. Les classes \textbf{Conversation} et \textbf{Message} representent la messagerie entre utilisateurs. Les classes \textbf{ConversationIA}, \textbf{MessageIA} et \textbf{ServiceChatBotIA} representent la partie assistant intelligent.
 
-La couche frontend constitue l'interface utilisateur moderne et intuitive de l'application. Elle est développée avec Next.js pour les performances et le SEO, Tailwind CSS pour un design responsive et cohérent, et Framer Motion pour des animations fluides et engageantes. L'interface s'adapte parfaitement à tous les appareils et offre une expérience utilisateur optimale pour visualiser les KPI et générer des rapports.
+\section{Diagramme de composants}
 
-\subsection{Backend}
-
-Le backend représente le moteur technique de l'application, développé en Node.js avec le framework NestJS pour une architecture modulaire et évolutive. L'utilisation de Prisma ORM simplifie la gestion des données et assure la cohérence du modèle. Cette couche gère l'ensemble de la logique métier, implémente les mécanismes de sécurité, orchestre les intégrations API et traite les paiements de manière sécurisée.
-
-\subsection{Base de données}
-
-La persistance des données repose sur PostgreSQL hébergé sur Supabase, offrant une solution robuste et scalable. Cette base stocke l'ensemble des informations utilisateurs, abonnements, paiements, KPI et rapports. L'intégrité des relations est garantie par un système de clés primaires et étrangères bien défini, assurant la cohérence et la fiabilité des données.
-
-\subsection{Intégrations API}
-
-Les intégrations API constituent le pont entre l'application et les services externes de marketing digital. Le système établit des connexions sécurisées avec Google Analytics, Facebook Ads. Les tableaux de bord peuvent récupérer des données de plusieurs APIs simultanément, offrant une vue consolidée et en temps réel des performances marketing.
-
-\subsection{Surveillance}
-
-La surveillance du système est assurée par la classe EtatSysteme qui gère en continu les logs, l'uptime et les alertes. Cette fonctionnalité permet aux administrateurs de maintenir un contrôle proactif sur l'état de l'application, détectant rapidement les anomalies et assurant la continuité de service.
-\section{Modèle logique et physique de la base de données}
-
-\subsection{Modèle logique}
-
-Le modèle logique de la base de données définit les entités principales et leurs relations dans le système. 
-
-\textbf{Entités principales :} 
-\begin{itemize}
-    \item Utilisateur
-    \item Abonnement
-    \item Paiement
-    \item TableauDeBord
-    \item KPI
-    \item Rapport
-\end{itemize}
-
-\textbf{Relations entre entités :}  
-Les relations illustrent la façon dont les entités interagissent entre elles :
-\begin{itemize}
-    \item \textbf{Utilisateur → Abonnement :} relation d'agrégation, permettant la flexibilité des plans.
-    \item \textbf{TableauDeBord → KPI :} composition forte, les KPI sont indissociables de leur tableau de bord.
-    \item \textbf{Utilisateur → Rapport :} composition, garantissant la propriété exclusive des rapports.
-    \item \textbf{Abonnement → Paiement :} relation conservant l'historique financier complet.
-\end{itemize}
+Le diagramme de composants ci-dessous presente l'architecture technique globale de FinderrLink. Il montre les principaux blocs logiciels de la plateforme et la maniere dont ils communiquent entre eux.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{./figures/mcd.png}
-    \caption{Modèle conceptuel des données (MCD) montrant les entités principales.}
-    \label{fig:mcd}
+\centering
+\includegraphics[width=0.95\textwidth]{./figures/ComponentDiagram1.png}
+\caption{Diagramme de composants - FinderrLink}
+\label{fig:component_diagram_finderrlink}
 \end{figure}
 
+\subsection{Explication du diagramme de composants}
+
+Le client web navigateur represente l'utilisateur qui accede a la plateforme depuis un navigateur. Toutes les requetes passent d'abord par le proxy inverse Nginx, qui joue le role d'intermediaire entre l'utilisateur et les services internes.
+
+L'interface web Next.js represente la partie frontend de l'application. Elle est responsable de l'affichage des pages, de l'experience utilisateur et de l'interaction avec les differents profils. L'API Backend NestJS represente la partie serveur. Elle contient la logique metier, la gestion des utilisateurs, des missions, des candidatures, des notifications et des communications avec les autres services.
+
+La base de donnees PostgreSQL assure la persistance des donnees. Elle stocke les utilisateurs, les profils, les missions, les candidatures, les messages et les notifications. Le service IA Python represente le microservice intelligent utilise par FinderrLink pour traiter les demandes liees a l'assistant IA, comme la recherche de missions adaptees, la recommandation de talents ou la generation de reponses.
+
+Ce diagramme montre que FinderrLink est organise selon une architecture separee en plusieurs composants. Cette separation facilite la maintenance, le deploiement, l'evolutivite et l'integration future de nouveaux services.
+\section{Diagramme d'activite du service IA}
+
+Le diagramme d'activite suivant presente le fonctionnement general du service d'intelligence artificielle integre dans FinderrLink. Ce diagramme permet de comprendre comment une demande utilisateur est analysee, filtree, traitee puis transformee en reponse avant d'etre retournee au backend de l'application.
+
+\begin{landscape}
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{./figures/relationmcd.PNG}
-    \caption{Illustration des relations entre les entités pour clarifier la structure du modèle logique.}
-    \label{fig:relationmcd}
+\centering
+\includegraphics[width=0.95\linewidth]{./figures/ActivityDiagram1.png}
+\caption{Diagramme d'activite du service IA - FinderrLink}
+\label{fig:activity_diagram_ai_finderrlink}
 \end{figure}
+\end{landscape}
 
-\subsection{Modèle physique}
+\subsection{Explication du diagramme d'activite IA}
 
-Le modèle physique concrétise le modèle logique dans PostgreSQL hébergé sur Supabase. Chaque entité correspond à une table optimisée pour les performances. Les types de champs sont choisis avec soin : 
+Le processus commence par la reception du message de l'utilisateur avec son role et son contexte. Ces informations sont importantes, car les reponses de l'assistant doivent respecter les droits de chaque type d'utilisateur. Par exemple, un freelance ne doit pas acceder aux memes informations qu'une entreprise ou qu'une agence.
 
+La premiere etape consiste a classifier l'intention de la demande a l'aide d'un modele Gemini leger. Cette classification permet d'identifier le type de besoin exprime par l'utilisateur, comme une recherche de missions, une recommandation de talents, une generation de lettre de motivation ou une question FAQ. Ensuite, le systeme selectionne le system prompt adapte au role et a l'intention afin d'encadrer correctement la reponse de l'assistant.
 
-\begin{itemize}
-    \item \textbf{UUID ou SERIAL :} identifiants uniques garantissant l’unicité globale et servant de clés primaires.
-    \item \textbf{VARCHAR / TEXT :} textes variables pour les noms, descriptions, formules ou URL.
-    \item \textbf{NUMERIC / DECIMAL :} valeurs monétaires ou seuils précis, évitant les erreurs d’arrondi.
-    \item \textbf{TIMESTAMP / DATE :} dates et heures des événements, paiements ou créations de comptes.
-    \item \textbf{BOOLEAN :} indicateurs binaires pour les états, partages ou renouvellements automatiques.
-    \item \textbf{ENUM / CHECK :} contraintes sur les valeurs possibles pour certains champs (statuts, rôles, types).
-\end{itemize}
+Apres cette premiere analyse, la demande est transmise a un modele de raisonnement plus avance. Ce modele verifie si la demande entre dans le perimetre de FinderrLink et si elle respecte les regles de securite. Si la demande est hors perimetre, le systeme genere une reponse adaptee sans acceder aux donnees internes. Si la demande est interdite ou non autorisee, une reponse de refus securisee est retournee.
 
-Les contraintes, index et clés étrangères assurent l’intégrité référentielle et la cohérence des relations entre les tables, conformément au modèle logique présenté précédemment.
+Lorsque la demande est valide, le systeme suit un traitement specifique selon son type. Pour une recommandation de missions, le service recupere le profil du candidat, recherche les missions compatibles dans la base vectorielle et calcule un score de matching. Pour une recommandation de talents, il extrait les criteres de recherche, interroge les profils disponibles et classe les talents compatibles. Pour une lettre de motivation, il recupere le profil du candidat et la mission ciblee afin de construire un contexte personnalise. Pour une question FAQ, il recherche la reponse dans la base de connaissances de FinderrLink.
+
+Enfin, les donnees autorisees sont transmises au modele generatif afin de produire une reponse finale claire et adaptee. Cette reponse est ensuite retournee au backend NestJS, qui se charge de l'envoyer a l'interface utilisateur. Ce fonctionnement montre que le service IA de FinderrLink ne se limite pas a generer du texte : il applique aussi une logique de classification, de controle d'acces, de recherche contextuelle et de generation securisee.
 
 \section{Conclusion}
 
-La conception de Mediassive Analytics établit une architecture technique solide avec des diagrammes UML clairs et une structure en couches performante. Cette approche garantit la cohérence du système et facilite sa maintenance future.
+Cette conception permet de mieux comprendre l'organisation generale de FinderrLink. Le diagramme de cas d'utilisation montre les principales interactions entre les acteurs et la plateforme. Le diagramme de classes presente la structure interne du systeme. Le diagramme de composants montre l'architecture technique globale, composee du client web, du proxy Nginx, du frontend Next.js, du backend NestJS, de la base de donnees PostgreSQL et du service IA Python.
