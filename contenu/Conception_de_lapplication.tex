@@ -1,108 +1,499 @@
 \numberwithin{figure}{section}
 
-\chapter{Conception du systeme}
+\chapter{Conception du système}
 
 \section{Introduction}
 
-Ce chapitre presente la conception du systeme FinderrLink. L'objectif est de donner une vision claire du fonctionnement general de la plateforme avant de passer a la realisation technique. Pour cela, trois diagrammes UML sont utilises : le diagramme de cas d'utilisation, le diagramme de classes et le diagramme de composants.
+Ce chapitre présente la conception du système FinderrLink. L'objectif est de 
+donner une vision claire et structurée du fonctionnement général de la 
+plateforme avant de passer à la réalisation technique. Il commence par définir 
+les spécifications fonctionnelles et non fonctionnelles du système, puis 
+présente cinq diagrammes UML complémentaires : le diagramme de cas 
+d'utilisation, le diagramme de classes, le diagramme de composants, le 
+diagramme d'activité du service IA et le diagramme de déploiement.
 
-Le diagramme de cas d'utilisation permet de comprendre les interactions entre les acteurs et les principales fonctionnalites de la plateforme. Le diagramme de classes montre la structure interne du systeme a travers les entites principales et leurs relations. Enfin, le diagramme de composants presente l'organisation technique globale de l'application et les echanges entre ses differentes parties.
+Chaque diagramme est accompagné d'une légende détaillée expliquant les 
+notations UML utilisées, afin de faciliter la lecture et la compréhension pour 
+tout lecteur, qu'il soit familier ou non avec le langage UML.
+\section{Spécifications du Système}
 
+Cette section présente les spécifications fonctionnelles et non fonctionnelles du système FinderrLink. Elle permet de définir les fonctionnalités attendues de la plateforme, les rôles des utilisateurs, ainsi que les contraintes de sécurité, de performance, d'évolutivité et de qualité que le système doit respecter.
+
+\subsection{Spécifications fonctionnelles}
+
+Les spécifications fonctionnelles décrivent les services que la plateforme doit offrir aux différents utilisateurs. FinderrLink repose sur plusieurs profils : freelance, entreprise, agence et administrateur. Chaque rôle dispose de fonctionnalités adaptées à ses besoins et à ses droits d'accès.
+
+\subsubsection{Authentification et gestion des comptes}
+
+Le système doit permettre aux utilisateurs de créer un compte, de se connecter de manière sécurisée et de gérer leurs informations personnelles. L'authentification constitue la première couche de sécurité de la plateforme. Elle permet d'identifier chaque utilisateur et de lui donner accès uniquement aux fonctionnalités correspondant à son rôle.
+
+La plateforme prend en charge les fonctionnalités suivantes :
+
+\begin{itemize}
+    \item \textbf{Inscription et connexion} : création de compte avec email et mot de passe, connexion sécurisée via JWT stocké dans un cookie HTTP-only.
+    \item \textbf{Récupération de mot de passe par OTP} : lorsqu'un utilisateur oublie son mot de passe, la plateforme lui envoie un code OTP (One-Time Password) par email. Ce code est temporaire et à usage unique. L'utilisateur doit le saisir pour valider son identité avant de définir un nouveau mot de passe. Cette approche garantit la sécurité du processus de réinitialisation sans exposer de lien cliquable.
+    \item \textbf{Modification du profil} : mise à jour des informations personnelles et professionnelles.
+    \item \textbf{Déconnexion sécurisée} : suppression du cookie de session côté serveur.
+\end{itemize}
+
+Chaque utilisateur est associé à un rôle précis, ce qui permet d'appliquer les règles d'accès définies par le système RBAC.
+
+\subsubsection{Gestion des rôles et permissions}
+
+FinderrLink intègre un système RBAC, ou Role-Based Access Control, afin de gérer les droits d'accès selon le type d'utilisateur. Ce système garantit que chaque acteur accède uniquement aux fonctionnalités qui lui sont autorisées.
+
+\begin{itemize}
+    \item \textbf{Freelance} : gère son profil, recherche des missions, consulte le détail d'une mission, postule, suit ses candidatures et communique après acceptation.
+    \item \textbf{Entreprise} : publie des missions, recherche des freelances, consulte les candidatures reçues, modifie le statut des candidatures et contacte les talents.
+    \item \textbf{Agence} : possède un rôle hybride — elle peut publier des missions comme une entreprise et postuler à des missions comme un freelance.
+    \item \textbf{Administrateur} : supervise l'ensemble de la plateforme et gère les données principales.
+\end{itemize}
+
+\subsubsection{Gestion des profils utilisateurs}
+
+La plateforme permet à chaque utilisateur de gérer son profil selon son rôle. Le profil freelance contient les informations professionnelles nécessaires à la recherche de missions : titre du profil, compétences, expérience, localisation, disponibilité, tarif journalier et biographie. L'utilisateur peut modifier ses informations directement depuis son espace personnel grâce à un système d'édition en ligne par champ.
+
+Les entreprises et les agences renseignent les informations relatives à leur organisation : nom, secteur d'activité, informations de contact, site web, localisation et description. Ces informations renforcent la crédibilité des profils et facilitent la mise en relation entre les acteurs.
+
+\subsubsection{Gestion des missions}
+
+La gestion des missions constitue une fonctionnalité centrale de FinderrLink. Les entreprises et les agences peuvent créer, modifier, publier, mettre en pause ou clôturer des missions. Une mission contient plusieurs informations : titre, description, mode de travail, localisation, tarif journalier, compétences recherchées, durée et statut.
+
+Le système permet également la consultation du détail d'une mission. Les freelances et les agences peuvent rechercher les missions disponibles et consulter leurs informations avant de postuler. La gestion des statuts de mission (\texttt{DRAFT}, \texttt{PUBLISHED}, \texttt{CLOSED}) permet aux recruteurs de suivre le cycle de vie d'une mission depuis sa création jusqu'à sa clôture.
+
+\subsubsection{Recherche et filtrage}
+
+FinderrLink propose des fonctionnalités de recherche et de filtrage afin de faciliter l'accès aux informations. Les freelances et les agences peuvent rechercher des missions selon plusieurs critères : domaine, compétences, mode de travail, localisation, tarif ou statut de publication.
+
+Les entreprises et les agences peuvent rechercher des talents selon des critères professionnels : compétences, expérience, disponibilité, tarif journalier, localisation ou domaine d'expertise. Cette fonctionnalité réduit le temps de recherche et améliore la pertinence des résultats.
+
+\subsubsection{Gestion des candidatures}
+
+Le système permet aux freelances et aux agences de soumettre une candidature à une mission. Une candidature contient les informations liées au candidat, à la mission ciblée, à la date de soumission, au statut (\texttt{PENDING}, \texttt{ACCEPTED}, \texttt{REJECTED}, \texttt{CANCELLED}) et, si nécessaire, à une lettre de motivation.
+
+Les entreprises et les agences qui publient des missions peuvent consulter les candidatures reçues et modifier leur statut. Le suivi des candidatures permet aux candidats de connaître l'évolution de leurs demandes et aux recruteurs d'organiser leur processus de sélection.
+
+\subsubsection{Messagerie en temps réel}
+
+FinderrLink intègre un système de messagerie en temps réel basé sur WebSocket. Les échanges sont instantanés : chaque message envoyé est reçu immédiatement par le destinataire sans nécessiter un rechargement de la page. Les entreprises et les agences peuvent contacter les freelances lorsqu'elles consultent leurs profils. Les freelances et les agences qui postulent à une mission peuvent communiquer avec le créateur de la mission uniquement après acceptation de leur candidature.
+
+Cette règle évite les contacts non autorisés et maintient une communication organisée autour du processus de candidature. La messagerie permet l'envoi, la consultation et le suivi des messages entre les utilisateurs concernés, avec un indicateur de messages non lus visible dans l'interface.
+
+\subsubsection{Notifications en temps réel et par email}
+
+FinderrLink dispose d'un double système de notifications afin d'informer les utilisateurs des événements importants, qu'ils soient connectés ou non à la plateforme.
+
+\paragraph{Notifications en temps réel :}
+Les notifications in-app sont envoyées instantanément via WebSocket. L'utilisateur connecté reçoit immédiatement une alerte sans rechargement de page. Ces notifications peuvent concerner :
+\begin{itemize}
+    \item Une nouvelle candidature reçue sur une mission publiée.
+    \item Un changement de statut d'une candidature (acceptée, refusée, annulée).
+    \item Un nouveau message reçu dans la messagerie.
+    \item Une mission mise à jour ou clôturée.
+    \item Une action importante effectuée sur la plateforme.
+\end{itemize}
+Chaque utilisateur peut consulter l'historique de ses notifications et les marquer comme lues depuis son interface.
+
+\paragraph{Notifications par email :}
+En complément des notifications in-app, la plateforme envoie des emails automatiques pour les événements importants. Ces emails sont générés à partir de templates Handlebars et envoyés via le service de messagerie intégré au backend. Les cas d'envoi incluent :
+\begin{itemize}
+    \item Confirmation d'inscription sur la plateforme.
+    \item Réinitialisation du mot de passe avec code OTP.
+    \item Notification de réception d'une nouvelle candidature.
+    \item Notification de changement de statut d'une candidature.
+    \item Réception d'un nouveau message.
+    \item Confirmation de publication d'une mission.
+\end{itemize}
+
+\subsubsection{Tableaux de bord}
+
+FinderrLink propose des tableaux de bord adaptés à chaque rôle :
+
+\begin{itemize}
+    \item \textbf{Tableau de bord freelance} : suivi des candidatures, missions disponibles, messages reçus, notifications et état du profil.
+    \item \textbf{Tableau de bord entreprise} : suivi des missions publiées, candidatures reçues, profils consultés et actions récentes.
+    \item \textbf{Tableau de bord agence} : tableau hybride permettant de suivre à la fois les missions publiées et les missions auxquelles l'agence a postulé.
+    \item \textbf{Tableau de bord administrateur} : supervision globale de la plateforme, gestion des utilisateurs, des missions, des candidatures et des catégories.
+\end{itemize}
+
+\subsubsection{Gestion des catégories}
+
+La plateforme permet l'organisation des missions et des profils par catégories et sous-catégories. Les catégories facilitent la classification des domaines d'activité : développement web, design, marketing, data, cybersécurité ou intelligence artificielle. Cette fonctionnalité améliore la recherche, le filtrage et le matching entre les profils et les missions.
+
+\subsubsection{Assistant intelligent}
+
+FinderrLink intègre un assistant IA destiné à améliorer l'expérience utilisateur et l'aide à la décision. L'assistant analyse la demande de l'utilisateur, identifie son intention, vérifie son rôle et produit une réponse adaptée au contexte.
+
+\begin{itemize}
+    \item \textbf{Pour un freelance} : recommandation de missions compatibles avec son profil, explication des détails d'une mission, comparaison d'opportunités et génération de lettre de motivation personnalisée.
+    \item \textbf{Pour une entreprise ou une agence} : recommandation de talents selon des critères de recherche, aide à la formulation de messages et réponses aux questions liées au fonctionnement de la plateforme.
+\end{itemize}
+
+L'assistant respecte strictement les droits d'accès RBAC. Il utilise uniquement les données autorisées selon le rôle de l'utilisateur et le contexte de sa demande, garantissant ainsi la sécurité et la confidentialité des informations.
+
+\subsubsection{Administration et supervision}
+
+L'administrateur dispose d'un espace de supervision permettant de suivre l'activité de la plateforme. Il peut gérer les utilisateurs, consulter les missions, suivre les candidatures, vérifier les catégories et contrôler les données principales du système. Le panneau d'administration facilite la maintenance fonctionnelle de la plateforme et garantit une meilleure visibilité sur son utilisation.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Spécifications non fonctionnelles}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Les spécifications non fonctionnelles définissent les qualités attendues du système. Elles ne décrivent pas directement les fonctionnalités, mais les conditions que la plateforme doit respecter pour être fiable, sécurisée, performante et évolutive.
+
+\subsubsection{Sécurité}
+
+La sécurité est un élément essentiel de FinderrLink, car la plateforme gère des données personnelles, professionnelles et applicatives. Le système assure :
+
+\begin{itemize}
+    \item \textbf{Authentification JWT via cookie HTTP-only} : le token d'accès est stocké dans un cookie inaccessible depuis JavaScript, ce qui protège contre les attaques XSS.
+    \item \textbf{Protection des mots de passe} : les mots de passe sont hachés avant d'être stockés en base de données.
+    \item \textbf{Réinitialisation sécurisée par OTP} : le code est temporaire, à usage unique et expiré après un délai défini.
+    \item \textbf{Contrôle d'accès RBAC} : chaque route et chaque ressource est protégée selon le rôle de l'utilisateur.
+    \item \textbf{Rate limiting} : limitation du nombre de requêtes sur les endpoints sensibles pour prévenir les attaques par force brute.
+\end{itemize}
+
+\subsubsection{Performance}
+
+La plateforme doit offrir des temps de réponse acceptables, même lorsque plusieurs utilisateurs consultent les missions, les profils ou les candidatures simultanément. Les pages principales doivent se charger rapidement et les requêtes vers la base de données doivent être optimisées. Les opérations importantes, comme la recherche de missions, la messagerie en temps réel et l'utilisation de l'assistant IA, doivent rester fluides afin de garantir une bonne expérience utilisateur.
+
+\subsubsection{Disponibilité et déploiement}
+
+FinderrLink est accessible en ligne à travers un environnement de production stable, hébergé sur un serveur VPS via Docker Compose. Chaque service (frontend, backend, base de données, service IA) est isolé dans son propre conteneur. Le proxy inverse Nginx redirige les requêtes vers les bons services et gère le SSL via Certbot. Cette organisation facilite l'exploitation de l'application en environnement réel et permet de redémarrer un service sans impacter les autres.
+
+\subsubsection{Évolutivité}
+
+La plateforme est conçue de manière évolutive afin de permettre l'ajout de nouvelles fonctionnalités. L'architecture séparée entre frontend, backend, base de données et service IA facilite cette évolution. À l'avenir, FinderrLink pourra intégrer de nouveaux modules, de nouveaux rôles, de nouveaux critères de matching ou de nouvelles fonctionnalités IA sans remettre en cause l'architecture existante.
+
+\subsubsection{Maintenabilité}
+
+Le code source est organisé de manière claire afin de faciliter la correction des erreurs, l'ajout de nouvelles fonctionnalités et la collaboration entre les développeurs. La séparation entre les modules, les services et les composants rend le projet plus lisible et plus facile à maintenir. Les conventions de nommage, la structure des dossiers et la séparation des responsabilités contribuent à améliorer la maintenabilité globale du système.
+
+\subsubsection{Expérience utilisateur}
+
+L'interface de FinderrLink est claire, responsive et simple à utiliser. Chaque utilisateur peut accéder rapidement aux fonctionnalités principales selon son rôle. Les parcours sont cohérents, notamment pour la recherche de missions, la publication de missions, le dépôt de candidatures et la consultation des notifications. Les statuts, les actions et les messages sont présentés de manière claire afin d'éviter la confusion. Un système de modal d'intégration guide les nouveaux utilisateurs lors de leur première connexion pour compléter leur profil.
+
+\subsubsection{Confidentialité des données}
+
+La confidentialité est importante car la plateforme contient des profils professionnels, des candidatures, des messages et des informations liées aux entreprises et agences. Le système garantit que les informations sensibles ne sont accessibles qu'aux utilisateurs autorisés. L'assistant IA respecte également cette contrainte : il utilise uniquement les données autorisées selon le rôle de l'utilisateur et le contexte de sa demande.
+% ─────────────────────────────────────────────────────────────────────────────
 \section{Diagramme de cas d'utilisation}
+% ─────────────────────────────────────────────────────────────────────────────
 
-Le diagramme de cas d'utilisation ci-dessous presente les principales actions possibles dans FinderrLink. Il permet de visualiser les roles des differents acteurs et les fonctionnalites accessibles selon chaque profil utilisateur.
+\subsection{Légende du diagramme de cas d'utilisation}
+
+\begin{table}[H]
+\centering
+\caption{Légende — Diagramme de cas d'utilisation}
+\label{tab:legende_usecase}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{3.2cm}|p{4cm}|p{7.2cm}|}
+\hline
+\textbf{Symbole} & \textbf{Nom} & \textbf{Signification} \\
+\hline
+Rectangle & Système & Délimite le périmètre fonctionnel de FinderrLink. Tout ce qui est à l'intérieur appartient à la plateforme. \\
+\hline
+Bonhomme (stick figure) & Acteur & Représente un utilisateur ou un service externe qui interagit avec le système. Placé à l'extérieur du rectangle. \\
+\hline
+Ovale & Cas d'utilisation & Représente une fonctionnalité ou une action que le système offre à un acteur. \\
+\hline
+Ligne pleine & Association & Relie un acteur à un cas d'utilisation qu'il peut déclencher. \\
+\hline
+Flèche pointillée \texttt{<<include>>} & Inclusion & Indique qu'un cas d'utilisation \textbf{appelle obligatoirement} un autre. L'action incluse est toujours exécutée. \\
+\hline
+Flèche pointillée \texttt{<<extend>>} & Extension & Indique qu'un cas d'utilisation \textbf{peut optionnellement} compléter un autre, selon le contexte ou une condition. \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Présentation et explication du diagramme}
+
+Le diagramme de cas d'utilisation ci-dessous présente les principales actions possibles dans FinderrLink. Il permet de visualiser les rôles des différents acteurs et les fonctionnalités accessibles selon chaque profil utilisateur.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{./figures/UseCaseDiagram1.png}
-\caption{Diagramme de cas d'utilisation - FinderrLink}
+\caption{Diagramme de cas d'utilisation — FinderrLink}
 \label{fig:usecase_diagram_finderrlink}
 \end{figure}
 
-\subsection{Explication du diagramme de cas d'utilisation}
+Le rectangle représente le système FinderrLink dans son ensemble. Les acteurs sont placés à l'extérieur du rectangle et représentent les différents profils d'utilisateurs de la plateforme.
 
-Le rectangle represente le systeme FinderrLink. Les acteurs places a l'exterieur du rectangle representent les utilisateurs ou services qui interagissent avec la plateforme. Les ovales representent les fonctionnalites principales.
+\paragraph{Acteurs identifiés :}
+\begin{itemize}
+    \item \textbf{Freelance} : peut rechercher des missions, consulter le détail d'une mission, postuler, suivre ses candidatures et communiquer après acceptation.
+    \item \textbf{Entreprise} : peut gérer ses missions, consulter les candidatures reçues, modifier leur statut, rechercher des talents et contacter un freelance.
+    \item \textbf{Agence} : possède un rôle hybride, car elle peut publier des missions comme une entreprise \textit{et} postuler à des missions comme un freelance.
+\end{itemize}
 
-Le freelance peut rechercher des missions, consulter une mission, postuler, suivre ses candidatures et communiquer apres acceptation. L'entreprise peut gerer ses missions, consulter les candidatures, modifier leur statut, rechercher des talents et contacter un talent. L'agence possede un role particulier, car elle peut publier des missions comme une entreprise et postuler a des missions comme un freelance.
+\paragraph{Relations entre cas d'utilisation :}
+\begin{itemize}
+    \item La relation \texttt{<<include>>} lie \textit{Utiliser assistant IA} à \textit{Traiter demande IA} : chaque fois qu'un utilisateur sollicite l'assistant, la demande est obligatoirement traitée par le service IA.
+    \item Les relations \texttt{<<extend>>} autour de \textit{Traiter demande IA} indiquent que des actions spécialisées — recommander des missions adaptées, recommander des talents selon critères, générer une lettre de motivation ou répondre aux FAQ — s'ajoutent optionnellement selon le type de demande détecté.
+\end{itemize}
 
-Les relations \texttt{<<include>>} indiquent qu'une action contient obligatoirement une autre action. Les relations \texttt{<<extend>>} indiquent qu'une action peut completer une autre action selon le contexte. Par exemple, utiliser l'assistant IA inclut le traitement de la demande IA, tandis que recommander des missions adaptees ou generer une lettre de motivation sont des extensions possibles du traitement IA.
-
+% ─────────────────────────────────────────────────────────────────────────────
 \section{Diagramme de classes UML}
+% ─────────────────────────────────────────────────────────────────────────────
 
-Le diagramme de classes ci-dessous represente la structure principale de FinderrLink. Il montre les entites importantes du systeme, notamment les utilisateurs, les missions, les candidatures, les conversations, les notifications, les categories et la partie liee a l'assistant IA.
+\subsection{Légende du diagramme de classes}
 
+\begin{table}[H]
+\centering
+\caption{Légende — Diagramme de classes UML}
+\label{tab:legende_classes}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{3.2cm}|p{4cm}|p{7.2cm}|}
+\hline
+\textbf{Symbole} & \textbf{Nom} & \textbf{Signification} \\
+\hline
+Rectangle 3 sections & Classe & Partie haute = nom de la classe ; partie centrale = attributs (données) ; partie basse = méthodes (actions). \\
+\hline
+\textbf{+} & Visibilité publique & L'attribut ou la méthode est accessible depuis n'importe quelle autre classe. \\
+\hline
+\textbf{-} & Visibilité privée & L'attribut ou la méthode n'est accessible que depuis la classe elle-même. \\
+\hline
+\textbf{\#} & Visibilité protégée & Accessible depuis la classe et ses sous-classes uniquement. \\
+\hline
+Flèche pleine (triangle vide) & Héritage (généralisation) & La classe fille \textbf{hérite} de tous les attributs et méthodes de la classe mère. Ex. : \textit{Freelance} hérite de \textit{Utilisateur}. \\
+\hline
+Ligne avec losange vide & Agrégation & Relation \textbf{souple} : les deux objets peuvent exister indépendamment l'un de l'autre. \\
+\hline
+Ligne avec losange plein & Composition & Relation \textbf{forte} : l'objet enfant ne peut exister sans l'objet parent. Si le parent est supprimé, l'enfant l'est aussi. \\
+\hline
+Rectangle stéréotypé \texttt{<<enumeration>>} & Énumération & Liste de valeurs fixes et prédéfinies. Évite les valeurs incohérentes dans la base de données. \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Présentation et explication du diagramme}
+
+Le diagramme de classes ci-dessous représente la structure principale de FinderrLink. Il montre les entités importantes du système, notamment les utilisateurs, les missions, les candidatures, les conversations, les notifications, les catégories et la partie liée à l'assistant IA.
+\begin{landscape}
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{./figures/ClassDiagram1.png}
-\caption{Diagramme de classes UML - FinderrLink}
+\includegraphics[width=0.95\linewidth]{./figures/ClassDiagram1.png}
+\caption{Diagramme de classes UML — FinderrLink}
 \label{fig:class_diagram_finderrlink}
 \end{figure}
+\end{landscape}
+\paragraph{Hiérarchie d'héritage :}
+La classe \textbf{Utilisateur} constitue la base commune de tous les comptes de la plateforme. Les classes \textbf{Freelance}, \textbf{Recruteur}, \textbf{Entreprise} et \textbf{Agence} en héritent. Cela signifie qu'elles partagent automatiquement les attributs communs (nom, email, mot de passe, téléphone, rôle) et n'ont besoin de définir que leurs propriétés spécifiques. La classe \textbf{Entreprise} et la classe \textbf{Agence} héritent toutes deux de \textbf{Recruteur}, qui centralise les fonctionnalités de publication et de gestion des missions.
 
-\subsection{Cle de lecture du diagramme de classes}
+\paragraph{Rôle hybride de l'agence :}
+L'agence occupe une position particulière dans le système : elle peut publier des missions comme une entreprise, mais aussi postuler à des missions comme un freelance. Cette dualité justifie une gestion précise des rôles et permissions au niveau de la logique métier.
 
-Une classe UML est representee par un rectangle divise en trois parties : le nom de la classe, les attributs et les methodes. Les attributs representent les donnees stockees, tandis que les methodes representent les actions possibles.
+\paragraph{Missions et candidatures :}
+La classe \textbf{Mission} représente une opportunité publiée. La classe \textbf{Candidature} assure le lien entre un candidat (Freelance ou Agence) et une mission. Une mission peut recevoir plusieurs candidatures, et une candidature est toujours associée à une seule mission (composition).
 
-Le symbole \textbf{+} indique un element public. Le symbole \textbf{-} indique un element prive. Le symbole \textbf{\#} indique un element protege. Ces symboles permettent de preciser le niveau d'acces aux donnees et aux methodes.
+\paragraph{Messagerie et assistant IA :}
+Les classes \textbf{Conversation} et \textbf{Message} modélisent la messagerie entre utilisateurs. Les classes \textbf{ConversationIA}, \textbf{MessageIA} et \textbf{ServiceChatbotIA} modélisent séparément l'assistant intelligent, isolé en tant que service externe Python.
 
-L'heritage permet de representer une specialisation. Dans ce diagramme, les classes \textbf{Freelance}, \textbf{Recruteur}, \textbf{Entreprise} et \textbf{Agence} sont liees a la classe \textbf{Utilisateur}. Cela signifie que ces classes partagent des informations communes, comme le nom, l'email, le mot de passe, le telephone et le role.
+\paragraph{Énumérations utilisées :}
+\begin{itemize}
+    \item \textbf{Role} : \texttt{FREELANCER}, \texttt{AGENCY}, \texttt{ENTERPRISE}, \texttt{ADMIN}
+    \item \textbf{MissionStatus} : \texttt{DRAFT}, \texttt{PUBLISHED}, \texttt{CLOSED}
+    \item \textbf{ApplicationStatus} : \texttt{PENDING}, \texttt{ACCEPTED}, \texttt{REJECTED}, \texttt{CANCELLED}
+    \item \textbf{WorkMode} : \texttt{REMOTE}, \texttt{HYBRID}, \texttt{ONSITE}
+    \item \textbf{AiMessageRole} : \texttt{FREELANCER}, \texttt{Recruteur}
+\end{itemize}
 
-L'agregation represente une relation souple entre deux classes. Les objets peuvent exister separement. La composition represente une relation plus forte, ou un element depend directement d'un autre. Par exemple, une conversation contient des messages, et une mission peut etre liee a plusieurs candidatures.
-
-Les enumerations representent des listes de valeurs fixes. Elles permettent d'eviter les valeurs incoherentes. Par exemple, \textbf{Role} definit les types d'utilisateurs, \textbf{MissionStatus} definit l'etat d'une mission, \textbf{ApplicationStatus} definit le statut d'une candidature, et \textbf{WorkMode} definit le mode de travail.
-
-\subsection{Explication simplifiee des classes principales}
-
-La classe \textbf{Utilisateur} represente la base commune de tous les comptes. La classe \textbf{Freelance} represente un utilisateur qui cherche des missions et peut postuler. La classe \textbf{Recruteur} represente un utilisateur qui publie des missions et recherche des talents. Elle sert de base aux classes \textbf{Entreprise} et \textbf{Agence}.
-
-L'entreprise publie des missions et consulte les profils freelances. L'agence possede un role hybride : elle peut publier des missions comme une entreprise, mais aussi postuler a des missions comme un freelance. Cette difference justifie la mise en place d'une gestion precise des roles et permissions.
-
-La classe \textbf{Mission} represente une opportunite publiee sur la plateforme. La classe \textbf{Candidature} permet de suivre le lien entre un candidat et une mission. Les classes \textbf{Conversation} et \textbf{Message} representent la messagerie entre utilisateurs. Les classes \textbf{ConversationIA}, \textbf{MessageIA} et \textbf{ServiceChatBotIA} representent la partie assistant intelligent.
-
+% ─────────────────────────────────────────────────────────────────────────────
 \section{Diagramme de composants}
+% ─────────────────────────────────────────────────────────────────────────────
 
-Le diagramme de composants ci-dessous presente l'architecture technique globale de FinderrLink. Il montre les principaux blocs logiciels de la plateforme et la maniere dont ils communiquent entre eux.
+\subsection{Légende du diagramme de composants}
+
+\begin{table}[H]
+\centering
+\caption{Légende — Diagramme de composants}
+\label{tab:legende_composants}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{3.2cm}|p{4cm}|p{7.2cm}|}
+\hline
+\textbf{Symbole} & \textbf{Nom} & \textbf{Signification} \\
+\hline
+Rectangle avec icône & Composant & Unité logicielle autonome ayant un rôle précis dans le système (ex. : API Backend NestJS, Interface Web Next.js). \\
+\hline
+Ligne de connexion & Dépendance & Relie un composant qui consomme à un composant qui fournit le service. \\
+\hline
+
+\end{tabular}
+\end{table}
+
+\subsection{Présentation et explication du diagramme}
+
+Le diagramme de composants ci-dessous présente l'architecture technique globale de FinderrLink. Il montre les principaux blocs logiciels de la plateforme et la manière dont ils communiquent entre eux.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{./figures/ComponentDiagram1.png}
-\caption{Diagramme de composants - FinderrLink}
+\caption{Diagramme de composants — FinderrLink}
 \label{fig:component_diagram_finderrlink}
 \end{figure}
 
-\subsection{Explication du diagramme de composants}
+\paragraph{Flux de communication :}
+Le \textbf{Client Web Navigateur} représente l'utilisateur qui accède à la plateforme depuis son navigateur. Toutes les requêtes transitent d'abord par le \textbf{Proxy inverse Nginx}, qui joue le rôle d'intermédiaire sécurisé entre l'extérieur et les services internes.
 
-Le client web navigateur represente l'utilisateur qui accede a la plateforme depuis un navigateur. Toutes les requetes passent d'abord par le proxy inverse Nginx, qui joue le role d'intermediaire entre l'utilisateur et les services internes.
+\paragraph{Composants principaux :}
+\begin{itemize}
+    \item \textbf{Interface Web Next.js} : frontend de l'application, responsable de l'affichage des pages et de l'expérience utilisateur.
+    \item \textbf{API Backend NestJS} : couche serveur contenant toute la logique métier (gestion des utilisateurs, missions, candidatures, notifications, authentification).
+    \item \textbf{Base de données PostgreSQL} : assure la persistance des données (utilisateurs, profils, missions, messages, notifications).
+    \item \textbf{Service IA Python} : microservice indépendant chargé du traitement intelligent (classification des intentions, recommandations, génération de réponses).
+\end{itemize}
 
-L'interface web Next.js represente la partie frontend de l'application. Elle est responsable de l'affichage des pages, de l'experience utilisateur et de l'interaction avec les differents profils. L'API Backend NestJS represente la partie serveur. Elle contient la logique metier, la gestion des utilisateurs, des missions, des candidatures, des notifications et des communications avec les autres services.
+Cette architecture en composants séparés facilite la maintenance, le déploiement indépendant de chaque partie, et l'intégration future de nouveaux services sans impacter les composants existants.
 
-La base de donnees PostgreSQL assure la persistance des donnees. Elle stocke les utilisateurs, les profils, les missions, les candidatures, les messages et les notifications. Le service IA Python represente le microservice intelligent utilise par FinderrLink pour traiter les demandes liees a l'assistant IA, comme la recherche de missions adaptees, la recommandation de talents ou la generation de reponses.
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Diagramme d'activité du service IA}
+% ─────────────────────────────────────────────────────────────────────────────
 
-Ce diagramme montre que FinderrLink est organise selon une architecture separee en plusieurs composants. Cette separation facilite la maintenance, le deploiement, l'evolutivite et l'integration future de nouveaux services.
-\section{Diagramme d'activite du service IA}
+\subsection{Légende du diagramme d'activité}
 
-Le diagramme d'activite suivant presente le fonctionnement general du service d'intelligence artificielle integre dans FinderrLink. Ce diagramme permet de comprendre comment une demande utilisateur est analysee, filtree, traitee puis transformee en reponse avant d'etre retournee au backend de l'application.
+\begin{table}[H]
+\centering
+\caption{Légende — Diagramme d'activité}
+\label{tab:legende_activite}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{3.2cm}|p{4cm}|p{7.2cm}|}
+\hline
+\textbf{Symbole} & \textbf{Nom} & \textbf{Signification} \\
+\hline
+Disque plein noir & Nœud initial & Point de départ du processus. Le flux commence ici. \\
+\hline
+Disque entouré d'un cercle & Nœud final & Point de fin du processus. Le flux se termine ici. \\
+\hline
+Rectangle arrondi & Action / Activité & Étape concrète effectuée dans le processus (ex. : \textit{Classifier l'intention}). \\
+\hline
+Losange & Nœud de décision & Point où le flux se divise en plusieurs chemins selon une condition. Chaque branche correspond à un résultat possible. \\
+\hline
+Flèche & Transition & Indique le passage d'une activité à la suivante. La flèche peut porter une condition entre crochets \texttt{[condition]}. \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Présentation et explication du diagramme}
+
+Le diagramme d'activité suivant présente le fonctionnement général du service d'intelligence artificielle intégré dans FinderrLink. Il permet de comprendre comment une demande utilisateur est analysée, filtrée, traitée puis transformée en réponse avant d'être retournée au backend de l'application.
 
 \begin{landscape}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.95\linewidth]{./figures/ActivityDiagram1.png}
-\caption{Diagramme d'activite du service IA - FinderrLink}
+\caption{Diagramme d'activité du service IA — FinderrLink}
 \label{fig:activity_diagram_ai_finderrlink}
 \end{figure}
 \end{landscape}
+\paragraph{Étape 1 — Réception et classification :}
+Le processus commence par la réception du message de l'utilisateur accompagné de son rôle et de son contexte. Ces informations sont essentielles, car les réponses de l'assistant doivent respecter les droits de chaque type d'utilisateur. Un freelance n'accède pas aux mêmes données qu'une entreprise ou une agence. Un modèle Gemini léger classifie ensuite l'intention détectée, puis le système sélectionne le system prompt adapté au rôle et à l'intention identifiée.
 
-\subsection{Explication du diagramme d'activite IA}
+\paragraph{Étape 2 — Analyse et contrôle de sécurité :}
+La demande est transmise à un modèle de raisonnement plus avancé qui vérifie deux conditions via des nœuds de décision :
+\begin{itemize}
+    \item Si la demande est \textbf{hors périmètre} de FinderrLink $\rightarrow$ une réponse adaptée est générée sans accéder aux données internes.
+    \item Si la demande est \textbf{interdite ou non autorisée} $\rightarrow$ une réponse de refus sécurisée est retournée immédiatement.
+\end{itemize}
 
-Le processus commence par la reception du message de l'utilisateur avec son role et son contexte. Ces informations sont importantes, car les reponses de l'assistant doivent respecter les droits de chaque type d'utilisateur. Par exemple, un freelance ne doit pas acceder aux memes informations qu'une entreprise ou qu'une agence.
+\paragraph{Étape 3 — Traitement selon le type de demande :}
+Lorsque la demande est valide, le système suit un traitement spécifique selon son type :
+\begin{itemize}
+    \item \textbf{Recommandation de missions} : récupération du profil candidat, recherche des missions compatibles dans la base vectorielle pgvector, calcul d'un score de matching.
+    \item \textbf{Recommandation de talents} : extraction des critères de recherche, interrogation des profils disponibles, classement des talents compatibles.
+    \item \textbf{Lettre de motivation} : récupération du profil candidat et de la mission ciblée pour construire un contexte personnalisé.
+    \item \textbf{FAQ FinderrLink} : recherche de la réponse dans la base de connaissances de la plateforme.
+\end{itemize}
 
-La premiere etape consiste a classifier l'intention de la demande a l'aide d'un modele Gemini leger. Cette classification permet d'identifier le type de besoin exprime par l'utilisateur, comme une recherche de missions, une recommandation de talents, une generation de lettre de motivation ou une question FAQ. Ensuite, le systeme selectionne le system prompt adapte au role et a l'intention afin d'encadrer correctement la reponse de l'assistant.
+\paragraph{Étape 4 — Génération et retour de la réponse :}
+Les données autorisées sont transmises au modèle génératif qui produit une réponse finale claire et adaptée. Cette réponse est retournée au backend NestJS, qui se charge de l'envoyer à l'interface utilisateur.
 
-Apres cette premiere analyse, la demande est transmise a un modele de raisonnement plus avance. Ce modele verifie si la demande entre dans le perimetre de FinderrLink et si elle respecte les regles de securite. Si la demande est hors perimetre, le systeme genere une reponse adaptee sans acceder aux donnees internes. Si la demande est interdite ou non autorisee, une reponse de refus securisee est retournee.
 
-Lorsque la demande est valide, le systeme suit un traitement specifique selon son type. Pour une recommandation de missions, le service recupere le profil du candidat, recherche les missions compatibles dans la base vectorielle et calcule un score de matching. Pour une recommandation de talents, il extrait les criteres de recherche, interroge les profils disponibles et classe les talents compatibles. Pour une lettre de motivation, il recupere le profil du candidat et la mission ciblee afin de construire un contexte personnalise. Pour une question FAQ, il recherche la reponse dans la base de connaissances de FinderrLink.
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Diagramme de déploiement}
+% ─────────────────────────────────────────────────────────────────────────────
 
-Enfin, les donnees autorisees sont transmises au modele generatif afin de produire une reponse finale claire et adaptee. Cette reponse est ensuite retournee au backend NestJS, qui se charge de l'envoyer a l'interface utilisateur. Ce fonctionnement montre que le service IA de FinderrLink ne se limite pas a generer du texte : il applique aussi une logique de classification, de controle d'acces, de recherche contextuelle et de generation securisee.
+\subsection{Légende du diagramme de déploiement}
+
+\begin{table}[H]
+\centering
+\caption{Légende — Diagramme de déploiement}
+\label{tab:legende_deploiement}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{3.2cm}|p{4cm}|p{7.2cm}|}
+\hline
+\textbf{Symbole} & \textbf{Nom} & \textbf{Signification} \\
+\hline
+Cube 3D (rectangle épais) & Nœud (Node) & Représente un environnement physique ou logique d'exécution (machine locale, serveur, conteneur Docker). \\
+\hline
+Rectangle avec icône document & Artefact & Élément logiciel déployé dans un nœud (fichier, application, image Docker). \\
+\hline
+Flèche pointillée & Déploiement automatisé & Indique un déploiement automatisé (ex. : pipeline CI/CD qui pousse vers le VPS). \\
+\hline
+Annotation \texttt{+protocole : port} & Communication réseau & Précise le protocole et le port utilisés entre deux composants (ex. : \texttt{+gRPC : 50052}). \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Présentation et explication du diagramme}
+
+Le diagramme de déploiement ci-dessous présente l'environnement d'exécution de FinderrLink. Il montre comment les différents composants de l'application sont déployés sur le serveur VPS, ainsi que les liens entre la machine locale de développement, le dépôt GitHub, le pipeline CI/CD et l'infrastructure Docker.
+
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\linewidth]{./figures/DeploymentDiagram.png}
+\caption{Diagramme de déploiement — FinderrLink}
+\label{fig:deployment_diagram_finderrlink}
+\end{figure}
+\end{landscape}
+\paragraph{Environnements représentés :}
+\begin{itemize}
+    \item \textbf{Machine locale développeur} : environnement de développement où le code source est écrit et testé localement avant d'être poussé vers GitHub.
+    \item \textbf{GitHub Repository} : dépôt centralisé contenant les codes source frontend, backend et service IA, ainsi que les workflows GitHub Actions.
+    \item \textbf{GitHub Actions CI/CD} : pipeline automatisé qui déclenche le build et le déploiement vers le VPS après chaque push sur la branche principale.
+    \item \textbf{Serveur VPS Hostinger} : environnement de production hébergeant l'application via Docker Engine.
+\end{itemize}
+
+\paragraph{Infrastructure Docker sur le VPS :}
+Le Docker Engine orchestre cinq conteneurs isolés :
+\begin{itemize}
+    \item \textbf{Conteneur Nginx} : point d'entrée unique de l'application. Il reçoit les requêtes HTTP/HTTPS et les redirige vers le frontend (port 3004) ou le backend (port 3005) selon la route.
+    \item \textbf{Conteneur Frontend Next.js} : interface utilisateur de FinderrLink, accessible via Nginx.
+    \item \textbf{Conteneur Backend NestJS} : logique métier complète, exposant une API REST et WebSocket vers le frontend, et communiquant avec la base de données via Prisma ORM sur le port 5432.
+    \item \textbf{Conteneur Service IA Python gRPC} : microservice IA communiquant avec le backend via le protocole gRPC sur le port 50052.
+    \item \textbf{Conteneur PostgreSQL / pgvector} : base de données principale gérant à la fois les données relationnelles et les embeddings vectoriels nécessaires au matching IA.
+\end{itemize}
+
+\paragraph{Protocoles de communication :}
+\begin{itemize}
+    \item \texttt{Route Web : 3004} — Nginx vers Frontend Next.js (HTTP)
+    \item \texttt{Route Web : 3005} — Nginx vers Backend NestJS (HTTP/WebSocket)
+    \item \texttt{Prisma ORM / SQL : 5432} — Backend vers PostgreSQL
+    \item \texttt{pgvector / embeddings : 5432} — Service IA vers PostgreSQL
+    \item \texttt{gRPC : 50052} — Backend vers Service IA Python
+\end{itemize}
+
+Cette organisation modulaire facilite la maintenance, la surveillance, la mise à jour indépendante de chaque service et l'évolution future de la plateforme.
+
 
 \section{Conclusion}
 
-Cette conception permet de mieux comprendre l'organisation generale de FinderrLink. Le diagramme de cas d'utilisation montre les principales interactions entre les acteurs et la plateforme. Le diagramme de classes presente la structure interne du systeme. Le diagramme de composants montre l'architecture technique globale, composee du client web, du proxy Nginx, du frontend Next.js, du backend NestJS, de la base de donnees PostgreSQL et du service IA Python.
+Ce chapitre a présenté la conception complète de FinderrLink en deux parties 
+complémentaires. La première partie a défini les spécifications fonctionnelles 
+— authentification, gestion des rôles, missions, candidatures, messagerie, 
+notifications, tableaux de bord, assistant IA et administration — ainsi que les 
+spécifications non fonctionnelles relatives à la sécurité, la performance, la 
+disponibilité, l'évolutivité, la maintenabilité, l'expérience utilisateur et la 
+confidentialité des données.
+
+La deuxième partie a illustré cette conception à travers cinq diagrammes UML. 
+Le diagramme de cas d'utilisation a mis en évidence les interactions entre les 
+trois acteurs principaux (freelance, entreprise, agence) et les fonctionnalités 
+clés de la plateforme. Le diagramme de classes a structuré les entités du 
+domaine métier et leurs relations d'héritage, d'agrégation et de composition. 
+Le diagramme de composants a illustré l'organisation technique générale en 
+blocs logiciels distincts. Le diagramme d'activité a détaillé le flux de 
+traitement intelligent au sein du service IA. Enfin, le diagramme de 
+déploiement a présenté l'infrastructure de production basée sur Docker, GitHub 
+Actions et un serveur VPS, garantissant une architecture modulaire, évolutive 
+et facilement maintenable.
