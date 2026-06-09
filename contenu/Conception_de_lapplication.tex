@@ -1,6 +1,9 @@
 \numberwithin{figure}{section}
 
 \chapter{Conception du système}
+\section*{Résumé du chapitre}
+
+Ce chapitre présente la conception du système FinderrLink. Il définit les spécifications fonctionnelles et non fonctionnelles de la plateforme, puis explique sa structure à travers plusieurs diagrammes UML : cas d'utilisation, classes, composants, activité IA et déploiement. Il permet ainsi de comprendre l'organisation fonctionnelle, technique et logique du projet avant la phase de réalisation.
 
 \section{Introduction}
 
@@ -475,7 +478,127 @@ Le Docker Engine orchestre cinq conteneurs isolés :
 
 Cette organisation modulaire facilite la maintenance, la surveillance, la mise à jour indépendante de chaque service et l'évolution future de la plateforme.
 
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Conception de l'Interface Utilisateur}
+% ─────────────────────────────────────────────────────────────────────────────
 
+\subsection{Présentation}
+
+Les maquettes présentées dans cette section ont été réalisées sous Figma par
+\textbf{Noeaman El Afia}, designer UI de l'équipe FinderrLink. Chaque livrable
+a été soumis à une revue de ma part : certaines maquettes ont été validées
+telles quelles, d'autres ont fait l'objet de retours précis portant sur la
+hiérarchie visuelle, la cohérence des composants, les règles d'accès par rôle
+et l'alignement avec les spécifications fonctionnelles définies en amont.
+
+Le travail de conception couvre cinq livrables principaux : le système de
+design, la landing page responsive, ainsi que les interfaces propres à chacun
+des trois rôles métier (Freelance, Entreprise, Agence).
+
+% ── 1. Système de design ─────────────────────────────────────────────────────
+\subsection{Système de design}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{./figures/figmasystemdesigne.png}
+\caption{Système de design FinderrLink — typographie, couleurs, espacements,
+rayon de bordure, traits, grille, boutons, champs, avatars et cartes
+statistiques (réalisé par Noeaman El Afia).}
+\label{fig:figma_design_system}
+\end{figure}
+
+\noindent\small
+Le système de design constitue la base commune de toutes les interfaces.
+Il définit la palette de couleurs primaire (orange \texttt{\#FF5733}) et
+secondaire (bleu), la hiérarchie typographique (Heading 1 à Body Small),
+le système d'espacement et de rayon, ainsi que les variantes de composants
+réutilisables : boutons, champs de formulaire, badges, avatars, icônes et
+cartes de statistiques.
+\normalsize
+
+% ── 2. Landing page ──────────────────────────────────────────────────────────
+\subsection{Landing page}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{./figures/figma_landing_page.png}
+\caption{Landing page FinderrLink — versions Desktop, Tablette et Mobile
+(réalisée par Noeaman El Afia).}
+\label{fig:figma_landing_page}
+\end{figure}
+
+\noindent\small
+La landing page a été déclinée en trois versions responsives. La version
+Desktop met en avant la section hero avec le slogan \textit{«~Where Talent
+Meets Opportunity~»} et un aperçu du tableau de bord Freelance. Les versions
+Tablette et Mobile réorganisent la mise en page en colonne unique, conservant
+les trois blocs d'entrée par rôle (Freelance, Entreprise, Agence) et les
+statistiques clés de la plateforme.
+\normalsize
+
+% ── 3. Vue Freelance ─────────────────────────────────────────────────────────
+\subsection{Interface Freelance}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{./figures/figma_freelncer_side.png}
+\caption{Interfaces Freelance — tableau de bord, candidatures, missions
+disponibles, messagerie, notifications, profil et paramètres
+(réalisées par Noeaman El Afia).}
+\label{fig:figma_freelancer_side}
+\end{figure}
+
+\noindent\small
+L'espace Freelance comprend le tableau de bord avec les statistiques
+d'activité et les missions suggérées par l'IA, la liste des candidatures
+soumises, la recherche de missions avec filtres avancés, la page de détail
+d'une mission, la messagerie temps réel, le centre de notifications, la
+gestion du profil (compétences, projets, documents) et les paramètres de
+compte. Des popups contextuelles gèrent la soumission d'une candidature et
+la confirmation d'envoi.
+\normalsize
+
+% ── 4. Vue Entreprise ────────────────────────────────────────────────────────
+\subsection{Interface Entreprise}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{./figures/figma_enterprise_side.png}
+\caption{Interfaces Entreprise — tableau de bord, gestion des missions,
+recherche de freelances, messagerie, notifications, profil et paramètres
+(réalisées par Noeaman El Afia).}
+\label{fig:figma_enterprise_side}
+\end{figure}
+
+\noindent\small
+L'espace Entreprise expose le tableau de bord avec les missions publiées et
+les suggestions de freelances, la gestion des missions (liste, filtres, page
+de détail, popup de création), la recherche de talents avec filtres par
+compétences et disponibilité, la consultation du profil complet d'un
+freelance, la messagerie, les notifications et les paramètres de la
+plateforme. L'assistant IA est accessible via un bouton flottant visible sur
+toutes les pages.
+\normalsize
+
+% ── 5. Vue Agence ────────────────────────────────────────────────────────────
+\subsection{Interface Agence}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{./figures/agency_side.png}
+\caption{Interfaces Agence — tableau de bord hybride, missions disponibles,
+candidatures, messagerie, notifications et profil
+(réalisées par Noeaman El Afia).}
+\label{fig:figma_agency_side}
+\end{figure}
+
+\noindent\small
+L'interface Agence reflète son rôle hybride : elle reprend les écrans de
+gestion de missions propres aux recruteurs et les écrans de candidature
+propres aux freelances, réunis dans un tableau de bord unifié. Les sections
+messagerie, notifications et profil (avec gestion des expertises clés) sont
+adaptées aux besoins spécifiques de ce profil.
+\normalsize
 \section{Conclusion}
 
 Ce chapitre a présenté la conception complète de FinderrLink en deux parties 

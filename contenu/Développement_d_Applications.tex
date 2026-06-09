@@ -1,120 +1,472 @@
-\chapter{ Mise en œuvre et Évolution}
-\markboth{\MakeUppercase{CHAPITRE 5. Mise en œuvre et Évolution}}{}
+\chapter{Réalisation et résultats de l'application}
+\markboth{\MakeUppercase{CHAPITRE 5. Réalisation et résultats de l'application}}{}
+\section*{Résumé du chapitre}
 
-\section{Introduction Générale}
+Ce chapitre présente les technologies utilisées pour réaliser FinderrLink ainsi que les principaux résultats obtenus. Il montre les interfaces communes, l'espace Freelance, l'espace Entreprise et l'espace Agence. Il met aussi en évidence les fonctionnalités principales : gestion des profils, missions, candidatures, messagerie, notifications et assistant IA.
 
-Le développement de l'application \textbf{Mediassive Analytics} représente une approche moderne et intégrée, combinant les meilleures pratiques du développement web contemporain avec des technologies de pointe. Cette solution SaaS innovante a été conçue pour répondre aux besoins spécifiques d'une agence de marketing digital, en offrant une plateforme centralisée d'analyse et de suivi des performances marketing.
+\section{Introduction}
 
-L'architecture technique adoptée suit les principes du développement full-stack moderne, avec une séparation claire entre le frontend et le backend, une base de données robuste, et des intégrations API avancées. Cette approche garantit non seulement la performance et la scalabilité de l'application, mais aussi sa maintenabilité et son évolutivité future.
+Ce chapitre présente la phase de réalisation de la plateforme FinderrLink. Il décrit les technologies utilisées pour le développement, l'intégration et le déploiement du projet, puis présente les principaux résultats obtenus à travers des captures d'écran de l'application.
 
-Le projet s'inscrit dans une démarche d'excellence technique, utilisant des frameworks et outils reconnus dans l'industrie, tout en intégrant des fonctionnalités innovantes comme la section \textit{Web3 Trends} qui positionne l'application à l'avant-garde des technologies émergentes.
+Les résultats sont organisés selon les principales parties de la plateforme : pages communes, espace Freelance, espace Entreprise et espace Agence. Chaque capture est accompagnée d'une courte explication afin de montrer le rôle de la page et les actions possibles.
 
-\section{Technologies Utilisées}
+\section{Technologies utilisées}
 
-\subsection{Frontend}
+\subsection{Répartition technique}
+
+FinderrLink repose sur une architecture full-stack composée d'une interface web, d'une API backend, d'une base de données, d'un service IA et d'un environnement de déploiement. Chaque technologie a été choisie pour répondre à un besoin précis : développement, design, gestion des données, intelligence artificielle, collaboration ou mise en production.
+
+\subsection{Technologies frontend}
+
+\subsubsection{Next.js}
+
+\begin{center}
+\includegraphics[height=1.8cm]{./figures/tech/nextjs.png}
+\end{center}
+
+Next.js est utilisé pour développer l'interface web de FinderrLink. Il permet de gérer les pages, la navigation et la connexion avec l'API backend.
+
+\subsubsection{Tailwind CSS}
+
+\begin{center}
+\includegraphics[height=1.6cm]{./figures/tech/tailwind.png}
+\end{center}
+
+Tailwind CSS est utilisé pour styliser les interfaces. Il permet de créer des pages modernes, responsives et cohérentes avec la charte graphique.
+
+\subsection{Technologies backend}
+
+\subsubsection{NestJS}
+
+\begin{center}
+\includegraphics[height=1.8cm]{./figures/tech/nestjs.jpeg}
+\end{center}
+
+NestJS est utilisé pour développer l'API backend. Il gère l'authentification, les utilisateurs, les missions, les candidatures, les notifications et la messagerie.
+
+\subsubsection{Prisma}
+
+\begin{center}
+\includegraphics[height=1.7cm]{./figures/tech/prisma.png}
+\end{center}
+
+Prisma est utilisé comme ORM entre NestJS et PostgreSQL. Il facilite la gestion des modèles, des requêtes et des données de la plateforme.
+
+\subsection{Base de données}
+
+\subsubsection{PostgreSQL}
+
+\begin{center}
+\includegraphics[height=2cm]{./figures/tech/postgres.jpg}
+\end{center}
+
+PostgreSQL est la base de données principale de FinderrLink. Elle stocke les utilisateurs, profils, missions, candidatures, messages, notifications et rôles.
+
+\subsection{Technologies d'intelligence artificielle}
+
+\subsubsection{Python}
+
+\begin{center}
+\includegraphics[height=1.8cm]{./figures/tech/python.png}
+\end{center}
+
+Python est utilisé pour développer le service IA de FinderrLink. Il permet de traiter les demandes de l'assistant et de préparer les réponses intelligentes.
+
+\subsubsection{FastAPI}
+
+\begin{center}
+\includegraphics[height=1.6cm]{./figures/tech/fastapi.png}
+\end{center}
+
+FastAPI est utilisé pour exposer certains services liés à l'intelligence artificielle. Il facilite la communication entre le service IA et les autres parties du système.
+
+\subsubsection{Gemini}
+
+\begin{center}
+\includegraphics[height=1.8cm]{./figures/tech/geminijpg.jpg}
+\end{center}
+
+Gemini est utilisé pour analyser les demandes, classifier les intentions et générer des réponses adaptées au rôle de l'utilisateur.
+
+\subsubsection{Ollama}
+
+\begin{center}
+\includegraphics[height=1.8cm]{./figures/tech/ollama.png}
+\end{center}
+
+Ollama est utilisé pour tester ou exécuter certains modèles IA localement. Il sert principalement durant les phases d'expérimentation.
+
+\subsection{Design et outils de développement}
+
+\subsubsection{Figma}
+
+\begin{center}
+\includegraphics[height=1.8cm]{./figures/tech/figma.png}
+\end{center}
+
+Figma est utilisé pour concevoir les maquettes UI/UX. Il a permis de préparer les interfaces avant leur intégration dans le frontend.
+
+\subsubsection{Visual Studio Code}
+
+\begin{center}
+\includegraphics[height=1.8cm]{./figures/tech/vscode.png}
+\end{center}
+
+Visual Studio Code est l'environnement de développement utilisé pour écrire et organiser le code source du projet.
+
+\subsubsection{GitHub}
+
+\begin{center}
+\includegraphics[height=1.8cm]{./figures/tech/github.jpg}
+\end{center}
+
+GitHub est utilisé pour gérer le code source et suivre les versions. Il facilite aussi la collaboration entre les membres du projet.
+
+\subsection{Déploiement et infrastructure}
+
+\subsubsection{Ubuntu}
+
+\begin{center}
+\includegraphics[height=1.8cm]{./figures/tech/ubuntu.png}
+\end{center}
+
+Ubuntu est le système utilisé sur le serveur de déploiement. Il sert d'environnement principal pour exécuter les services de FinderrLink.
+
+\subsubsection{Docker}
+
+\begin{center}
+\includegraphics[height=1.8cm]{./figures/tech/docker.png}
+\end{center}
+
+Docker est utilisé pour exécuter les services dans des conteneurs séparés. Il facilite le déploiement, la maintenance et l'isolation des composants.
+
+\subsubsection{Nginx}
+
+\begin{center}
+\includegraphics[height=1.8cm]{./figures/tech/ngnix.jpg}
+\end{center}
+
+Nginx est utilisé comme proxy inverse. Il redirige les requêtes vers le frontend, le backend et les services internes.
+
+\subsubsection{Certbot}
+
+\begin{center}
+\includegraphics[height=1.8cm]{./figures/tech/certbot.png}
+\end{center}
+
+Certbot est utilisé pour générer les certificats SSL. Il permet d'activer HTTPS et de sécuriser les échanges avec la plateforme.
+
+\section{Résultats de l'application}
+
+Cette section présente les principales interfaces réalisées dans FinderrLink. Les captures montrent le fonctionnement de la plateforme après son développement et son déploiement.
+\subsection{Domaines de la plateforme}
+
+FinderrLink est accessible à travers plusieurs domaines selon le type d'utilisation. Cette séparation permet de distinguer la partie publique, l'application principale et l'espace d'administration.
+
+\textbf{\texttt{finderrlink.com}} correspond à la landing page publique. Elle est destinée aux visiteurs non connectés et présente la plateforme, ses rôles principaux et ses fonctionnalités.
+
+\textbf{\texttt{app.finderrlink.com}} correspond à l'application principale. Après authentification, les utilisateurs accèdent à leur espace selon leur rôle : Freelance, Entreprise ou Agence.
+
+\textbf{\texttt{admin.finderrlink.com}} correspond au panneau d'administration. Il est réservé à la supervision de la plateforme, notamment la gestion des utilisateurs, des missions, des candidatures et des catégories.
+
+\subsection{Pages communes}
+
+\subsubsection{Page d'accueil}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.4\textwidth]{figures/tech/nextjs.png}\\[0.3cm]
-Next.js est un framework basé sur React qui permet le rendu côté serveur (SSR) et des optimisations automatiques\cite{nextjs}. Il a été utilisé pour développer l’interface utilisateur moderne et performante de l’application.
-\caption{Next.js}
+\includegraphics[width=0.75\textwidth]{./figures/results/landingpage.png}
+\caption{Page d'accueil de FinderrLink}
+\label{fig:landing-page}
 \end{figure}
+
+Cette page présente la plateforme, ses rôles principaux et ses appels à l'action. Elle permet aux visiteurs d'accéder à l'inscription ou à la connexion.
+
+\subsubsection{Page de choix du rôle}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.4\textwidth]{figures/tech/tailwind.png}\\[0.3cm]
-Tailwind CSS est un framework CSS utilitaire pour construire rapidement des interfaces modernes et responsive\cite{tailwind}. Il a été utilisé pour styliser l’application de manière cohérente et efficace.
-\caption{Tailwind CSS}
+\includegraphics[width=0.75\textwidth]{./figures/results/choose_role.png}
+\caption{Page de choix du rôle}
+\label{fig:choose-role}
 \end{figure}
+
+Cette page permet à l'utilisateur de choisir son rôle : Freelance, Entreprise ou Agence. Ce choix détermine les fonctionnalités accessibles dans l'application.
+
+\subsubsection{Page d'inscription Freelance}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.4\textwidth]{figures/tech/chart.js.png}\\[0.3cm]
-Chart.js est une bibliothèque de visualisation de données interactive\cite{chartjs}. Elle a été utilisée pour afficher des graphiques et tableaux de bord dynamiques et performants.
-\caption{Chart.js}
+\includegraphics[width=0.75\textwidth]{./figures/results/registration_freelncer_form.png}
+\caption{Page d'inscription Freelance}
+\label{fig:register-freelance}
 \end{figure}
 
-\subsection{Backend}
+Cette page permet à un freelance de créer son compte. Elle collecte les informations personnelles nécessaires pour accéder à l'espace Freelance.
+
+\subsubsection{Page d'inscription Entreprise}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.4\textwidth]{figures/tech/nestjs.jpeg}\\[0.3cm]
-NestJS est un framework Node.js pour créer des applications backend scalables et maintenables\cite{nestjs}. Il a été utilisé pour gérer la logique métier, les APIs et la communication avec la base de données.
-\caption{NestJS}
+\includegraphics[width=0.75\textwidth]{./figures/results/register_enterprise.png}
+\caption{Page d'inscription Entreprise}
+\label{fig:register-enterprise}
 \end{figure}
+
+Cette page permet à une entreprise de créer un compte recruteur. Elle collecte les informations de l'organisation et du contact principal.
+
+\subsubsection{Page d'inscription Agence}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.4\textwidth]{figures/tech/supabase.png}\\[0.3cm]
-Supabase est une plateforme backend-as-a-service basée sur PostgreSQL\cite{supabase,postgresql}. Elle a été utilisée pour héberger la base de données et gérer l’authentification et le stockage.
-\caption{Supabase}
+\includegraphics[width=0.75\textwidth]{./figures/results/agency_form_regist.png}
+\caption{Page d'inscription Agence}
+\label{fig:register-agency}
 \end{figure}
 
-\subsection{Outils de Développement}
+Cette page permet à une agence de créer son compte. Elle contient des champs adaptés au rôle agence, comme la taille de l'équipe et la localisation.
+
+\subsubsection{Page de récupération du mot de passe}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.4\textwidth]{figures/tech/vscode.png}\\[0.3cm]
-Visual Studio Code est un éditeur de code moderne avec de nombreuses extensions. Il a été utilisé pour développer l’ensemble de l’application de manière productive et organisée.
-\caption{VS Code}
+\includegraphics[width=0.70\textwidth]{./figures/results/forgetpass.png}
+\caption{Page de récupération du mot de passe}
+\label{fig:forgot-password}
 \end{figure}
+
+Cette page permet à l'utilisateur de demander un code de vérification par email. Elle fait partie du processus sécurisé de réinitialisation du mot de passe.
+
+\subsubsection{Page de réinitialisation du mot de passe}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.4\textwidth]{figures/tech/googleanal.png}\\[0.3cm]
-Google Analytics permet de suivre le trafic web et les conversions\cite{ga4}. Il a été intégré pour analyser les performances marketing de l’application.
-\caption{Google Analytics}
+\includegraphics[width=0.70\textwidth]{./figures/results/change_pass_optSucpng.png}
+\caption{Page de réinitialisation du mot de passe}
+\label{fig:reset-password}
 \end{figure}
+
+Cette page permet de définir un nouveau mot de passe après vérification du code OTP. Elle permet de récupérer l'accès au compte.
+
+\subsubsection{Page des notifications}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.4\textwidth]{figures/tech/metadev.png}\\[0.3cm]
-Meta for Developers fournit des APIs pour Facebook et Instagram\cite{meta}. Elles ont été utilisées pour récupérer les données sociales et intégrer les statistiques dans l’application.
-\caption{Meta for Developers}
+\includegraphics[width=0.75\textwidth]{./figures/results/freelancer/free_notification.png}
+\caption{Page des notifications}
+\label{fig:notifications}
 \end{figure}
+
+Cette page regroupe les notifications reçues par l'utilisateur. Elle permet de suivre les messages, candidatures, alertes et mises à jour importantes.
+
+\subsubsection{Historique des conversations IA}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.4\textwidth]{figures/tech/google.png}\\[0.3cm]
-Google Cloud fournit des services d’infrastructure et de plateforme (IaaS/PaaS) pour l’hébergement, le stockage et l’orchestration à grande échelle\cite{gcp}. Il permet aussi de gérer et d’exposer des APIs (API Gateway, Cloud Endpoints) et de sécuriser l’accès/connexion aux services (IAM, OAuth2), afin de contrôler l’authentification et les autorisations au niveau de l’application.
-\caption{Google Cloud}
+\includegraphics[width=0.45\textwidth]{./figures/results/ai_cov_history.png}
+\caption{Historique des conversations IA}
+\label{fig:ai-history}
 \end{figure}
 
-\section{Architecture Technique}
+Cette interface affiche les conversations précédentes avec l'assistant IA. Elle permet de reprendre une discussion ou de créer une nouvelle conversation.
 
-L'architecture de Mediassive Analytics repose sur une approche moderne et évolutive, organisée en plusieurs couches distinctes :
+\subsection{Espace Freelance}
 
-\begin{itemize}
-    \item \textbf{Frontend} : Interface utilisateur moderne développée avec Next.js et Tailwind CSS
-    \item \textbf{Backend} : API REST robuste construite avec NestJS et Node.js
-    \item \textbf{Base de données} : PostgreSQL\cite{postgresql} hébergé sur Supabase\cite{supabase} avec Prisma ORM\cite{prisma}
-    \item \textbf{Intégrations} : APIs tierces (Google Analytics\cite{ga4}, Meta\cite{meta}, LinkedIn\cite{linkedin}) pour la collecte de données
-    \item \textbf{Visualisation} : Chart.js pour les graphiques et tableaux de bord interactifs
-\end{itemize}
+\subsubsection{Tableau de bord Freelance}
 
-Cette architecture garantit une séparation claire des responsabilités, une maintenance facilitée et une scalabilité optimale pour répondre aux besoins croissants de l'application.
-\section{Rapidité et optimisation}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/freelancer/free_dash.png}
+\caption{Page de tableau de bord Freelance}
+\label{fig:freelance-dashboard}
+\end{figure}
 
-L'application peut traiter 5 000 à 10 000 enregistrements en moins de 3 secondes grâce à Next.js côté front-end et PostgreSQL côté base de données. L'optimisation des requêtes SQL via Prisma et l'utilisation de cache (ISR) assurent une navigation fluide.
+Cette page donne au freelance une vue rapide sur ses candidatures, son profil, ses messages et les missions recommandées. Elle constitue le point d'entrée principal de son espace.
 
-\section{Stabilité et sécurité}
+\subsubsection{Recherche de missions}
 
-Des tests unitaires (Jest) et d'intégration (Cypress) garantissent la fiabilité des fonctionnalités critiques. La sécurité est renforcée par NextAuth.js, la gestion des rôles et le chiffrement SSL des échanges de données.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/freelancer/freelancer_mission_bvrows.png}
+\caption{Page de recherche de missions}
+\label{fig:freelance-missions}
+\end{figure}
 
-\section{Expérience utilisateur}
+Cette page permet au freelance de consulter les missions disponibles. Il peut filtrer les résultats, lire les informations principales et postuler.
 
-L'interface est intuitive, rapide et responsive, utilisant Tailwind CSS et Framer Motion pour une navigation agréable, même sur mobile.
+\subsubsection{Détail d'une mission}
 
-\section{Améliorations futures}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/freelancer/free_missiondetaillepage.png}
+\caption{Page de détail d'une mission}
+\label{fig:freelance-mission-detail}
+\end{figure}
 
-\subsection{Optimisation technique}
+Cette page affiche les informations complètes d'une mission. Le freelance peut consulter les prérequis, le tarif, le mode de travail et postuler.
 
-Prévoir un cache plus avancé (Redis), l'analyse de volumes plus importants via un Data Lake (BigQuery) et un monitoring temps réel (Grafana, Prometheus).
+\subsubsection{Suivi des candidatures}
 
-\subsection{Intelligence Artificielle}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/freelancer/free_application_tab.png}
+\caption{Page de suivi des candidatures}
+\label{fig:freelance-applications}
+\end{figure}
 
-Intégrer un module IA capable d’analyser les données marketing, détecter des anomalies dans les KPI et produire des prédictions pour optimiser les campagnes publicitaires.
+Cette page permet au freelance de suivre l'état de ses candidatures. Il peut voir les statuts et contacter le recruteur après acceptation.
 
-\subsection{Personnalisation et API}
+\subsubsection{Missions sauvegardées}
 
-Permettre la personnalisation des rapports avec des widgets dynamiques et proposer une API publique pour intégrer Mediassive Analytics dans les systèmes clients.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/freelancer/free_appli_fav_tab.png}
+\caption{Page des missions sauvegardées}
+\label{fig:freelance-favourites}
+\end{figure}
+
+Cette page regroupe les missions enregistrées par le freelance. Elle permet de retrouver rapidement les opportunités à consulter plus tard.
+
+\subsubsection{Messagerie Freelance}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/freelancer/free_chat_page.png}
+\caption{Page de messagerie Freelance}
+\label{fig:freelance-chat}
+\end{figure}
+
+Cette page permet au freelance d'échanger avec les recruteurs autorisés. Elle facilite le suivi des discussions liées aux candidatures ou aux offres.
+
+\subsubsection{Profil Freelance}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/freelancer/free_profile_page.png}
+\caption{Page de gestion du profil Freelance}
+\label{fig:freelance-profile}
+\end{figure}
+
+Cette page permet au freelance de gérer ses informations professionnelles. Il peut modifier ses compétences, son tarif, sa disponibilité et sa présentation.
+
+\subsubsection{Assistant IA Freelance}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.45\textwidth]{./figures/results/freelancer/free_ai_example_promt_results.png}
+\caption{Assistant IA côté Freelance}
+\label{fig:freelance-ai}
+\end{figure}
+
+L'assistant IA aide le freelance à trouver des missions adaptées à son profil. Il peut aussi expliquer une mission ou aider à préparer une candidature.
+
+\subsection{Espace Entreprise}
+
+\subsubsection{Tableau de bord Entreprise}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/enterprise/enterprise_dash.png}
+\caption{Page de tableau de bord Entreprise}
+\label{fig:enterprise-dashboard}
+\end{figure}
+
+Cette page donne à l'entreprise une vue rapide sur ses missions actives, les candidatures reçues, les profils correspondants et les messages.
+
+\subsubsection{Gestion des missions}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/enterprise/mission_enterprise.png}
+\caption{Page de gestion des missions}
+\label{fig:enterprise-missions}
+\end{figure}
+
+Cette page permet à l'entreprise de consulter et gérer ses missions publiées. Elle permet aussi de créer, consulter ou modifier une mission.
+
+\subsubsection{Détail d'une mission publiée}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/enterprise/enterprise_mission_detailepage.png}
+\caption{Page de détail d'une mission côté Entreprise}
+\label{fig:enterprise-mission-detail}
+\end{figure}
+
+Cette page affiche les informations complètes d'une mission publiée. Elle permet aussi de consulter les candidatures reçues et de modifier leur statut.
+
+\subsubsection{Recherche de freelances}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/enterprise/enter_browse_freelancers.png}
+\caption{Page de recherche de freelances}
+\label{fig:enterprise-browse-freelancers}
+\end{figure}
+
+Cette page permet à l'entreprise de rechercher des freelances selon leurs compétences, leur domaine, leur disponibilité ou leur tarif journalier.
+
+\subsubsection{Profil détaillé d'un freelance}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/enterprise/enter_freelancer_detaile_page.png}
+\caption{Page de détail d'un profil freelance}
+\label{fig:enterprise-freelancer-profile}
+\end{figure}
+
+Cette page permet à l'entreprise de consulter les informations détaillées d'un freelance. Elle présente ses compétences, expériences, documents et portfolio.
+
+\subsubsection{Messagerie Entreprise}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/enterprise/enterprise_chat.png}
+\caption{Page de messagerie Entreprise}
+\label{fig:enterprise-chat}
+\end{figure}
+
+Cette page permet à l'entreprise d'échanger avec les freelances. Elle facilite la communication avec les candidats et les profils sélectionnés.
+
+\subsubsection{Profil Entreprise}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/enterprise/profile_enter.png}
+\caption{Page de gestion du profil Entreprise}
+\label{fig:enterprise-profile}
+\end{figure}
+
+Cette page permet à l'entreprise de gérer ses informations principales. Elle contient le logo, le contact, la localisation, le site web et la description.
+
+\subsection{Espace Agence}
+
+L'espace Agence reprend une partie des fonctionnalités de l'espace Entreprise et une partie de l'espace Freelance. L'agence peut publier et gérer des missions, mais elle peut aussi consulter les missions disponibles et y postuler.
+
+\subsubsection{Tableau de bord Agence}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/agency/agencydash.png}
+\caption{Page de tableau de bord Agence}
+\label{fig:agency-dashboard}
+\end{figure}
+
+Cette page montre le rôle hybride de l'agence. Elle permet de suivre les missions publiées, les profils correspondants, les messages et les missions ouvertes.
+
+\subsubsection{Profil Agence}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{./figures/results/agency/agency_profile.png}
+\caption{Page de gestion du profil Agence}
+\label{fig:agency-profile}
+\end{figure}
+
+Cette page permet à l'agence de gérer ses informations professionnelles. Elle contient les coordonnées, la description, le site web, la taille de l'équipe et l'année de création.
+
+\section{Conclusion}
+
+Ce chapitre a présenté les technologies utilisées pour la réalisation de FinderrLink ainsi que les principaux résultats obtenus. Les captures montrent les pages communes, l'espace Freelance, l'espace Entreprise et l'espace Agence.
+
+Les résultats obtenus montrent que FinderrLink répond aux besoins principaux du projet : gestion des profils, publication et recherche de missions, suivi des candidatures, messagerie, notifications et assistant IA.
