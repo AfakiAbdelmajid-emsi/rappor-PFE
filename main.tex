@@ -1,4 +1,5 @@
 \documentclass[a4paper,12pt]{report}
+
 \usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage[absolute,overlay]{textpos}
@@ -12,6 +13,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel}
 \usepackage{pgfgantt}
+\usepackage{xurl}
 \usepackage[hidelinks]{hyperref}
 \usepackage{caption}
 \usepackage{float}
@@ -20,67 +22,57 @@
 \usepackage{afterpage}
 \usepackage{lscape}
 \usepackage{titletoc}
-\usepackage{cite}   
+\usepackage{cite}
 \usepackage{newunicodechar}
 \usepackage{array}
 \usepackage{tabularx}
+\usepackage{longtable}
 \newunicodechar{’}{'}
 \newunicodechar{‘}{'}
 \newunicodechar{–}{--}
 \newunicodechar{—}{---}
 \newunicodechar{“}{``}
 \newunicodechar{”}{''}
-\newunicodechar{…}{\ldots{}}  % For better citation management
+\newunicodechar{…}{\ldots{}}
+
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
 
+% Configuration des chapitres dans la table des matières
 \titlecontents{chapter}
-  [0em] % left margin
-  {\normalfont\bfseries} % above code
-  {Chapitre~\thecontentslabel:\ } % numbered entry format
-  {} % numberless entry format
-  {\titlerule*[8pt]{.}\contentspage} % page format
+[0em]
+{\normalfont\bfseries}
+{Chapitre~\thecontentslabel:\ }
+{}
+{\titlerule*[8pt]{.}\contentspage}
 
-  \renewcommand{\listfigurename}{Liste des Figures}
-  \renewcommand{\cftfigpresnum}{Figure~}
-  \renewcommand{\cftfigaftersnum}{.\ }
-  \renewcommand{\cftfignumwidth}{4em} % Largeur pour le numéro de figure
-  \renewcommand{\cftfigindent}{0em} % Pas d'indentation
-  \renewcommand{\cftfigafterpnum}{\hspace{1em}} % Espacement après le numéro de page
+% Configuration de la liste des figures
+\renewcommand{\listfigurename}{Liste des Figures}
+\renewcommand{\cftfigpresnum}{Figure~}
+\renewcommand{\cftfigaftersnum}{.\ }
+\renewcommand{\cftfignumwidth}{5em}
+\renewcommand{\cftfigindent}{0em}
+\setlength{\cftbeforefigskip}{6pt}
 
-
-  \titlecontents{figure}
-  [0em] % left margin
-  {\normalfont} % above code
-  {Figure~\thecontentslabel:\ } % numbered entry format
-  {} % numberless entry format
-  {\titlerule*[8pt]{.}\contentspage} % page format
-  \titlecontents{table}
-  [0em] % left margin
-  {\normalfont} % above code
-  {Tableau~\thecontentslabel:\ } % numbered entry format
-  {} % numberless entry format
-  {\titlerule*[8pt]{.}\contentspage} % page format
-
-  \renewcommand{\listtablename}{Liste des Tableaux}
-
+% Configuration de la liste des tableaux
+\renewcommand{\listtablename}{Liste des Tableaux}
 \renewcommand{\cfttabpresnum}{Tableau~}
 \renewcommand{\cfttabaftersnum}{.\ }
-\renewcommand{\cfttabnumwidth}{6em} % Width for table number
-\renewcommand{\cfttabindent}{0em} % No indentation
-\renewcommand{\cfttabafterpnum}{\hspace{1em}} % Space after page number
+\renewcommand{\cfttabnumwidth}{6em}
+\renewcommand{\cfttabindent}{0em}
+\setlength{\cftbeforetabskip}{6pt}
 
-% Configure the fancyhdr package
+% Configuration du header/footer
 \fancypagestyle{plain}{
-    \fancyhf{}
-    \fancyhfoffset[L]{1cm}
-    \fancyhfoffset[R]{1cm}
-    \fancyhead[L]{\includegraphics[width=5cm]{./logos/emsi.png}}
-    \fancyhead[R]{\small \textit{\leftmark}} % Chapter name on the right
-    \fancyfoot[C]{\thepage}
-    \setlength{\headheight}{1.5cm}
-    \setlength{\topmargin}{-1in}
-    \setlength{\headsep}{3cm}
+\fancyhf{}
+\fancyhfoffset[L]{1cm}
+\fancyhfoffset[R]{1cm}
+\fancyhead[L]{\includegraphics[width=5cm]{./logos/emsi.png}}
+\fancyhead[R]{\small \textit{\leftmark}}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{1.5cm}
+\setlength{\topmargin}{-1in}
+\setlength{\headsep}{3cm}
 }
 
 \pagestyle{fancy}
@@ -96,50 +88,69 @@
 
 \begin{document}
 
-% Title Page
-% Title Page
+% Page de garde
 \input{./contenu/pagedegard.tex}
 \clearpage
 
-% Blank page between title page and Remerciements
+% Page blanche après la page de garde
 \mbox{}
 \clearpage
 
-% Resetting to fancy after title page
 \pagestyle{fancy}
 
-% Sections
+% Remerciements
+\phantomsection
 \markboth{\MakeUppercase{Remerciements}}{}
-\input{./contenu/remerciements.tex}
 \addcontentsline{toc}{chapter}{Remerciements}
-\newpage
-\markboth{\MakeUppercase{resume}}{}
-\input{./contenu/resume.tex}
-\addcontentsline{toc}{chapter}{Résumé}
-\newpage\markboth{\MakeUppercase{Absract}}{}
-\input{./contenu/Absract.tex}
-\addcontentsline{toc}{chapter}{Absract}
+\input{./contenu/remerciements.tex}
 \newpage
 
-% Table of Contents
+% Résumé
+\phantomsection
+\markboth{\MakeUppercase{Résumé}}{}
+\addcontentsline{toc}{chapter}{Résumé}
+\input{./contenu/resume.tex}
+\newpage
+
+% Abstract
+\phantomsection
+\markboth{\MakeUppercase{Abstract}}{}
+\addcontentsline{toc}{chapter}{Abstract}
+\input{./contenu/Absract.tex}
+\newpage
+
+% Table des matières
 \cleardoublepage
 \pagestyle{plain}
-\newpage
 \addcontentsline{toc}{chapter}{Table des matières}
 \tableofcontents
 
-\newpage
+% Liste des figures
+\cleardoublepage
 \addcontentsline{toc}{chapter}{Liste des Figures}
+\begingroup
+\small
 \listoffigures
+\endgroup
 
-\newpage
+% Liste des tableaux
+\cleardoublepage
+
 \addcontentsline{toc}{chapter}{Liste des Tableaux}
+\begingroup
+\small
 \listoftables
+\endgroup
 
-\newpage
+% Liste des abréviations
+\cleardoublepage
+\input{./contenu/Liste_abreviations.tex}
 
-% Main Content
+% Contenu principal
+\cleardoublepage
 \pagestyle{fancy}
+
+\phantomsection
 \addcontentsline{toc}{chapter}{Introduction Générale}
 \markboth{\MakeUppercase{Introduction Générale}}{}
 \input{./contenu/Introduction_générale.tex}
@@ -148,10 +159,10 @@
 \markboth{\MakeUppercase{Présentation de l'Entreprise}}{}
 \input{./contenu/Présentation_de_l'Entreprise.tex}
 \newpage
-\markboth{\MakeUppercase{Département d'Attache}}{}
+
+\markboth{\MakeUppercase{Mission et gestion du projet}}{}
 \input{./contenu/Département_dAttache.tex}
-
-
+\newpage
 
 \markboth{\MakeUppercase{Étude bibliographique}}{}
 \input{./contenu/Etude_bibliographique.tex}
@@ -159,7 +170,6 @@
 
 \markboth{\MakeUppercase{Conception de l'application}}{}
 \input{./contenu/Conception_de_lapplication.tex}
-
 \newpage
 
 \markboth{\MakeUppercase{Réalisation de l'Application}}{}
@@ -169,12 +179,12 @@
 \markboth{\MakeUppercase{Évaluation et Perspectives}}{}
 \input{./contenu/Évaluation_des_performances.tex}
 \newpage
+
 \markboth{\MakeUppercase{Conclusion Générale}}{}
-\addcontentsline{toc}{chapter}{Conclusion Générale}
 \input{./contenu/Conclusion_Générale.tex}
+\newpage
 
-
+\markboth{\MakeUppercase{Bibliographie}}{}
 \input{./contenu/Bibliographie.tex}
-\addcontentsline{toc}{chapter}{Références Bibliographiques}
 
 \end{document}
