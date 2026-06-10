@@ -1,37 +1,195 @@
-\chapter{Évaluation des performances}
+\chapter{Évaluation et Perspectives}
+\section*{Résumé du chapitre}
 
-L'évaluation des performances de l'application Mediassive Analytics a été réalisée à partir de plusieurs critères clés : rapidité d'exécution, stabilité, expérience utilisateur (UX) et capacité d'intégration avec des services tiers.
+Ce chapitre présente l'évaluation de FinderrLink à travers des tests manuels, des vérifications backend, des essais sur l'assistant IA et un test de charge avec k6. Il analyse les limites actuelles de performance et propose des pistes d'optimisation. Il présente enfin les perspectives d'évolution comme la visioconférence, le multilingue, l'IA agentique et l'application mobile.
 
-\section{Rapidité et optimisation}
+\section{Introduction}
 
-Les tests de performance ont montré que l'application peut traiter un volume moyen de 5 000 à 10 000 enregistrements de données analytiques en moins de 3 secondes grâce à l'utilisation de Next.js côté front-end et PostgreSQL côté base de données. L'optimisation des requêtes SQL via Prisma et la mise en place de mécanismes de cache (ISR - Incremental Static Regeneration) permettent d'assurer une navigation fluide.
+Ce chapitre présente l'évaluation de la plateforme FinderrLink après sa réalisation et son déploiement. L'objectif est de vérifier le bon fonctionnement général de l'application, d'analyser les premiers résultats de performance et d'identifier les améliorations possibles pour les prochaines versions.
 
-\section{Stabilité et sécurité}
+L'évaluation réalisée repose principalement sur des tests fonctionnels manuels, des vérifications backend, des essais de sécurité sur l'assistant IA et un test de charge réalisé avec l'outil \texttt{k6}. Ces tests ne représentent pas une campagne complète de validation industrielle, mais ils permettent d'avoir une première vision de la stabilité de la plateforme et de ses limites actuelles.
 
-Des tests unitaires (Jest) et d'intégration (Cypress) ont été réalisés pour garantir la fiabilité des fonctionnalités critiques telles que l'authentification, la génération de rapports et l'accès aux tableaux de bord. La sécurité a été renforcée grâce à NextAuth.js, la gestion des rôles (Admin, Client, Utilisateur) et le chiffrement SSL des échanges de données.
+\section{Validation fonctionnelle de l'interface utilisateur}
 
-\section{Expérience utilisateur}
+La première étape de validation a concerné l'interface utilisateur de FinderrLink. Les tests ont été réalisés manuellement sur les principales pages de la plateforme afin de vérifier que les parcours utilisateurs fonctionnent correctement.
 
-L'interface a été pensée pour être intuitive, rapide et responsive, en s'appuyant sur Tailwind CSS et Framer Motion pour offrir une navigation agréable, y compris sur mobile.
+Les pages communes ont été testées, notamment la page d'accueil, l'inscription, la connexion, la récupération du mot de passe, les notifications et l'historique de l'assistant IA. Les espaces spécifiques aux rôles ont également été vérifiés : espace Freelance, espace Entreprise, espace Agence et espace Administration.
 
-\section{Améliorations futures}
+Dans l'espace Freelance, les vérifications ont porté sur la recherche de missions, le détail d'une mission, la soumission d'une candidature, le suivi des candidatures, la messagerie et la gestion du profil. Dans l'espace Entreprise, les tests ont concerné la gestion des missions, la consultation des candidatures reçues, la recherche de freelances et la messagerie. Dans l'espace Agence, les tests ont permis de vérifier le comportement hybride du rôle, c'est-à-dire la possibilité de publier des missions et de postuler à des missions disponibles.
 
-Bien que l'application réponde déjà aux besoins de l'agence et de ses clients, plusieurs améliorations peuvent être envisagées pour la rendre encore plus performante et innovante.
+Globalement, les parcours principaux testés manuellement ont fonctionné correctement. Les anomalies détectées durant cette phase ont été corrigées progressivement afin d'améliorer la cohérence de l'interface et la fluidité de l'utilisation.
 
-\subsection{Optimisation technique}
+\section{Validation du backend}
 
-Mise en place d'un système de cache plus avancé (Redis) pour réduire davantage les temps de réponse; utilisation d'un Data Lake (par exemple BigQuery) pour analyser de plus grands volumes de données marketing; déploiement d'un système de monitoring en temps réel (par exemple Grafana et Prometheus) pour suivre la santé de l'application.
+La validation backend a porté sur les principales fonctionnalités exposées par l'API de FinderrLink. Les vérifications ont concerné l'authentification, la gestion des rôles, les missions, les candidatures, les profils, les notifications, la messagerie et la communication avec les autres services.
 
-\subsection{Ajout d'une Intelligence Artificielle}
+Les tests ont permis de vérifier que les données étaient correctement échangées entre l'interface frontend, l'API backend et la base de données PostgreSQL. Les principales routes utilisées par l'application ont été validées à travers les parcours utilisateurs réels.
 
-Une évolution majeure prévue pour Mediassive Analytics est l'intégration d'un module d'Intelligence Artificielle (IA) capable d'analyser les données marketing et de fournir des recommandations stratégiques pour optimiser les campagnes publicitaires (choix de canaux, budget, ciblage), de détecter automatiquement des anomalies dans les KPI (par exemple une baisse soudaine du taux de conversion) et de produire des prédictions de performance basées sur l'historique des campagnes.
+Une attention particulière a été accordée au système RBAC, car FinderrLink repose sur plusieurs rôles : Freelance, Entreprise, Agence et Administrateur. Les vérifications ont montré que les fonctionnalités accessibles changent bien selon le rôle de l'utilisateur. Le rôle Agence a également été vérifié, car il combine certaines permissions du Freelance et certaines permissions de l'Entreprise.
 
-Cet agent IA pourra être entraîné progressivement avec les données des campagnes précédentes et les retours des équipes, afin de devenir plus pertinent au fil du temps.
+\section{Validation de l'assistant IA et sécurité des prompts}
 
-\subsection{Personnalisation avancée et API publique}
+L'assistant IA de FinderrLink a été testé à travers plusieurs prompts liés aux usages principaux de la plateforme. Les tests ont concerné la recommandation de missions pour les freelances, la recommandation de profils pour les entreprises, l'aide à la rédaction de messages et les réponses aux questions générales sur la plateforme.
 
-Offrir aux clients la possibilité de personnaliser leurs rapports avec des widgets dynamiques et mettre en place une API publique permettant aux entreprises d'intégrer Mediassive Analytics directement dans leurs propres systèmes.
+Des essais de prompt injection ont également été réalisés afin de vérifier que l'assistant ne fournit pas d'informations non autorisées et qu'il reste dans le périmètre fonctionnel de FinderrLink. Les tests effectués ont montré que l'assistant respecte le rôle de l'utilisateur et refuse les demandes qui sortent du cadre autorisé.
+
+Cette validation reste toutefois une première étape. Pour une version plus avancée, il sera nécessaire de réaliser une campagne plus large de tests IA avec différents scénarios, plusieurs langues, des cas limites et des tentatives d'injection plus variées.
+
+\section{Test de charge avec k6}
+
+Afin d'évaluer la capacité de la plateforme à supporter un volume important de requêtes, un test de charge a été réalisé avec l'outil \texttt{k6}. Le test a été exécuté depuis mon ordinateur personnel et non directement depuis le VPS. Comme le DNS Docker ne fonctionnait pas normalement sous Arch Linux, l'exécution a été réalisée avec l'option \texttt{--network host}.
+
+\begin{verbatim}
+docker run --rm --network host -i grafana/k6 run - < limit-test.js
+\end{verbatim}
+
+Plusieurs outils ont été utilisés pendant cette phase de test :
+
+\begin{itemize}
+\item \texttt{curl} pour vérifier que le domaine répond correctement.
+\item \texttt{docker stats} pour surveiller les conteneurs sur le VPS.
+\item \texttt{htop} pour surveiller l'utilisation CPU et RAM.
+\item Les logs Nginx pour vérifier les erreurs et les timeouts.
+\item Les seuils k6 pour mesurer les échecs, le temps de réponse p95 et les itérations abandonnées.
+\end{itemize}
+
+L'URL principalement testée était :
+
+\begin{center}
+\texttt{https://app.finderrlink.com/login}
+\end{center}
+
+\section{Résultats du test de charge}
+
+Le premier test a simulé 400 utilisateurs virtuels sur la page de connexion frontend.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{6cm}|p{6cm}|}
+\hline
+\textbf{Indicateur} & \textbf{Résultat} \\
+\hline
+Nombre maximal d'utilisateurs virtuels & 400 \\
+\hline
+Nombre total de requêtes & 43,029 \\
+\hline
+Débit moyen & Environ 102 requêtes/seconde \\
+\hline
+Requêtes échouées & 0\% \\
+\hline
+Temps de réponse p95 & 132 ms \\
+\hline
+Utilisation CPU & Environ 20--30\% \\
+\hline
+Utilisation RAM & Environ 3\% \\
+\hline
+Résultat & Test réussi \\
+\hline
+\end{tabular}
+\caption{Résultat du test avec 400 utilisateurs virtuels sur la page de connexion}
+\label{tab:k6-vu-login}
+\end{table}
+
+Ce premier test montre que la page frontend de connexion a supporté 400 utilisateurs virtuels sans échec. Les temps de réponse sont restés faibles et l'utilisation des ressources serveur est restée acceptable.
+
+Ensuite, des tests à débit fixe ont été réalisés afin d'identifier la capacité stable de la page.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Débit ciblé} & \textbf{Requêtes totales} & \textbf{Échecs} & \textbf{p95} & \textbf{Résultat} \\
+\hline
+100 RPS & 12,000 & 0,80\% & 87,24 ms & Réussi \\
+\hline
+200 RPS & 24,001 & 0,63\% & 103,55 ms & Réussi \\
+\hline
+400 RPS & 47,411 & 2,71\% & 373,47 ms & Zone de stress \\
+\hline
+\end{tabular}
+\caption{Résultats des tests à débit fixe avec k6}
+\label{tab:k6-fixed-rate}
+\end{table}
+
+À 100 requêtes par seconde, la plateforme a atteint un débit réel de 99,93 RPS sans itérations abandonnées. À 200 requêtes par seconde, le débit réel a atteint 199,87 RPS, avec un taux d'échec limité et aucun abandon d'itération. Ces deux niveaux sont considérés comme stables pour la page testée.
+
+À 400 requêtes par seconde, le débit réel a atteint environ 380,38 RPS. Le serveur a continué à répondre, mais 590 itérations ont été abandonnées et le taux d'échec est monté à 2,71%. Le temps de réponse p95 est resté inférieur à 400 ms, mais le temps maximal a atteint 5,38 secondes. Ce résultat indique que le système commence à atteindre une zone de stress à ce niveau de charge.
+
+\section{Analyse des résultats}
+
+Les résultats montrent que la capacité stable confirmée de la page frontend de connexion se situe autour de 200 requêtes par seconde. À ce niveau, le système répond correctement, sans itérations abandonnées et avec un temps de réponse p95 inférieur à 110 ms.
+
+À partir de 400 requêtes par seconde, la plateforme commence à montrer des signes de limite : apparition d'itérations abandonnées, augmentation du taux d'échec et hausse du temps de réponse maximal. Le serveur continue de répondre, mais cette charge ne doit pas être considérée comme stable pour une utilisation continue.
+
+Il est important de préciser que ce test concerne principalement la page frontend de connexion. Il ne représente pas la capacité complète de l'application avec toutes ses fonctionnalités : tableau de bord, authentification réelle, base de données, messagerie, service IA, routes protégées et traitement des candidatures.
+
+Lors d'un test direct sur l'endpoint réel de connexion \texttt{POST /api/auth/login}, le backend a retourné le statut \texttt{429 Too Many Requests}. Ce comportement montre que le rate limiter du backend fonctionne correctement. Par conséquent, cet endpoint ne peut pas être utilisé directement pour mesurer la capacité brute du serveur, sauf dans un environnement de staging avec des limites temporairement ajustées.
+
+\section{Limites de l'évaluation}
+
+L'évaluation réalisée présente plusieurs limites. Les tests fonctionnels ont été réalisés manuellement et ne remplacent pas des tests automatisés complets. Les tests backend ont validé les principaux parcours, mais ils ne couvrent pas encore tous les cas limites possibles.
+
+Le test k6 a principalement mesuré la capacité de la page frontend de connexion. Il ne mesure pas encore la charge réelle sur les routes protégées, les requêtes avec base de données, la messagerie WebSocket, le service IA ou les traitements complexes de candidatures.
+
+Enfin, les tests de sécurité de l'assistant IA et les essais de prompt injection ont été réalisés sur des scénarios limités. Ils confirment un premier niveau de protection, mais une validation plus poussée reste nécessaire pour une version de production avancée.
+
+\section{Seuils de montée en charge et décision d'évolution}
+
+D'après les premiers résultats, la plateforme peut être considérée comme stable pour la page testée jusqu'à environ 200 requêtes par seconde. Si FinderrLink atteint une utilisation réelle proche de ce niveau de manière régulière, il sera nécessaire de prévoir une évolution de l'infrastructure.
+
+Une première décision d'amélioration doit être envisagée si l'un des seuils suivants est atteint :
+
+\begin{itemize}
+\item plus de 150 à 200 requêtes par seconde de manière régulière ;
+\item un temps de réponse p95 supérieur à 500 ms pendant plusieurs minutes ;
+\item un taux d'erreur supérieur à 1% sur les pages ou routes principales ;
+\item une utilisation CPU supérieure à 70% de manière continue ;
+\item une utilisation RAM supérieure à 75% de manière continue ;
+\item des ralentissements visibles sur les pages protégées ou la messagerie.
+\end{itemize}
+
+Dans ce cas, il sera préférable d'acheter un VPS dédié uniquement à FinderrLink, avec de meilleures ressources CPU, RAM et stockage. Cette séparation permettra d'éviter que d'autres projets ou services hébergés sur le même serveur influencent les performances de la plateforme.
+
+\section{Optimisations techniques proposées}
+
+Plusieurs pistes d'optimisation peuvent être mises en place pour améliorer les performances de FinderrLink.
+
+La première consiste à optimiser le frontend Next.js, notamment en réduisant la taille des bundles, en optimisant les images, en utilisant le caching et en évitant les chargements inutiles de données. Les pages les plus consultées, comme la landing page, la connexion et les tableaux de bord, doivent être particulièrement optimisées.
+
+La deuxième piste concerne le backend NestJS. Il est possible d'améliorer les requêtes vers la base de données, d'ajouter des index PostgreSQL sur les champs fréquemment utilisés, de mettre en cache certaines données et de réduire les traitements répétitifs. Les endpoints sensibles doivent garder un rate limiting adapté afin de protéger l'application.
+
+La troisième piste concerne la base de données. PostgreSQL peut être optimisé à travers l'ajout d'index, l'analyse des requêtes lentes, la séparation éventuelle des lectures et écritures, ainsi que la surveillance de la latence. Pour les fonctionnalités IA utilisant des embeddings, l'optimisation de pgvector peut également améliorer les temps de réponse.
+
+La quatrième piste concerne l'infrastructure. À moyen terme, FinderrLink pourra évoluer vers une architecture plus scalable avec un load balancer, plusieurs instances backend, un service IA isolé et une base de données mieux dimensionnée. Cette évolution permettra de mieux absorber l'augmentation du nombre d'utilisateurs.
+
+\section{Perspectives d'architecture}
+
+Dans la version actuelle, FinderrLink repose sur une architecture modulaire avec un frontend, un backend, une base de données, un service IA et un proxy Nginx. Cette organisation est suffisante pour une première version fonctionnelle et déployée.
+
+Cependant, si la plateforme atteint un volume important d'utilisateurs, une évolution vers une architecture plus avancée sera nécessaire. Le backend pourra être progressivement découpé en microservices selon les domaines fonctionnels : authentification, missions, candidatures, messagerie, notifications, administration et intelligence artificielle.
+
+Un load balancer pourra être ajouté afin de répartir le trafic entre plusieurs instances backend. La messagerie en temps réel pourra être isolée dans un service dédié, afin de mieux gérer les connexions WebSocket. Le service IA pourra également être déployé sur une machine séparée, avec plus de ressources si les traitements deviennent plus lourds.
+
+Cette évolution permettra d'améliorer la disponibilité, la performance et la maintenabilité de la plateforme. Elle devra toutefois être réalisée progressivement, car une architecture microservices ajoute aussi plus de complexité au niveau du déploiement, de la supervision et de la communication entre services.
+
+\section{Perspectives fonctionnelles}
+
+Plusieurs améliorations fonctionnelles sont prévues pour les prochaines versions de FinderrLink. La première perspective concerne l'ajout d'un système de visioconférence intégré. Cette fonctionnalité permettra aux entreprises, agences et freelances d'organiser des entretiens directement depuis la plateforme, sans passer par des outils externes.
+
+La deuxième perspective concerne le support multilingue. FinderrLink pourra proposer une interface en plusieurs langues afin de faciliter son utilisation par des profils internationaux. Cette évolution concerne à la fois l'interface, les messages système, les notifications et l'assistant IA.
+
+La troisième perspective concerne l'amélioration de l'assistant IA vers une approche plus agentique. L'objectif serait de permettre à l'IA d'accompagner davantage l'utilisateur dans des actions complexes, comme comparer plusieurs profils, préparer une shortlist, suggérer des améliorations de profil ou aider à planifier un processus de recrutement.
+
+Enfin, une application mobile native pourra être développée afin d'améliorer l'accessibilité de la plateforme. Cette application permettrait aux utilisateurs de consulter les missions, suivre les candidatures, recevoir des notifications et échanger par messagerie directement depuis un smartphone.
 
 \section{Conclusion}
 
-L'évaluation des performances de Mediassive Analytics confirme la robustesse de l'architecture et la qualité de l'implémentation. Les améliorations futures prévues positionnent cette solution comme un outil évolutif et innovant.
+Cette évaluation a permis de vérifier le bon fonctionnement général de FinderrLink à travers des tests manuels, des validations backend, des essais sur l'assistant IA et un test de charge avec k6. Les résultats montrent que la plateforme fonctionne correctement dans son état actuel et que la page frontend de connexion supporte une charge stable jusqu'à environ 200 requêtes par seconde.
+
+Les tests ont également montré que la plateforme commence à atteindre une zone de stress autour de 400 requêtes par seconde pour la page testée. Cette limite ne représente pas toute l'application, mais elle donne une première indication utile pour préparer l'évolution de l'infrastructure.
+
+Les prochaines améliorations devront porter sur l'automatisation des tests, l'optimisation des performances, l'amélioration de la sécurité IA, la montée en charge de l'infrastructure et l'ajout de nouvelles fonctionnalités comme la visioconférence, le multilingue, l'IA agentique et l'application mobile native.

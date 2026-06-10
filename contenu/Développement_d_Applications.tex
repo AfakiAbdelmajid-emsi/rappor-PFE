@@ -1,5 +1,5 @@
-\chapter{Réalisation et résultats de l'application}
-\markboth{\MakeUppercase{CHAPITRE 5. Réalisation et résultats de l'application}}{}
+\chapter{Réalisation de l'Application}
+\markboth{\MakeUppercase{Réalisation de l'Application}}{}
 \section*{Résumé du chapitre}
 
 Ce chapitre présente les technologies utilisées pour réaliser FinderrLink ainsi que les principaux résultats obtenus. Il montre les interfaces communes, l'espace Freelance, l'espace Entreprise et l'espace Agence. Il met aussi en évidence les fonctionnalités principales : gestion des profils, missions, candidatures, messagerie, notifications et assistant IA.
@@ -155,7 +155,14 @@ Nginx est utilisé comme proxy inverse. Il redirige les requêtes vers le fronte
 \end{center}
 
 Certbot est utilisé pour générer les certificats SSL. Il permet d'activer HTTPS et de sécuriser les échanges avec la plateforme.
+\subsection{Tests et performance}
+\subsubsection{k6}
 
+\begin{center}
+\includegraphics[height=1.8cm]{./figures/tech/K6-logo.png}
+\end{center}
+
+k6 est un outil utilisé pour préparer et exécuter des tests de charge et de performance. Dans FinderrLink, il peut servir à vérifier la capacité de l'application à supporter plusieurs requêtes et utilisateurs.
 \section{Résultats de l'application}
 
 Cette section présente les principales interfaces réalisées dans FinderrLink. Les captures montrent le fonctionnement de la plateforme après son développement et son déploiement.
@@ -405,6 +412,16 @@ Cette page affiche les informations complètes d'une mission publiée. Elle perm
 \end{figure}
 
 Cette page permet à l'entreprise de rechercher des freelances selon leurs compétences, leur domaine, leur disponibilité ou leur tarif journalier.
+\subsubsection{Assistant IA Entreprise}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.45\textwidth]{./figures/results/ai_entreprise_results.png}
+\caption{Assistant IA côté Entreprise}
+\label{fig:enterprise-ai}
+\end{figure}
+
+Cette interface montre l'assistant IA côté Entreprise. Il permet de rechercher des freelances adaptés aux besoins du recruteur et de proposer des profils correspondant aux critères de recherche.
 
 \subsubsection{Profil détaillé d'un freelance}
 
