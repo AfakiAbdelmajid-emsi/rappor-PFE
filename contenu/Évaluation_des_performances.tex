@@ -7,7 +7,7 @@ Ce chapitre présente l'évaluation de FinderrLink à travers des tests manuels,
 
 Ce chapitre présente l'évaluation de la plateforme FinderrLink après sa réalisation et son déploiement. L'objectif est de vérifier le bon fonctionnement général de l'application, d'analyser les premiers résultats de performance et d'identifier les améliorations possibles pour les prochaines versions.
 
-L'évaluation réalisée repose principalement sur des tests fonctionnels manuels, des vérifications backend, des essais de sécurité sur l'assistant IA et un test de charge réalisé avec l'outil \texttt{k6}. Ces tests ne représentent pas une campagne complète de validation industrielle, mais ils permettent d'avoir une première vision de la stabilité de la plateforme et de ses limites actuelles.
+L'évaluation réalisée repose principalement sur des tests fonctionnels manuels, des vérifications backend, des essais de sécurité sur l'assistant IA et un test de charge réalisé avec l'outil \texttt{k6} \cite{k6}. Ces tests ne représentent pas une campagne complète de validation industrielle, mais ils permettent d'avoir une première vision de la stabilité de la plateforme et de ses limites actuelles.
 
 \section{Validation fonctionnelle de l'interface utilisateur}
 
@@ -23,7 +23,7 @@ Globalement, les parcours principaux testés manuellement ont fonctionné correc
 
 La validation backend a porté sur les principales fonctionnalités exposées par l'API de FinderrLink. Les vérifications ont concerné l'authentification, la gestion des rôles, les missions, les candidatures, les profils, les notifications, la messagerie et la communication avec les autres services.
 
-Les tests ont permis de vérifier que les données étaient correctement échangées entre l'interface frontend, l'API backend et la base de données PostgreSQL. Les principales routes utilisées par l'application ont été validées à travers les parcours utilisateurs réels.
+Les tests ont permis de vérifier que les données étaient correctement échangées entre l'interface frontend, l'API backend et la base de données PostgreSQL \cite{postgresql}. Les principales routes utilisées par l'application ont été validées à travers les parcours utilisateurs réels.
 
 Une attention particulière a été accordée au système RBAC, car FinderrLink repose sur plusieurs rôles : Freelance, Entreprise, Agence et Administrateur. Les vérifications ont montré que les fonctionnalités accessibles changent bien selon le rôle de l'utilisateur. Le rôle Agence a également été vérifié, car il combine certaines permissions du Freelance et certaines permissions de l'Entreprise.
 
@@ -37,7 +37,7 @@ Cette validation reste toutefois une première étape. Pour une version plus ava
 
 \section{Test de charge avec k6}
 
-Afin d'évaluer la capacité de la plateforme à supporter un volume important de requêtes, un test de charge a été réalisé avec l'outil \texttt{k6}. Le test a été exécuté depuis mon ordinateur personnel et non directement depuis le VPS. Comme le DNS Docker ne fonctionnait pas normalement sous Arch Linux, l'exécution a été réalisée avec l'option \texttt{--network host}.
+Afin d'évaluer la capacité de la plateforme à supporter un volume important de requêtes, un test de charge a été réalisé avec l'outil \texttt{k6} \cite{k6}. Le test a été exécuté depuis mon ordinateur personnel et non directement depuis le VPS. Comme le DNS Docker ne fonctionnait pas normalement sous Arch Linux, l'exécution a été réalisée avec l'option \texttt{--network host} \cite{docker}.
 
 \begin{verbatim}
 docker run --rm --network host -i grafana/k6 run - < limit-test.js
@@ -160,9 +160,9 @@ Plusieurs pistes d'optimisation peuvent être mises en place pour améliorer les
 
 La première consiste à optimiser le frontend Next.js, notamment en réduisant la taille des bundles, en optimisant les images, en utilisant le caching et en évitant les chargements inutiles de données. Les pages les plus consultées, comme la landing page, la connexion et les tableaux de bord, doivent être particulièrement optimisées.
 
-La deuxième piste concerne le backend NestJS. Il est possible d'améliorer les requêtes vers la base de données, d'ajouter des index PostgreSQL sur les champs fréquemment utilisés, de mettre en cache certaines données et de réduire les traitements répétitifs. Les endpoints sensibles doivent garder un rate limiting adapté afin de protéger l'application.
+La deuxième piste concerne le backend NestJS \cite{nestjs}. Il est possible d'améliorer les requêtes vers la base de données, d'ajouter des index PostgreSQL sur les champs fréquemment utilisés, de mettre en cache certaines données et de réduire les traitements répétitifs \cite{postgresql}. Les endpoints sensibles doivent garder un rate limiting adapté afin de protéger l'application.
 
-La troisième piste concerne la base de données. PostgreSQL peut être optimisé à travers l'ajout d'index, l'analyse des requêtes lentes, la séparation éventuelle des lectures et écritures, ainsi que la surveillance de la latence. Pour les fonctionnalités IA utilisant des embeddings, l'optimisation de pgvector peut également améliorer les temps de réponse.
+La troisième piste concerne la base de données. PostgreSQL peut être optimisé à travers l'ajout d'index, l'analyse des requêtes lentes, la séparation éventuelle des lectures et écritures, ainsi que la surveillance de la latence. Pour les fonctionnalités IA utilisant des embeddings, l'optimisation de pgvector peut également améliorer les temps de réponse \cite{pgvector}.
 
 La quatrième piste concerne l'infrastructure. À moyen terme, FinderrLink pourra évoluer vers une architecture plus scalable avec un load balancer, plusieurs instances backend, un service IA isolé et une base de données mieux dimensionnée. Cette évolution permettra de mieux absorber l'augmentation du nombre d'utilisateurs.
 

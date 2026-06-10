@@ -13,7 +13,7 @@ plateforme avant de passer à la réalisation technique. Il commence par défini
 les spécifications fonctionnelles et non fonctionnelles du système, puis 
 présente cinq diagrammes UML complémentaires : le diagramme de cas 
 d'utilisation, le diagramme de classes, le diagramme de composants, le 
-diagramme d'activité du service IA et le diagramme de déploiement.
+diagramme d'activité du service IA et le diagramme de déploiement \cite{uml}.
 
 Chaque diagramme est accompagné d'une légende détaillée expliquant les 
 notations UML utilisées, afin de faciliter la lecture et la compréhension pour 
@@ -33,17 +33,17 @@ Le système doit permettre aux utilisateurs de créer un compte, de se connecter
 La plateforme prend en charge les fonctionnalités suivantes :
 
 \begin{itemize}
-    \item \textbf{Inscription et connexion} : création de compte avec email et mot de passe, connexion sécurisée via JWT stocké dans un cookie HTTP-only.
+    \item \textbf{Inscription et connexion} : création de compte avec email et mot de passe, connexion sécurisée via JWT stocké dans un cookie HTTP-only \cite{jwt}.
     \item \textbf{Récupération de mot de passe par OTP} : lorsqu'un utilisateur oublie son mot de passe, la plateforme lui envoie un code OTP (One-Time Password) par email. Ce code est temporaire et à usage unique. L'utilisateur doit le saisir pour valider son identité avant de définir un nouveau mot de passe. Cette approche garantit la sécurité du processus de réinitialisation sans exposer de lien cliquable.
     \item \textbf{Modification du profil} : mise à jour des informations personnelles et professionnelles.
     \item \textbf{Déconnexion sécurisée} : suppression du cookie de session côté serveur.
 \end{itemize}
 
-Chaque utilisateur est associé à un rôle précis, ce qui permet d'appliquer les règles d'accès définies par le système RBAC.
+Chaque utilisateur est associé à un rôle précis, ce qui permet d'appliquer les règles d'accès définies par le système RBAC \cite{owasp}.
 
 \subsubsection{Gestion des rôles et permissions}
 
-FinderrLink intègre un système RBAC, ou Role-Based Access Control, afin de gérer les droits d'accès selon le type d'utilisateur. Ce système garantit que chaque acteur accède uniquement aux fonctionnalités qui lui sont autorisées.
+FinderrLink intègre un système RBAC, ou Role-Based Access Control, afin de gérer les droits d'accès selon le type d'utilisateur \cite{owasp}. Ce système garantit que chaque acteur accède uniquement aux fonctionnalités qui lui sont autorisées.
 
 \begin{itemize}
     \item \textbf{Freelance} : gère son profil, recherche des missions, consulte le détail d'une mission, postule, suit ses candidatures et communique après acceptation.
@@ -78,7 +78,7 @@ Les entreprises et les agences qui publient des missions peuvent consulter les c
 
 \subsubsection{Messagerie en temps réel}
 
-FinderrLink intègre un système de messagerie en temps réel basé sur WebSocket. Les échanges sont instantanés : chaque message envoyé est reçu immédiatement par le destinataire sans nécessiter un rechargement de la page. Les entreprises et les agences peuvent contacter les freelances lorsqu'elles consultent leurs profils. Les freelances et les agences qui postulent à une mission peuvent communiquer avec le créateur de la mission uniquement après acceptation de leur candidature.
+FinderrLink intègre un système de messagerie en temps réel basé sur WebSocket \cite{socketio}. Les échanges sont instantanés : chaque message envoyé est reçu immédiatement par le destinataire sans nécessiter un rechargement de la page. Les entreprises et les agences peuvent contacter les freelances lorsqu'elles consultent leurs profils. Les freelances et les agences qui postulent à une mission peuvent communiquer avec le créateur de la mission uniquement après acceptation de leur candidature.
 
 Cette règle évite les contacts non autorisés et maintient une communication organisée autour du processus de candidature. La messagerie permet l'envoi, la consultation et le suivi des messages entre les utilisateurs concernés, avec un indicateur de messages non lus visible dans l'interface.
 
@@ -87,7 +87,7 @@ Cette règle évite les contacts non autorisés et maintient une communication o
 FinderrLink dispose d'un double système de notifications afin d'informer les utilisateurs des événements importants, qu'ils soient connectés ou non à la plateforme.
 
 \paragraph{Notifications en temps réel :}
-Les notifications in-app sont envoyées instantanément via WebSocket. L'utilisateur connecté reçoit immédiatement une alerte sans rechargement de page. Ces notifications peuvent concerner :
+Les notifications in-app sont envoyées instantanément via WebSocket \cite{socketio}. L'utilisateur connecté reçoit immédiatement une alerte sans rechargement de page. Ces notifications peuvent concerner :
 \begin{itemize}
     \item Une nouvelle candidature reçue sur une mission publiée.
     \item Un changement de statut d'une candidature (acceptée, refusée, annulée).
@@ -98,7 +98,7 @@ Les notifications in-app sont envoyées instantanément via WebSocket. L'utilisa
 Chaque utilisateur peut consulter l'historique de ses notifications et les marquer comme lues depuis son interface.
 
 \paragraph{Notifications par email :}
-En complément des notifications in-app, la plateforme envoie des emails automatiques pour les événements importants. Ces emails sont générés à partir de templates Handlebars et envoyés via le service de messagerie intégré au backend. Les cas d'envoi incluent :
+En complément des notifications in-app, la plateforme envoie des emails automatiques pour les événements importants. Ces emails sont générés à partir de templates Handlebars et envoyés via le service de messagerie intégré au backend \cite{handlebars, nodemailer}. Les cas d'envoi incluent :
 \begin{itemize}
     \item Confirmation d'inscription sur la plateforme.
     \item Réinitialisation du mot de passe avec code OTP.
@@ -125,7 +125,7 @@ La plateforme permet l'organisation des missions et des profils par catégories 
 
 \subsubsection{Assistant intelligent}
 
-FinderrLink intègre un assistant IA destiné à améliorer l'expérience utilisateur et l'aide à la décision. L'assistant analyse la demande de l'utilisateur, identifie son intention, vérifie son rôle et produit une réponse adaptée au contexte.
+FinderrLink intègre un assistant IA destiné à améliorer l'expérience utilisateur et l'aide à la décision \cite{gemini}. L'assistant analyse la demande de l'utilisateur, identifie son intention, vérifie son rôle et produit une réponse adaptée au contexte.
 
 \begin{itemize}
     \item \textbf{Pour un freelance} : recommandation de missions compatibles avec son profil, explication des détails d'une mission, comparaison d'opportunités et génération de lettre de motivation personnalisée.
@@ -149,7 +149,7 @@ Les spécifications non fonctionnelles définissent les qualités attendues du s
 La sécurité est un élément essentiel de FinderrLink, car la plateforme gère des données personnelles, professionnelles et applicatives. Le système assure :
 
 \begin{itemize}
-    \item \textbf{Authentification JWT via cookie HTTP-only} : le token d'accès est stocké dans un cookie inaccessible depuis JavaScript, ce qui protège contre les attaques XSS.
+    \item \textbf{Authentification JWT via cookie HTTP-only} : le token d'accès est stocké dans un cookie inaccessible depuis JavaScript, ce qui protège contre les attaques XSS \cite{jwt, owasp}.
     \item \textbf{Protection des mots de passe} : les mots de passe sont hachés avant d'être stockés en base de données.
     \item \textbf{Réinitialisation sécurisée par OTP} : le code est temporaire, à usage unique et expiré après un délai défini.
     \item \textbf{Contrôle d'accès RBAC} : chaque route et chaque ressource est protégée selon le rôle de l'utilisateur.
@@ -162,7 +162,7 @@ La plateforme doit offrir des temps de réponse acceptables, même lorsque plusi
 
 \subsubsection{Disponibilité et déploiement}
 
-FinderrLink est accessible en ligne à travers un environnement de production stable, hébergé sur un serveur VPS via Docker Compose. Chaque service (frontend, backend, base de données, service IA) est isolé dans son propre conteneur. Le proxy inverse Nginx redirige les requêtes vers les bons services et gère le SSL via Certbot. Cette organisation facilite l'exploitation de l'application en environnement réel et permet de redémarrer un service sans impacter les autres.
+FinderrLink est accessible en ligne à travers un environnement de production stable, hébergé sur un serveur VPS via Docker Compose \cite{docker}. Chaque service (frontend, backend, base de données, service IA) est isolé dans son propre conteneur \cite{docker}. Le proxy inverse Nginx redirige les requêtes vers les bons services et gère le SSL via Certbot \cite{nginx, certbot}. Cette organisation facilite l'exploitation de l'application en environnement réel et permet de redémarrer un service sans impacter les autres.
 
 \subsubsection{Évolutivité}
 
@@ -340,9 +340,9 @@ Le \textbf{Client Web Navigateur} représente l'utilisateur qui accède à la pl
 
 \paragraph{Composants principaux :}
 \begin{itemize}
-    \item \textbf{Interface Web Next.js} : frontend de l'application, responsable de l'affichage des pages et de l'expérience utilisateur.
-    \item \textbf{API Backend NestJS} : couche serveur contenant toute la logique métier (gestion des utilisateurs, missions, candidatures, notifications, authentification).
-    \item \textbf{Base de données PostgreSQL} : assure la persistance des données (utilisateurs, profils, missions, messages, notifications).
+    \item \textbf{Interface Web Next.js} : frontend de l'application, responsable de l'affichage des pages et de l'expérience utilisateur \cite{nextjs}.
+    \item \textbf{API Backend NestJS} : couche serveur contenant toute la logique métier (gestion des utilisateurs, missions, candidatures, notifications, authentification) \cite{nestjs}.
+    \item \textbf{Base de données PostgreSQL} : assure la persistance des données (utilisateurs, profils, missions, messages, notifications) \cite{postgresql}.
     \item \textbf{Service IA Python} : microservice indépendant chargé du traitement intelligent (classification des intentions, recommandations, génération de réponses).
 \end{itemize}
 
@@ -389,7 +389,7 @@ Le diagramme d'activité suivant présente le fonctionnement général du servic
 \end{figure}
 \end{landscape}
 \paragraph{Étape 1 — Réception et classification :}
-Le processus commence par la réception du message de l'utilisateur accompagné de son rôle et de son contexte. Ces informations sont essentielles, car les réponses de l'assistant doivent respecter les droits de chaque type d'utilisateur. Un freelance n'accède pas aux mêmes données qu'une entreprise ou une agence. Un modèle Gemini léger classifie ensuite l'intention détectée, puis le système sélectionne le system prompt adapté au rôle et à l'intention identifiée.
+Le processus commence par la réception du message de l'utilisateur accompagné de son rôle et de son contexte. Ces informations sont essentielles, car les réponses de l'assistant doivent respecter les droits de chaque type d'utilisateur. Un freelance n'accède pas aux mêmes données qu'une entreprise ou une agence. Un modèle Gemini léger classifie ensuite l'intention détectée, puis le système sélectionne le system prompt adapté au rôle et à l'intention identifiée \cite{gemini}.
 
 \paragraph{Étape 2 — Analyse et contrôle de sécurité :}
 La demande est transmise à un modèle de raisonnement plus avancé qui vérifie deux conditions via des nœuds de décision :
@@ -401,7 +401,7 @@ La demande est transmise à un modèle de raisonnement plus avancé qui vérifie
 \paragraph{Étape 3 — Traitement selon le type de demande :}
 Lorsque la demande est valide, le système suit un traitement spécifique selon son type :
 \begin{itemize}
-    \item \textbf{Recommandation de missions} : récupération du profil candidat, recherche des missions compatibles dans la base vectorielle pgvector, calcul d'un score de matching.
+    \item \textbf{Recommandation de missions} : récupération du profil candidat, recherche des missions compatibles dans la base vectorielle pgvector, calcul d'un score de matching \cite{pgvector}.
     \item \textbf{Recommandation de talents} : extraction des critères de recherche, interrogation des profils disponibles, classement des talents compatibles.
     \item \textbf{Lettre de motivation} : récupération du profil candidat et de la mission ciblée pour construire un contexte personnalisé.
     \item \textbf{FAQ FinderrLink} : recherche de la réponse dans la base de connaissances de la plateforme.
@@ -453,18 +453,18 @@ Le diagramme de déploiement ci-dessous présente l'environnement d'exécution d
 \begin{itemize}
     \item \textbf{Machine locale développeur} : environnement de développement où le code source est écrit et testé localement avant d'être poussé vers GitHub.
     \item \textbf{GitHub Repository} : dépôt centralisé contenant les codes source frontend, backend et service IA, ainsi que les workflows GitHub Actions.
-    \item \textbf{GitHub Actions CI/CD} : pipeline automatisé qui déclenche le build et le déploiement vers le VPS après chaque push sur la branche principale.
+    \item \textbf{GitHub Actions CI/CD} : pipeline automatisé qui déclenche le build et le déploiement vers le VPS après chaque push sur la branche principale \cite{githubactions}.
     \item \textbf{Serveur VPS Hostinger} : environnement de production hébergeant l'application via Docker Engine.
 \end{itemize}
 
 \paragraph{Infrastructure Docker sur le VPS :}
 Le Docker Engine orchestre cinq conteneurs isolés :
 \begin{itemize}
-    \item \textbf{Conteneur Nginx} : point d'entrée unique de l'application. Il reçoit les requêtes HTTP/HTTPS et les redirige vers le frontend (port 3004) ou le backend (port 3005) selon la route.
-    \item \textbf{Conteneur Frontend Next.js} : interface utilisateur de FinderrLink, accessible via Nginx.
-    \item \textbf{Conteneur Backend NestJS} : logique métier complète, exposant une API REST et WebSocket vers le frontend, et communiquant avec la base de données via Prisma ORM sur le port 5432.
-    \item \textbf{Conteneur Service IA Python gRPC} : microservice IA communiquant avec le backend via le protocole gRPC sur le port 50052.
-    \item \textbf{Conteneur PostgreSQL / pgvector} : base de données principale gérant à la fois les données relationnelles et les embeddings vectoriels nécessaires au matching IA.
+    \item \textbf{Conteneur Nginx} : point d'entrée unique de l'application \cite{nginx}. Il reçoit les requêtes HTTP/HTTPS et les redirige vers le frontend (port 3004) ou le backend (port 3005) selon la route.
+    \item \textbf{Conteneur Frontend Next.js} : interface utilisateur de FinderrLink, accessible via Nginx \cite{nextjs, nginx}.
+    \item \textbf{Conteneur Backend NestJS} : logique métier complète, exposant une API REST et WebSocket vers le frontend, et communiquant avec la base de données via Prisma ORM sur le port 5432 \cite{nestjs, socketio, prisma}.
+    \item \textbf{Conteneur Service IA Python gRPC} : microservice IA communiquant avec le backend via le protocole gRPC sur le port 50052 \cite{grpc}.
+    \item \textbf{Conteneur PostgreSQL / pgvector} : base de données principale gérant à la fois les données relationnelles et les embeddings vectoriels nécessaires au matching IA \cite{postgresql, pgvector}.
 \end{itemize}
 
 \paragraph{Protocoles de communication :}
@@ -485,7 +485,7 @@ Cette organisation modulaire facilite la maintenance, la surveillance, la mise �
 \subsection{Présentation}
 
 Les maquettes présentées dans cette section ont été réalisées sous Figma par
-\textbf{Noeaman El Afia}, designer UI de l'équipe FinderrLink. Chaque livrable
+\textbf{Noeaman El Afia}, designer UI de l'équipe FinderrLink \cite{figma}. Chaque livrable
 a été soumis à une revue de ma part : certaines maquettes ont été validées
 telles quelles, d'autres ont fait l'objet de retours précis portant sur la
 hiérarchie visuelle, la cohérence des composants, les règles d'accès par rôle

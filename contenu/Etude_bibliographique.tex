@@ -60,9 +60,9 @@ Dans le cadre d'une plateforme de mise en relation, cette architecture permet de
 
 \subsection{Systeme RBAC}
 
-Le systeme RBAC, ou Role-Based Access Control, est un modele de gestion des acces base sur les roles. Il permet d'attribuer des permissions differentes selon le type d'utilisateur. Ce principe est essentiel dans une application qui contient plusieurs profils d'utilisation, tels que le freelance, l'entreprise, l'agence et l'administrateur.
+Le systeme RBAC, ou Role-Based Access Control, est un modele de gestion des acces base sur les roles \cite{owasp}. Il permet d'attribuer des permissions differentes selon le type d'utilisateur. Ce principe est essentiel dans une application qui contient plusieurs profils d'utilisation, tels que le freelance, l'entreprise, l'agence et l'administrateur.
 
-Dans FinderrLink, le RBAC est un element central. Le freelance peut consulter les missions et postuler, l'entreprise peut publier des missions et parcourir les profils freelances, tandis que l'agence possede un role hybride lui permettant de publier des missions et de postuler a d'autres opportunites. Ce modele permet de garantir la securite, la coherence fonctionnelle et la separation des responsabilites.
+Dans FinderrLink, le RBAC est un element central. Le freelance peut consulter les missions et postuler, l'entreprise peut publier des missions et parcourir les profils freelances, tandis que l'agence possede un role hybride lui permettant de publier des missions et de postuler a d'autres opportunites. Ce modele permet de garantir la securite, la coherence fonctionnelle et la separation des responsabilites \cite{owasp}.
 
 \subsection{Matching entre profils et missions}
 
@@ -74,7 +74,7 @@ Dans une plateforme comme FinderrLink, le matching represente un element importa
 
 L'intelligence artificielle peut enrichir les plateformes de mise en relation en apportant une assistance personnalisee aux utilisateurs. Elle peut aider a rechercher des missions pertinentes, comparer plusieurs opportunites, reformuler des informations, repondre a des questions ou orienter l'utilisateur vers les fonctionnalites appropriees.
 
-Dans le cadre de FinderrLink, l'IA constitue un levier d'amelioration de l'experience utilisateur. Elle accompagne principalement les freelances dans la recherche, la comprehension et la comparaison des missions, tout en facilitant l'acces aux informations disponibles sur la plateforme.
+Dans le cadre de FinderrLink, l'IA constitue un levier d'amelioration de l'experience utilisateur. Elle accompagne principalement les freelances dans la recherche, la comprehension et la comparaison des missions, tout en facilitant l'acces aux informations disponibles sur la plateforme \cite{gemini}.
 
 \subsection{Deploiement web et environnement serveur}
 
@@ -94,9 +94,9 @@ Enfin, l'experience utilisateur et la scalabilite constituent deux autres aspect
 
 FinderrLink vise a repondre aux limites observees dans les solutions existantes en proposant une plateforme centralisee, securisee et adaptee aux besoins des freelances, entreprises et agences. Son principal apport est de regrouper dans un meme environnement les elements essentiels d'une plateforme de mise en relation : profils, missions, candidatures, messagerie, notifications et tableaux de bord.
 
-La solution se distingue egalement par son systeme RBAC, qui permet de gerer clairement les droits d'acces selon chaque role. Cette gestion est particulierement importante en raison du role hybride de l'agence, qui peut publier des missions comme une entreprise et postuler a des missions comme un freelance.
+La solution se distingue egalement par son systeme RBAC, qui permet de gerer clairement les droits d'acces selon chaque role \cite{owasp}. Cette gestion est particulierement importante en raison du role hybride de l'agence, qui peut publier des missions comme une entreprise et postuler a des missions comme un freelance.
 
-FinderrLink integre aussi une dimension intelligente a travers un assistant IA, dont l'objectif est d'aider les utilisateurs a exploiter plus facilement les informations disponibles. Cette approche permet de renforcer l'aide a la decision et de rendre la plateforme plus efficace pour la recherche de missions ou de talents.
+FinderrLink integre aussi une dimension intelligente a travers un assistant IA, dont l'objectif est d'aider les utilisateurs a exploiter plus facilement les informations disponibles \cite{gemini}. Cette approche permet de renforcer l'aide a la decision et de rendre la plateforme plus efficace pour la recherche de missions ou de talents.
 \section{Comparatif avec les solutions existantes}
 
 Le tableau suivant presente une comparaison entre FinderrLink et certaines solutions existantes. Cette comparaison ne vise pas a affirmer qu'une plateforme est superieure dans tous les cas. Elle sert surtout a montrer les limites de chaque solution par rapport aux besoins du projet FinderrLink, notamment la centralisation interne, la gestion precise des roles, le suivi des candidatures, le role hybride de l'agence et l'integration d'un assistant intelligent.
