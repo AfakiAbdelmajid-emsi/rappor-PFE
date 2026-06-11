@@ -111,7 +111,7 @@ Il est donc nécessaire de proposer une solution capable de regrouper l’ensemb
 
 Dans une plateforme regroupant plusieurs types d’utilisateurs, la gestion des droits d’accès constitue un enjeu essentiel. Les fonctionnalités accessibles ne doivent pas être identiques pour tous les utilisateurs. Un freelance ne doit pas avoir les mêmes permissions qu’une entreprise, une entreprise ne doit pas avoir les mêmes droits qu’une agence, et l’administrateur doit disposer d’un niveau d’accès plus avancé.
 
-Cette diversité des rôles impose la mise en place d’un système RBAC, ou Role-Based Access Control \cite{owasp}. Ce système permet d’attribuer des permissions précises selon le rôle de chaque utilisateur \cite{owasp}. Il garantit que chaque acteur accède uniquement aux fonctionnalités qui correspondent à ses responsabilités.
+Cette diversité des rôles impose la mise en place d’un système RBAC, ou Role-Based Access Control. Ce système permet d’attribuer des permissions précises selon le rôle de chaque utilisateur. Il garantit que chaque acteur accède uniquement aux fonctionnalités qui correspondent à ses responsabilités.
 
 Dans FinderrLink, cette logique est particulièrement importante, car l’agence possède un rôle hybride. Elle peut publier des missions comme une entreprise, mais elle peut également postuler à des missions comme un freelance. Le système de gestion des rôles doit donc être suffisamment précis pour prendre en charge ces différences fonctionnelles tout en maintenant la sécurité et la cohérence de l’application.
 
@@ -160,7 +160,7 @@ Un autre objectif important est l'intégration d'un assistant intelligent capabl
 
 \subsection{Déploiement et préparation à l'utilisation réelle}
 
-Enfin, le projet vise à déployer FinderrLink dans un environnement serveur afin de rendre la plateforme accessible en ligne. Cette phase comprend la configuration du VPS, la mise en place des conteneurs Docker, l'utilisation d'un proxy inverse Nginx, la gestion de la base de données PostgreSQL et la connexion avec le service IA Python \cite{docker, nginx, postgresql}. Le déploiement permet de valider le fonctionnement de l'application dans un environnement proche de la production et de préparer son évolution future.
+Enfin, le projet vise à déployer FinderrLink dans un environnement serveur afin de rendre la plateforme accessible en ligne. Cette phase comprend la configuration du VPS, la mise en place des conteneurs Docker \cite{docker}, l'utilisation d'un proxy inverse Nginx \cite{nginx}, la gestion de la base de données PostgreSQL \cite{postgresql} et la connexion avec le service IA Python. Le déploiement permet de valider le fonctionnement de l'application dans un environnement proche de la production et de préparer son évolution future.
 \section{Conclusion}
 
 En conclusion, ce chapitre a permis de présenter le contexte général du projet FinderrLink, sa problématique ainsi que les objectifs visés. Le projet répond à un besoin réel de centralisation, de sécurité et d’efficacité dans la mise en relation entre freelances, entreprises et agences. Il s’inscrit également dans la vision de MEDIASSIVE, qui ne se limite pas aux services digitaux classiques, mais ambitionne aussi de développer et lancer ses propres solutions SaaS internes afin de répondre à des problématiques concrètes du marché.
